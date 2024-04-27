@@ -17,13 +17,20 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sliders-h fa-fw"></i>
-                                    Account</a></li>
+                            <li><a class="dropdown-item" href="#">Account</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-fw"></i> Log
-                                    Out</a></li>
+                            <li>
+                                <!-- Logout  -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a href="{{ route('logout') }}" class="dropdown-item text-danger"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                        Logout
+                                    </a>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
