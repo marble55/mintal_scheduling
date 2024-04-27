@@ -1,0 +1,26 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: "Poppins", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+$body-bg: #f8fafc;
+
+$custom-theme-colors: (
+    "maroon": #6c1606,
+    "yellow": #de970b,
+    "light-maroon": rgb(161, 49, 49),
+    "dark-maroon": #380e15,
+    "pink": pink,
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+$custom-font-sizes: (
+    "sm": 0.875rem,
+    "md": 1rem,
+);
+
+$font-sizes: map-merge($custom-font-sizes, $font-sizes);
