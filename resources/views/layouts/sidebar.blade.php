@@ -34,15 +34,15 @@
         <ul id="multi" class="sidebar-dropdown list-unstyled collapse">
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-graduation"></i>
+                <a href="{{route('faculty.index', ['category' => 'graduate'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-graduation"></i>
                     Graduate</a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-star-half"></i> Part
+                <a href="{{route('faculty.index', ['category' => 'part-timer'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-star-half"></i> Part
                     Timer</a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add
+                <a href="{{route('faculty.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add
                     Faculty</a>
             </li>
         </ul>
