@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faculty;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class FacultyController extends Controller
 {
@@ -12,7 +14,9 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        //
+        $faculties = Faculty::with('program_head')->get();
+
+        return view('faculty.table-data', compact('faculties'));
     }
 
     /**
@@ -20,7 +24,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('faculty.create');
+        return view('faculty.create-form');
     }
 
     /**
@@ -28,7 +32,10 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->user()->faculties()
+            ->create($request->all());
+    
+        return back();
     }
 
     /**
@@ -36,7 +43,7 @@ class FacultyController extends Controller
      */
     public function show(Faculty $faculty)
     {
-        //
+        
     }
 
     /**
@@ -44,7 +51,8 @@ class FacultyController extends Controller
      */
     public function edit(Faculty $faculty)
     {
-        //
+        
+        return view('faculty.edit-form', compact('faculty'));
     }
 
     /**
@@ -52,14 +60,20 @@ class FacultyController extends Controller
      */
     public function update(Request $request, Faculty $faculty)
     {
-        //
+        $faculty->update($request->all());
+
+        return redirect()->route('faculty.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Faculty $faculty)
-    {
-        //
+    public function destroy(Faculty $faculty):RedirectResponse
+    {   
+        Gate::authorize('delete', $faculty);
+
+        $faculty->delete();
+
+        return redirect()->route('faculty.index');
     }
 }
