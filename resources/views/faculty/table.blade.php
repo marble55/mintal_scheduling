@@ -31,7 +31,7 @@
                         <td>{{ $faculty->id_usep }}</td>
                         <!--First Name-->
                         <td>{{ $faculty->first_name }}
-                            @if ($faculty->id === $faculty->program_head->faculty->id)
+                            @if ($faculty->is($faculty->program_head->faculty))
                                 (You)
                             @endif
                         </td>
