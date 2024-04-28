@@ -58,11 +58,11 @@
         <ul id="room" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-eye"></i> View
-                    Room</a>
+                <a href="{{route('classroom.index')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-eye"></i> View
+                    Rooms</a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add
+                <a href="{{route('classroom.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add
                     Room</a>
             </li>
         </ul>

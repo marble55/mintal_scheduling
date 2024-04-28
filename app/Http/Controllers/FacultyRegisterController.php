@@ -20,7 +20,11 @@ class FacultyRegisterController extends Controller
             $faculty = Faculty::findOrFail($program_head->getAttribute('faculty_id'));
             
             $faculty->update($request->all());
-
+            
+            $faculty->update([
+                'user_id' => $program_head->getAttribute('id')
+            ]);
+            
             Auth::login($program_head);
             
             return redirect(route('dashboard', false));

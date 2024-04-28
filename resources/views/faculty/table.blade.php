@@ -27,24 +27,30 @@
             <tbody>
                 @foreach ($faculties as $faculty)
                     <tr>
-
-                        <td>{{ $faculty->id_usep }}
-
-                        </td>
+                        <!--Usep ID-->
+                        <td>{{ $faculty->id_usep }}</td>
+                        <!--First Name-->
                         <td>{{ $faculty->first_name }}
-                            @if ($faculty->is($faculty->program_head->faculty))
+                            @if ($faculty->id === $faculty->program_head->faculty->id)
                                 (You)
                             @endif
                         </td>
+                        <!--last name-->
                         <td>{{ $faculty->last_name }}</td>
+                        <!--Remarks-->
                         <td>{{ $faculty->remarks }}</td>
+                        <!--part-timer-->
                         <td>{{ $faculty->is_part_timer ? 'Yes' : 'No' }}</td>
+                        <!--isGraduate-->
                         <td>{{ $faculty->is_graduate ? 'Yes' : 'No' }}</td>
+                        <!--Designation-->
                         {{-- <td>{{ $faculty->designation_id }}</td> --}}
+                        <!--Program Head-->
                         <td>{{ $faculty->program_head->name }}</td>
-
+                        <!--Date Added-->
                         @php $dateTime = \Carbon\Carbon::parse($faculty->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>
+                        <!--Action-->
                         <td><a href="{{ route('faculty.edit', $faculty) }}">Edit</a> |
                             <form method="POST" action="{{ route('faculty.destroy', $faculty) }}">
                                 @csrf

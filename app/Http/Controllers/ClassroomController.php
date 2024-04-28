@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -11,7 +12,8 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        //
+        $classrooms = Classroom::all();
+        return view('classroom.table-classroom', compact('classrooms'));
     }
 
     /**
@@ -19,7 +21,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        //
+        return view('classroom.form-classroom')->with(['action' => 'add']);
     }
 
     /**
@@ -27,7 +29,9 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Classroom::create($request->all());
+
+        return redirect()->route('classroom.index');
     }
 
     /**
@@ -35,7 +39,7 @@ class ClassroomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view();
     }
 
     /**
@@ -43,7 +47,8 @@ class ClassroomController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $classroom = Classroom::findOrFail($id);
+        return view('classroom.form-classroom', compact('classroom'))->with(['action' => 'update']);
     }
 
     /**
@@ -51,7 +56,11 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $classroom = Classroom::find($id);
+
+        $classroom->update($request->all());
+
+        return redirect()->route('classroom.index');
     }
 
     /**
@@ -59,6 +68,10 @@ class ClassroomController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $classroom = Classroom::find($id);
+
+        $classroom->delete();
+
+        return redirect()->route('classroom.index');
     }
 }

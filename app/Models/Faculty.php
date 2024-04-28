@@ -21,7 +21,7 @@ class Faculty extends Model
         'remarks',
         'is_part_timer',
         'is_graduate',
-        'users_id',
+        'user_id',
     ];
 
     public static function createTempFaculty(): self
