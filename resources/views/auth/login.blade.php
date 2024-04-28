@@ -45,14 +45,16 @@
                     </div>
 
                     <!-- Form -->
-                    <form action="login.php" method="POST">
+                    <form action="{{ route('login') }}" method="POST">
+                        @csrf
+
                         <div class="input-group mb-3">
                             <span class="input-group-text">
-                                <i class='bx bx-user'></i>
+                                <i class='bx bx-envelope'></i>
                             </span>
-                            <input type="text" class="form-control form-control-lg
+                            <input type="email" class="form-control form-control-lg
                             fs-6"
-                                name="username" placeholder="Username" required>
+                                name="email" placeholder="Email" required>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">
@@ -66,22 +68,24 @@
                         <!-- Remember Me -->
                         <div class="input-group mb-3 d-flex justify-content-between">
                             <div class="form-check fs-md">
-                                <input type="checkbox" class="form-check-input " id="formCheck">
-                                <label for="formCheck"
+                                <input type="checkbox" class="form-check-input " id="remember_me" name="remember">
+                                <label for="remember_me"
                                     class="form-check-label
                                 text-secondary"><small>Remember
                                         Me</small></label>
                             </div>
                             <div>
-                                <small><a href="#" class="text-light-maroon text-decoration-none fs-sm">Forgot
-                                        Password?</a></small>
+                                @if (Route::has('password.request'))
+                                    <small><a href="#" class="text-light-maroon text-decoration-none fs-sm">Forgot
+                                            Password?</a></small>
+                                @endif
                             </div>
                         </div>
                         <button class="btn btn-light-maroon btn-lg w-100">Login</button>
                     </form>
 
                     <div class="text-center mt-2 fs-md">
-                        <small>Don't have an account? <a href="register.php"
+                        <small>Don't have an account? <a href="{{ route('register') }}"
                                 class="fw-bold text-light-maroon text-decoration-none">Sign
                                 Up</a></small>
                     </div>

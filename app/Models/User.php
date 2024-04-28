@@ -4,13 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'program',
+        'faculty_id',
     ];
 
     /**
@@ -34,11 +38,51 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+
+    public static function createWithFaculty($details)
+    {
+        $tempFaculty = Faculty::createTempFaculty();
+
+        $user = $tempFaculty->user()->create([
+            'name' => $details['name'],
+            'email' => $details['email'],
+            'password' => Hash::make($details['password']),
+        ]);
+
+        return $user;
+    }
+
+
+    //---Relationship Functions---//
+    /**
+     * returns the faculty details of the program head
+     * 
+     * @return Faculty
+     */
+    public function faculty(): BelongsTo
+    {
+        return $this->belongsTo(Faculty::class, 'faculty_id', 'id');
+    }
+
+    /**
+     * returns the faculty that this user is under
+     * 
+     * @return HasMany Faculty
+     */
+    public function faculties(): HasMany
+    {
+        return $this->hasMany(Faculty::class);
+    }
 }
