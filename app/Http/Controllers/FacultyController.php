@@ -14,9 +14,16 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        $faculties = Faculty::with('program_head')->get();
 
-        return view('faculty.table-data', compact('faculties'));
+        $category = request('category');
+        
+        if($category === "part-timer")
+        {
+            $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '1')->get();
+        }else{
+            $faculties = Faculty::with('program_head')->where('is_graduate', '=', '1')->get();
+        } 
+        return view('faculty.table', compact('faculties', 'category'));
     }
 
     /**
@@ -24,7 +31,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('faculty.create-form');
+        return view('faculty.create');
     }
 
     /**
@@ -35,7 +42,7 @@ class FacultyController extends Controller
         $request->user()->faculties()
             ->create($request->all());
     
-        return back();
+        return redirect()->route('faculty.index', ['category' => 'graduate']);
     }
 
     /**
@@ -43,7 +50,7 @@ class FacultyController extends Controller
      */
     public function show(Faculty $faculty)
     {
-        
+
     }
 
     /**
@@ -51,7 +58,6 @@ class FacultyController extends Controller
      */
     public function edit(Faculty $faculty)
     {
-        
         return view('faculty.edit-form', compact('faculty'));
     }
 
@@ -70,10 +76,16 @@ class FacultyController extends Controller
      */
     public function destroy(Faculty $faculty):RedirectResponse
     {   
-        Gate::authorize('delete', $faculty);
+        //Gate::authorize('delete', $faculty);
+
+        $part_timer = $faculty->getAttribute('is_part_timer');
+
+        if($part_timer){
+            $category = 'part-timer';
+        }else $category = 'graduate';
 
         $faculty->delete();
 
-        return redirect()->route('faculty.index');
+        return redirect()->route('faculty.index', ['category' => $category]);
     }
 }

@@ -83,4 +83,6 @@ class Faculty extends Model
     {
         $this->attributes['is_graduate'] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
+
+    
 }
