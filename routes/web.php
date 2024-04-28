@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,11 +32,16 @@ Route::resource('faculty', FacultyController::class)
 Route::resource('classroom', ClassroomController::class)
     ->middleware(['auth', 'verified']);
 
+Route::resource('subject', SubjectController::class)
+    ->middleware(['auth', 'verified']);
 
-    Route::middleware('auth')->group(function () {
+Route::resource('block', BlockController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
