@@ -4,6 +4,7 @@ use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,10 @@ Route::resource('subject', SubjectController::class)
 
 Route::resource('block', BlockController::class)
     ->middleware(['auth', 'verified']);
+
+Route::resource('schedule', ScheduleController::class)
+    ->middleware(['auth', 'verified']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

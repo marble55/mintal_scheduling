@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -11,7 +12,13 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        
+        $schedules = Schedule::with([
+            'faculty', 'semester', 'school_year',
+            'subject', 'classroom', 'block'
+        ])->get();
+
+        return view('schedule.table-schedule', compact('schedules'));
     }
 
     /**
@@ -19,7 +26,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return view('schedule.form-schedule')->with(['action' => 'add']);
     }
 
     /**

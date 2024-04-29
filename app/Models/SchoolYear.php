@@ -10,6 +10,9 @@ class SchoolYear extends Model
 {
     use HasFactory;
 
+
+    protected $table = 'school_year';
+    
     public function schedules():HasMany
     {
         return $this->hasMany(Schedule::class, 'sy_id');
