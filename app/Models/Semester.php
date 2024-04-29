@@ -10,6 +10,7 @@ class Semester extends Model
 {
     use HasFactory;
 
+
     public function schedules():HasMany
     {
         return $this->hasMany(Schedule::class, 'semesters_id');

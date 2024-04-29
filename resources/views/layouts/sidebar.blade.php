@@ -17,11 +17,11 @@
         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-calendar"></i>
+                <a href="{{route('schedule.index')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-calendar"></i>
                     Schedule</a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i>
+                <a href="{{route('schedule.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i>
                     Assign</a>
             </li>
         </ul>

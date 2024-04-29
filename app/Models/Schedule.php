@@ -31,7 +31,7 @@ class Schedule extends Model
 
     public function school_year():BelongsTo
     {
-        return $this->belongsTo(SchoolYear::class, 'sy_id');
+        return $this->belongsTo(SchoolYear::class, 'sy_id', );
     }
 
     public function subject():BelongsTo
