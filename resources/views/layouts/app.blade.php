@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('dist/assets/images/CDM_Logo.png') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
     </link>
     <title>Mintal Scheduling System </title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
@@ -39,6 +43,12 @@
 
     </div>
     <script src="{{ asset('dist/assets/js/sidebar.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/datatables.min.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/custom.js') }}"></script>
 </body>
 
 </html>
