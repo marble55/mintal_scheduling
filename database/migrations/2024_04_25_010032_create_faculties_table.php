@@ -19,13 +19,9 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->boolean('is_part_timer')->default(false);
             $table->boolean('is_graduate')->default(false);
+            $table->string('description')->nullable();
+            $table->decimal('description_load', 5, 2)->unsigned()->nullable();
             $table->timestamps();
-        });
-
-        Schema::create('designation', function (Blueprint $table) {
-            $table->id();
-            $table->string('description', 50);
-            $table->decimal('load', 5, 2)->unsigned()->nullable();
         });
     }
 
@@ -35,6 +31,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('faculty');
-        Schema::dropIfExists('designation');
     }
 };

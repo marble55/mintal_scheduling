@@ -27,38 +27,6 @@ return new class extends Migration
                 ->cascadeOnDelete()->cascadeOnUpdate();
         });
 
-        //faculty: mandatory one
-        Schema::table('schedule', function (Blueprint $table) { 
-            $table->bigInteger('faculty_id')->unsigned();
-            
-            $table->foreign('faculty_id')->references('id')->on('faculty')
-                ->cascadeOnDelete()->cascadeOnUpdate();
-        });
-
-        //subject
-        Schema::table('schedule', function (Blueprint $table) { 
-            $table->bigInteger('subject_id')->unsigned()->nullable();
-            
-            $table->foreign('subject_id')->references('id')->on('subject')
-                ->nullOnDelete()->cascadeOnUpdate();
-        });
-
-        //classroom
-        Schema::table('schedule', function (Blueprint $table) { 
-            $table->bigInteger('classroom_id')->unsigned()->nullable();
-            
-            $table->foreign('classroom_id')->references('id')->on('classroom')
-                ->nullOnDelete()->cascadeOnUpdate();
-        });
-
-        //block
-        Schema::table('schedule', function (Blueprint $table) { 
-            $table->bigInteger('block_id')->unsigned()->nullable();
-            
-            $table->foreign('block_id')->references('id')->on('block')
-                ->nullOnDelete()->cascadeOnUpdate();
-        });
-
         //schedule foreign key for time_slots
         Schema::table('time_slots', function (Blueprint $table){
             $table->bigInteger('schedule_id')->unsigned();

@@ -20,16 +20,8 @@ return new class extends Migration
         });
 
         Schema::table('faculty', function (Blueprint $table) {
-            $table->foreignId('users_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('users_id')->constrained()->nullOnDelete()->cascadeOnUpdate();
         });
-
-        Schema::table('faculty', function (Blueprint $table) {
-            $table->bigInteger('designation_id')->unsigned();
-            
-            $table->foreign('designation_id')->references('id')->on('designation')
-                ->restrictOnDelete()->cascadeOnUpdate();
-        });
-        
     }
 
     /**
