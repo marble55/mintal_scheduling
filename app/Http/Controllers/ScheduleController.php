@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Block;
+use App\Models\Classroom;
+use App\Models\Faculty;
 use App\Models\Schedule;
+use App\Models\SchoolYear;
+use App\Models\Semester;
+use App\Models\Subject;
+use App\Models\TimeSlot;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -12,10 +19,9 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        
         $schedules = Schedule::with([
             'faculty', 'semester', 'school_year',
-            'subject', 'classroom', 'block'
+            'subject', 'classroom', 'block',  'time_slots'
         ])->get();
 
         return view('schedule.table-schedule', compact('schedules'));
@@ -26,7 +32,16 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view('schedule.form-schedule')->with(['action' => 'add']);
+        $semesters = Semester::all();
+        $sy = SchoolYear::all();
+        $faculties = Faculty::all();
+        $subjects = Subject::all();
+        $classrooms =  Classroom::all();
+        $blocks = Block::all();
+
+        return view('schedule.form-schedule', compact([
+            'semesters', 'sy', 'faculties', 'subjects', 'classrooms', 'blocks'
+        ]))->with(['action' => 'add']);
     }
 
     /**
@@ -34,7 +49,13 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $schedule = Schedule::create($request->all());
+
+        $time_slot = $schedule->time_slots->first;
+        
+        $time_slot->update($request->all());
+
+        return redirect()->route('classroom.index');
     }
 
     /**
