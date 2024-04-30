@@ -15,7 +15,7 @@
                     <th>Sched ID</th>
                     <th>Faculty ID</th>
                     <th>Day</th>
-                    <th>Time Slot</th>
+                    <th>Time</th>
                     <th>Subject ID</th>
                     <th>Lab</th>
                     <th>Classroom ID</th>
@@ -32,7 +32,11 @@
                     <td>{{$schedule->id}}</td>
                     <td>{{$schedule->faculty->first_name}}</td>
                     <td>{{$schedule->day}}</td>
-                    <td>Empty</td>
+                    <td>
+                        @foreach ($schedule->time_slots as $time_slot)
+                            {{$time_slot->time_start.'-'.$time_slot->time_end}}
+                        @endforeach
+                    </td>
                     <td>{{$schedule->subject_id}}</td>
                     <td>{{$schedule->is_lab}}</td>
                     <td>{{$schedule->classroom_id}}</td>

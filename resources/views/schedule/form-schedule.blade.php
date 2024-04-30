@@ -1,99 +1,141 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row align-items-center justify-content-center" style="margin-bottom:-20%;">
-    <div class="col col-sm-6 col-lg-7 col-xl-6">
-        <!-- Title -->
-        <div class="text-center mb-5">
-            <h3 class="fw-bold">Add Schedule</h3>
-        </div>
-        <!-- Divider -->
-        <div class="position-relative">
-            <hr class="text-secondary divider">
-        </div>
-        <!-- Form -->
-        <form action="?page=AssignFaculty" method="POST">
-            <!-- Schedule ID Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-id-card'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="sched_id" placeholder="Schedule ID" required>
+    <div class="row align-items-center justify-content-center" style="margin-bottom:-20%;">
+        <div class="col col-sm-6 col-lg-7 col-xl-6">
+            <!-- Title -->
+            <div class="text-center mb-5">
+                <h3 class="fw-bold">Add Schedule</h3>
             </div>
-            <!-- Day Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-user-pin'></i>
-                </span>
-                <input type="text" class="form-control form-control-lg fs-6" name="day" placeholder="Day" required>
+            <!-- Divider -->
+            <div class="position-relative">
+                <hr class="text-secondary divider">
             </div>
-            <!-- Time Start Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-time'></i>
-                </span>
-                <input type="time" class="form-control form-control-lg fs-6" name="time_start" placeholder="Time Start" required>
-            </div>
-            <!-- Time End Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-time'></i>
-                </span>
-                <input type="time" class="form-control form-control-lg fs-6" name="time_end" placeholder="Time End" required>
-            </div>
-            <!-- Class ID Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-id-card'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="class_id" placeholder="Class ID" required>
-            </div>
-            <!-- Subject ID Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-id-card'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="sub_id" placeholder="Subject ID" required>
-            </div>
-            <!-- Block ID Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-id-card'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="block_id" placeholder="Block ID" required>
-            </div>
-            <!-- Faculty ID Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-id-card'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="faculty_id" placeholder="Faculty ID" required>
-            </div>
-            <!-- School Year Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-calendar'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="school_year" placeholder="School Year" required>
-            </div>
-            <!-- Semester Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bx-calendar'></i>
-                </span>
-                <input type="text" class="form-control form-control-lg fs-6" name="sem" placeholder="Semester" required>
-            </div>
-            <!-- Lab Input -->
-            <div class="input-group mb-3">
-                <span class="input-group-text">
-                    <i class='bx bxs-school'></i>
-                </span>
-                <input type="number" class="form-control form-control-lg fs-6" name="lab" placeholder="Lab" required>
-            </div>
-            <!-- Add Button -->
-            <button class="btn btn-primary btn-lg w-100" style="border: white; background-color: rgb(161, 49, 49);">Add</button>
-        </form>
-    </div>
-</div>
 
+            <!-- Form -->
+            <form action="{{route('schedule.store')}}" method="POST">
+                @csrf
+                <!-- Faculty ID Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-id-card'></i>
+                    </span>
+                    <select name="faculty_id" id="faculty_id" class="form-control form-control-lg fs-6" required>
+                        @foreach ($faculties as $faculty)
+                            <option value="{{ $faculty->id }}">{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Subject ID Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-id-card'></i>
+                    </span>
+                    <select name="subject_id" id="subject_id" class="form-control form-control-lg fs-6" required>
+                        @foreach ($subjects as $subject)
+                            <option value="{{ $subject->id }}">{{ $subject->subject_code . ': ' . $subject->description }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Lab Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bxs-school'></i>
+                    </span>
+                    <input type="checkbox" class="text-input" id="is_lab" name="is_lab" value="0"
+                        {{ old('is_lab') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="is_lab">Lab</label>
+                </div>
+
+                <!-- Block ID Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-id-card'></i>
+                    </span>
+                    <select name="block_id" id="block_id" class="form-control form-control-lg fs-6" required>
+                        @foreach ($blocks as $block)
+                            <option value="{{ $block->id }}">{{ $block->course . ' ' . $block->section }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Classroom ID Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-id-card'></i>
+                    </span>
+                    <select name="classroom_id" id="classroom_id" class="form-control form-control-lg fs-6" required>
+                        @foreach ($classrooms as $classroom)
+                            <option value="{{ $classroom->id }}">{{ $classroom->room . ' in ' . $classroom->building }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Day Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-user-pin'></i>
+                    </span>
+                    <select name="day" id="day" class="form-control form-control-lg fs-6" required>
+                        <option value="MONDAY">Monday</option>
+                        <option value="TUESDAY">Tuesday</option>
+                        <option value="WEDNESDAY">Wednesday</option>
+                        <option value="THURSDAY">Thursday</option>
+                        <option value="FRIDAY">Friday</option>
+                        <option value="SATURDAY">Saturday</option>
+                        <option value="SUNDAY">Sunday</option>
+                    </select>
+                </div>
+
+                <!-- Time Start Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-time'></i>
+                    </span>
+                    <input type="time" class="form-control form-control-lg fs-6" name="time_start"
+                        placeholder="Time Start" required>
+                </div>
+
+                <!-- Time End Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-time'></i>
+                    </span>
+                    <input type="time" class="form-control form-control-lg fs-6" name="time_end" placeholder="Time End"
+                        required>
+                </div>
+
+                <!-- School Year Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-calendar'></i>
+                    </span>
+                    <select name="semesters_id" id="semesters_id" class="form-control form-control-lg fs-6" required>
+                        @foreach ($semesters as $semester)
+                            <option value="{{ $semester->id }}">{{ $semester->semester }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Semester Input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class='bx bx-calendar'></i>
+                    </span>
+                    <select name="sy_id" id="sy_id" class="form-control form-control-lg fs-6" required>
+                        @foreach ($sy as $schoolyear)
+                            <option value="{{ $schoolyear->id }}">{{ $schoolyear->year }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Add Button -->
+                <button class="btn btn-primary btn-lg w-100"
+                    style="border: white; background-color: rgb(161, 49, 49);">Add</button>
+            </form>
+        </div>
+    </div>
 @endsection
