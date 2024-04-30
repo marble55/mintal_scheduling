@@ -10,10 +10,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     
-    </link>
     <title>Mintal Scheduling System </title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
-    </link>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ asset('dist/assets/css/Form.css') }}">
 
     <!-- Scripts -->
