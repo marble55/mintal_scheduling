@@ -15,7 +15,7 @@ class Subject extends Model
     protected $fillable = 
     [
         'subject_code', 'description', 'units_lecture',
-        'units_lab', 'load',
+        'units_lab', 'load', 'is_graduate_program',
     ];
 
     public function schedules():HasMany

@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('subject_code');
             $table->string('description');
-            $table->decimal('units_lecture', 5, 2)->nullable()->unsigned();
-            $table->decimal('units_lab', 5, 2)->nullable()->unsigned();
-            $table->decimal('load', 5, 2)->nullable()->unsigned();
+            $table->boolean('is_graduate_program')->default(false);
+            $table->decimal('units_lecture', 4, 2)->nullable()->unsigned()->default(0);
+            $table->decimal('units_lab', 4, 2)->nullable()->unsigned()->default(0);
+            $table->decimal('load', 4, 2)->nullable()->unsigned()->default(0);
             $table->timestamps();
         });
     }

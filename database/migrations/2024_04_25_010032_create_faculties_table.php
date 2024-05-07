@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('last_name', 50);    
             $table->string('remarks')->nullable();
             $table->boolean('is_part_timer')->default(false);
-            $table->boolean('is_graduate')->default(false);
-            $table->string('description')->nullable();
-            $table->decimal('description_load', 5, 2)->unsigned()->nullable();
+            $table->string('designation')->nullable();
+            $table->decimal('designation_load', 4, 2)->unsigned()->nullable()->default(0);
             $table->timestamps();
         });
     }
