@@ -212,14 +212,14 @@ p {
 
 /* ==== Data table  = Start ===== */
 
-.data_table{
-   background: #fff;
+.data_table {
+    background: #fff;
     padding: 15px;
     box-shadow: 1px 3px 5px #aaa;
     border-radius: 5px;
 }
 
-.data_table .btn{
+.data_table .btn {
     padding: 5px 10px;
     margin: 10px 3px 10px 0;
 }
@@ -227,26 +227,3 @@ p {
 
 
 /* ==== Data table  = End  ===== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

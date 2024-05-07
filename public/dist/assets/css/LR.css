@@ -12,3 +12,71 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+
+
+.inforide {
+    box-shadow: 1px 2px 8px 0px #f1f1f1;
+    background-color: white;
+    border-radius: 8px;
+    height: 125px;
+}
+
+.rideone i {
+    font-size: 3.5rem;
+}
+
+.ridetwo i {
+    font-size: 3.5rem;
+}
+
+.ridethree i {
+    font-size: 3.5rem;
+}
+
+.rideone {
+    background-color: #6CC785;
+    padding-top: 25px;
+    border-radius: 8px 0px 0px 8px;
+    text-align: center;
+    height: 125px;
+    margin-left: 15px;
+}
+
+.ridetwo {
+    background-color: #9A75FE;
+    padding-top: 30px;
+    border-radius: 8px 0px 0px 8px;
+    text-align: center;
+    height: 125px;
+    margin-left: 15px;
+}
+
+.ridethree {
+    background-color: #4EBCE5;
+    padding-top: 35px;
+    border-radius: 8px 0px 0px 8px;
+    text-align: center;
+    height: 125px;
+    margin-left: 15px;
+}
+
+.fontsty {
+    margin-right: -15px;
+}
+
+.fontsty h2 {
+    color: #6E6E6E;
+    font-size: 35px;
+    margin-top: 15px;
+    text-align: right;
+    margin-right: 30px;
+}
+
+.fontsty h4 {
+    color: #6E6E6E;
+    font-size: 25px;
+    margin-top: 20px;
+    text-align: right;
+    margin-right: 30px;
+}

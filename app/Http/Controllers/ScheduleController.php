@@ -9,13 +9,13 @@ use App\Models\Schedule;
 use App\Models\SchoolYear;
 use App\Models\Semester;
 use App\Models\Subject;
-use App\Models\TimeSlot;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * display listing of resources
+     * 
      */
     public function index()
     {

@@ -32,7 +32,7 @@
                     <a href="#" class="d-flex justify-content-center mb-4">
                         <img src="{{ asset('dist/assets/images/CDM_Logo.png') }}" alt="" width="200">
                     </a>
-                    <div class="text-center mb-5">
+                    <div class="text-center">
                         <h3 class="fw-bold">Log In | Program Head</h3>
                         <p class="text-secondary fs-6">Welcome to USeP Mintal Scheduling
                             System

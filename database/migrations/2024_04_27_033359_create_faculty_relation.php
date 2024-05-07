@@ -16,11 +16,15 @@ return new class extends Migration
             ->comment('faculty details of user/program head');
             
             $table->foreign('faculty_id')->references('id')->on('faculty')
-                ->cascadeOnDelete()->cascadeOnUpdate();
+                ->nullOnDelete()->cascadeOnUpdate();
         });
 
         Schema::table('faculty', function (Blueprint $table) {
-            $table->foreignId('users_id')->constrained()->nullOnDelete()->cascadeOnUpdate();
+            $table->bigInteger('user_id')->unsigned()->nullable()
+            ->comment('the user that handles this faculty');
+            
+            $table->foreign('user_id')->references('id')->on('faculty')
+                ->nullOnDelete()->cascadeOnUpdate();
         });
     }
 

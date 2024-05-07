@@ -31,7 +31,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('faculty.create');
+        return view('faculty.assign-form');
     }
 
     /**
@@ -88,4 +88,5 @@ class FacultyController extends Controller
 
         return redirect()->route('faculty.index', ['category' => $category]);
     }
+
 }

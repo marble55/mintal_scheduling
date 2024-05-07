@@ -6,7 +6,6 @@
             Schedule
         </h1>
         <br>
-        <!-- <img src="table.png"></img> -->
     </div>
     <div class="container pt-5" style="margin-bottom:-5%;">
         <table id="example" class="table table-striped" style="width:100%">
@@ -28,26 +27,26 @@
             </thead>
             <tbody>
                 @foreach ($schedules as $schedule)
-                <tr>
-                    <td>{{$schedule->id}}</td>
-                    <td>{{$schedule->faculty->first_name}}</td>
-                    <td>{{$schedule->day}}</td>
-                    <td>
-                        @foreach ($schedule->time_slots as $time_slot)
-                            {{$time_slot->time_start.'-'.$time_slot->time_end}}
-                        @endforeach
-                    </td>
-                    <td>{{$schedule->subject_id}}</td>
-                    <td>{{$schedule->is_lab}}</td>
-                    <td>{{$schedule->classroom_id}}</td>
-                    <td>{{$schedule->block_id}}</td>
-                    <td>{{$schedule->sy_id}}</td>
-                    <td>{{$schedule->semesters_id}}</td>
-                
-                    <td><a href="?page=graduate">Edit | </a>
-                        <a href="?page=graduate">Delete</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $schedule->id }}</td>
+                        <td>{{ $schedule->faculty->first_name }}</td>
+                        <td>{{ $schedule->day }}</td>
+                        <td>
+                            @foreach ($schedule->time_slots as $time_slot)
+                                {{ $time_slot->time_start . '-' . $time_slot->time_end }}
+                            @endforeach
+                        </td>
+                        <td>{{ $schedule->subject_id }}</td>
+                        <td>{{ $schedule->is_lab }}</td>
+                        <td>{{ $schedule->classroom_id }}</td>
+                        <td>{{ $schedule->block_id }}</td>
+                        <td>{{ $schedule->sy_id }}</td>
+                        <td>{{ $schedule->semesters_id }}</td>
+
+                        <td><a href="?page=graduate">Edit | </a>
+                            <a href="?page=graduate">Delete</a>
+                        </td>
+                    </tr>
                 @endforeach
                 <tr>
                     <td>202401</td>
