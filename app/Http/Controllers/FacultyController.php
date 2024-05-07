@@ -21,7 +21,7 @@ class FacultyController extends Controller
         {
             $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '1')->get();
         }else{
-            $faculties = Faculty::with('program_head')->where('is_graduate', '=', '1')->get();
+            $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '0')->get();
         } 
         return view('faculty.table', compact('faculties', 'category'));
     }
@@ -50,7 +50,8 @@ class FacultyController extends Controller
      */
     public function show(Faculty $faculty)
     {
-
+        $schedules = $faculty->schedules()->getResults();
+        return view('faculty.faculty-profile', compact('faculty', 'schedules'));
     }
 
     /**

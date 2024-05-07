@@ -48,22 +48,6 @@
                         </td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td>202401</td>
-                    <td>Tuesday</td>
-                    <td>8:00 AM</td>
-                    <td>10:00 AM</td>
-                    <td>201</td>
-                    <td>216</td>
-                    <td>0202</td>
-                    <td>202201455</td>
-                    <td>2024</td>
-                    <td>2nd</td>
-
-                    <td><a href="?page=graduate">Edit | </a>
-                        <a href="?page=graduate">Delete</a>
-                    </td>
-                </tr>
             </tbody>
         </table>
         <a href="?page=AssignSchedule"> Add a Schedule</a>

@@ -27,8 +27,10 @@
             <tbody>
                 @foreach ($faculties as $faculty)
                     <tr>
-                        <!--Usep ID-->
-                        <td>{{ $faculty->id_usep }}</td>
+                        <!--Usep ID (clicking will lead to faculty profile)-->
+                        <td>
+                            <a href="{{ route('faculty.show', $faculty) }}"> {{ $faculty->id_usep }} </a>
+                        </td>
                         <!--First Name-->
                         <td>{{ $faculty->first_name }}
                             @if ($faculty->is($faculty->program_head->faculty))

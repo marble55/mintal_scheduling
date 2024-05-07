@@ -36,8 +36,8 @@
         <ul id="multi" class="sidebar-dropdown list-unstyled collapse">
 
             <li class="sidebar-item">
-                <a href="{{route('faculty.index', ['category' => 'graduate'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-graduation"></i>
-                    Graduate</a>
+                <a href="{{route('faculty.index', ['category' => 'faculty'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-graduation"></i>
+                    View Faculties</a>
             </li>
             <li class="sidebar-item">
                 <a href="{{route('faculty.index', ['category' => 'part-timer'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-star-half"></i> Part
