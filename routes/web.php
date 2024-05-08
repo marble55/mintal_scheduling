@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
@@ -23,9 +24,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('faculty', FacultyController::class)
     ->middleware(['auth', 'verified']);

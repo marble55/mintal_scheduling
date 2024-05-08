@@ -75,14 +75,5 @@ class Faculty extends Model
     {
         $this->attributes['is_part_timer'] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
-
-    /**
-     * casts is_graduate into boolean
-     */
-    public function setIsGraduateAttribute($value)
-    {
-        $this->attributes['is_graduate'] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-    }
-
     
 }

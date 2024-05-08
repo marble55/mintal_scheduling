@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
                                 <h4>Schedule</h4>
-                                <h2>03</h2>
+                                <h2>{{ $tot_schedules }}</h2>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
                                 <h4>Faculty</h4>
-                                <h2>05</h2>
+                                <h2>{{ $total_faculties }}</h2>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
                                 <h4>Vacant Room</h4>
-                                <h2>50</h2>
+                                <h2>{{ $total_vr }}</h2>
                             </div>
                         </div>
                     </div>

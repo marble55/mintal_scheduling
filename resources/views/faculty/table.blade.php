@@ -16,8 +16,6 @@
                     <th>Last Name</th>
                     <th>Remarks</th>
                     <th>Part-timer</th>
-                    <th>Graduate</th>
-                    {{-- <th>Designation</th> --}}
                     <th>Program Head</th>
                     <th>Date Added</th>
                     <th>Edit | Delete</th>
@@ -43,8 +41,6 @@
                         <td>{{ $faculty->remarks }}</td>
                         <!--part-timer-->
                         <td>{{ $faculty->is_part_timer ? 'Yes' : 'No' }}</td>
-                        <!--isGraduate-->
-                        <td>{{ $faculty->is_graduate ? 'Yes' : 'No' }}</td>
                         <!--Designation-->
                         {{-- <td>{{ $faculty->designation_id }}</td> --}}
                         <!--Program Head-->

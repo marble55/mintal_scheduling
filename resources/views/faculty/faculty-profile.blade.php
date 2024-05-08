@@ -80,11 +80,7 @@
                                     <h5>Part-timer?</h5>
                                 </label>
                                 <label for="id_usep">
-                                    @if ($faculty->is_part_timer)
-                                        Yes
-                                    @else
-                                        No
-                                    @endif
+                                    {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
                                 </label>
                             </div>
                             <br>
@@ -122,7 +118,7 @@
                             @endforeach
                         </td>
                         <td>{{ $schedule->subject_id }}</td>
-                        <td>{{ $schedule->is_lab }}</td> // should be casted into true or false
+                        <td>{{ $schedule->is_lab ? 'Yes' : 'No'}}</td> {{--  should be casted into true or false --}}
                         <td>{{ $schedule->classroom_id }}</td>
                         <td>{{ $schedule->block_id }}</td>
                         <td>{{ $schedule->sy_id }}</td>
