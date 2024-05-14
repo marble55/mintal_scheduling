@@ -41,8 +41,8 @@ class FacultyController extends Controller
     {
         $request->user()->faculties()
             ->create($request->all());
-    
-        return redirect()->route('faculty.index', ['category' => 'graduate']);
+            
+        return redirect()->route('faculty.index', ['category' => 'graduate'])->with('message', 'The Action is successful!');
     }
 
     /**

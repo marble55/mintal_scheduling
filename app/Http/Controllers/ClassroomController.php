@@ -31,7 +31,7 @@ class ClassroomController extends Controller
     {
         Classroom::create($request->all());
 
-        return redirect()->route('classroom.index');
+        return redirect()->route('classroom.index')->with('message', 'The Action is successful!');
     }
 
     /**

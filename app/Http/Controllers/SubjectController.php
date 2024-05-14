@@ -31,7 +31,7 @@ class SubjectController extends Controller
     {
         Subject::create($request->all());
 
-        return redirect()->route('subject.index');
+        return redirect()->route('subject.index')->with('message', 'The Action is successful!');
     }
 
     /**

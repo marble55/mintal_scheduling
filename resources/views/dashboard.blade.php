@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="text-center">
+        <h1>
+            Dashboard
+        </h1>
+        <br>
+</div>
     <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row">

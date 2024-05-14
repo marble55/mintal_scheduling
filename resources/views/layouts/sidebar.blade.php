@@ -7,107 +7,122 @@
     </div>
 </div>
 <ul class="sidebar-nav">
-    <!----- Schedule ----->
+    <!-- Dashboard -->
+    <li class="sidebar-item">
+        <a href="{{ route('dashboard') }}" class="sidebar-link">
+            <i class="lni lni-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <!-- Schedule -->
     <li class="sidebar-item">
         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth"
             aria-expanded="false" aria-controls="auth">
             <i class="lni lni-layout"></i>
-            <span>Dashboard</span>
+            <span>Schedule</span>
         </a>
         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-
             <li class="sidebar-item">
-                <a href="{{route('schedule.index')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-calendar"></i>
-                    Schedule</a>
+                <a href="{{ route('schedule.index') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-calendar"></i> Schedule
+                </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{route('schedule.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i>
-                    Assign</a>
+                <a href="{{ route('schedule.create') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-pencil"></i> Assign
+                </a>
             </li>
         </ul>
     </li>
-    <!----- Faculty ----->
+    <!-- Faculty -->
     <li class="sidebar-item">
         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi"
             aria-expanded="false" aria-controls="multi">
             <i class="lni lni-users"></i>
             <span>Faculty</span>
         </a>
-        <ul id="multi" class="sidebar-dropdown list-unstyled collapse">
-
+        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li class="sidebar-item">
-                <a href="{{route('faculty.index', ['category' => 'faculty'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-graduation"></i>
-                    View Faculties</a>
+                <a href="{{ route('faculty.index', ['category' => 'faculty']) }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-graduation"></i> View Faculty
+                </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{route('faculty.index', ['category' => 'part-timer'])}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-star-half"></i> Part
-                    Timer</a>
+                <a href="{{ route('faculty.index', ['category' => 'part-timer']) }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-star-half"></i> View Part Timer
+                </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{route('faculty.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add
-                    Faculty</a>
+                <a href="{{ route('faculty.create') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-pencil"></i> Add Faculty
+                </a>
             </li>
         </ul>
     </li>
-
-    </li>
-    <!----- Classroom ----->
+    <!-- Classroom -->
     <li class="sidebar-item">
-        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#room" aria-expanded="false" aria-controls="room">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#room"
+            aria-expanded="false" aria-controls="room">
             <i class="lni lni-school-bench"></i>
             <span>Classroom</span>
         </a>
-        
         <ul id="room" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-            <!--- View Room --->
+            <!-- View Room -->
             <li class="sidebar-item">
-                <a href="{{route('classroom.index')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-eye"></i> View Rooms</a>
+                <a href="{{ route('classroom.index') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-eye"></i> View Rooms
+                </a>
             </li>
-            
-            <!--- Add Room --->
+            <!-- Add Room -->
             <li class="sidebar-item">
-                <a href="{{route('classroom.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add Room</a>
+                <a href="{{ route('classroom.create') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-pencil"></i> Add Room
+                </a>
             </li>
         </ul>
     </li>
-    <!----- Subject ----->
+    <!-- Subject -->
     <li class="sidebar-item">
-        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#subject" aria-expanded="false" aria-controls="subject">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#subject"
+            aria-expanded="false" aria-controls="subject">
             <i class="lni lni-notepad"></i>
             <span>Subject</span>
         </a>
         <ul id="subject" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-            <!--- View Subject --->
+            <!-- View Subject -->
             <li class="sidebar-item">
-                <a href="{{route('subject.index')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-eye"></i> View Subject</a>
+                <a href="{{ route('subject.index') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-eye"></i> View Subject
+                </a>
             </li>
-            
-            <!--- Add Room --->
+            <!-- Add Subject -->
             <li class="sidebar-item">
-                <a href="{{route('subject.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add Subject</a>
+                <a href="{{ route('subject.create') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-pencil"></i> Add Subject
+                </a>
             </li>
         </ul>
     </li>
-    <!----- Block ----->
+    <!-- Block -->
     <li class="sidebar-item">
         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#block"
             aria-expanded="false" aria-controls="block">
             <i class="lni lni-blackboard"></i>
             <span>Block</span>
         </a>
-        
         <ul id="block" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-            <!--- View Block --->
+            <!-- View Block -->
             <li class="sidebar-item">
-                <a href="{{route('block.index')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-eye"></i> View
-                    Block</a>
+                <a href="{{ route('block.index') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-eye"></i> View Block
+                </a>
             </li>
-            <!--- Add Block --->
+            <!-- Add Block -->
             <li class="sidebar-item">
-                <a href="{{route('block.create')}}" class="sidebar-link" style="margin-left:35px;"> <i class="lni lni-pencil"></i> Add
-                    Block</a>
+                <a href="{{ route('block.create') }}" class="sidebar-link" style="margin-left:35px;">
+                    <i class="lni lni-pencil"></i> Add Block
+                </a>
             </li>
         </ul>
     </li>
-
 </ul>

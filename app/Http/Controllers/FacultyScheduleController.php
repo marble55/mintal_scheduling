@@ -11,10 +11,12 @@ use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
-class ScheduleController extends Controller
+class FacultyScheduleController extends Controller
 {
     /**
      * display listing of resources
+     * (Gi create nako ni nga controller kay para unta ni sa faculty 
+     * nga schedule, just in case nga dili mu work ang modals)
      * 
      */
     public function index()
@@ -38,8 +40,8 @@ class ScheduleController extends Controller
         $subjects = Subject::all();
         $classrooms =  Classroom::all();
         $blocks = Block::all();
-
-        return view('schedule.form-schedule', compact([
+        // Ang kani kay para ni sa faculty schedule
+        return view('schedule.faculty-schedule', compact([
             'semesters', 'sy', 'faculties', 'subjects', 'classrooms', 'blocks'
         ]))->with(['action' => 'add']);
     }
@@ -54,9 +56,8 @@ class ScheduleController extends Controller
         $time_slot = $schedule->time_slots->first;
         
         $time_slot->update($request->all());
-        
-        return redirect()->route('schedule.index')->with('message', 'The Action is successful!');
-        
+
+        return redirect()->route('schedule.index');
     }
 
     /**

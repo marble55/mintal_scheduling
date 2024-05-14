@@ -124,13 +124,17 @@
                         <td>{{ $schedule->sy_id }}</td>
                         <td>{{ $schedule->semesters_id }}</td>
 
-                        <td><a href="?page=graduate">Edit | </a>
-                            <a href="?page=graduate">Delete</a>
+                        <td><a href="#">Edit | </a>
+                            <a href="#">Delete</a>
                         </td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
+        <a href="{{route('facultySchedule.create')}}">Assign Schedule</a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScheduleModal">Add Schedule</button>
     </div>
+    <!-- I uncomment ni siya para sa modals, pero mu error siya -->
+<!-- @include('modals.faculty_schedule_modal') -->
 @endsection

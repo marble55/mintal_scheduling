@@ -22,6 +22,7 @@ class BlockController extends Controller
     public function create()
     {
         return view("block.form-block")->with(['action' => 'add']);
+        
     }
 
     /**
@@ -30,8 +31,8 @@ class BlockController extends Controller
     public function store(Request $request)
     {
         Block::create($request->all());
-
-        return redirect()->route('block.index');
+        
+        return redirect()->route('block.index')->with('message', 'The Action is successful!');
     }
 
     /**

@@ -7,7 +7,7 @@
         </h1>
         <br>
     </div>
-    <div class="container pt-5" style="margin-bottom:-5%;">
+    <div class="container pt-5" >
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -50,6 +50,6 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="?page=AssignSchedule"> Add a Schedule</a>
+        <a href="{{route('schedule.create')}}"> Add a Schedule</a>
     </div>
 @endsection

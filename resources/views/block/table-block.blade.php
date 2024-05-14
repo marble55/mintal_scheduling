@@ -43,3 +43,5 @@
         <a href="{{ route('block.create') }}"> Add a Block</a>
     </div>
 @endsection
+
+

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row align-items-center justify-content-center" style="margin-bottom:-20%;">
+    <div class="row align-items-center justify-content-center">
         <div class="col col-sm-6 col-lg-7 col-xl-6">
             <!-- Title -->
             <div class="text-center mb-5">
@@ -11,9 +11,12 @@
             <div class="position-relative">
                 <hr class="text-secondary divider">
             </div>
+            <div class="container pt-5">
 
-            <!-- Form -->
-            <form action="{{route('schedule.store')}}" method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Left Column -->
+            <form action="{{ route('schedule.store') }}" method="POST">
                 @csrf
                 <!-- Faculty ID Input -->
                 <div class="input-group mb-3">
@@ -34,8 +37,7 @@
                     </span>
                     <select name="subject_id" id="subject_id" class="form-control form-control-lg fs-6" required>
                         @foreach ($subjects as $subject)
-                            <option value="{{ $subject->id }}">{{ $subject->subject_code . ': ' . $subject->description }}
-                            </option>
+                            <option value="{{ $subject->id }}">{{ $subject->subject_code . ': ' . $subject->description }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -45,9 +47,8 @@
                     <span class="input-group-text">
                         <i class='bx bxs-school'></i>
                     </span>
-                    <input type="checkbox" class="text-input" id="is_lab" name="is_lab" value="0"
-                        {{ old('is_lab') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="is_lab">Lab</label>
+                    <input type="checkbox" class="text-input" id="is_lab" name="is_lab" value="0" style="margin-left:10px;" {{ old('is_lab') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="is_lab">&nbsp;Lab </label>
                 </div>
 
                 <!-- Block ID Input -->
@@ -61,7 +62,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <!-- Classroom ID Input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
@@ -74,6 +74,11 @@
                     </select>
                 </div>
 
+            </div>
+
+            <div class="col-md-6">
+                <!-- Right Column -->
+                <!-- Add the rest of your input fields here -->
                 <!-- Day Input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
@@ -95,8 +100,7 @@
                     <span class="input-group-text">
                         <i class='bx bx-time'></i>
                     </span>
-                    <input type="time" class="form-control form-control-lg fs-6" name="time_start"
-                        placeholder="Time Start" required>
+                    <input type="time" class="form-control form-control-lg fs-6" name="time_start" placeholder="Time Start" required>
                 </div>
 
                 <!-- Time End Input -->
@@ -104,8 +108,7 @@
                     <span class="input-group-text">
                         <i class='bx bx-time'></i>
                     </span>
-                    <input type="time" class="form-control form-control-lg fs-6" name="time_end" placeholder="Time End"
-                        required>
+                    <input type="time" class="form-control form-control-lg fs-6" name="time_end" placeholder="Time End" required>
                 </div>
 
                 <!-- School Year Input -->
@@ -131,11 +134,13 @@
                         @endforeach
                     </select>
                 </div>
-
+            </div>
                 <!-- Add Button -->
-                <button class="btn btn-primary btn-lg w-100"
-                    style="border: white; background-color: rgb(161, 49, 49);">Add</button>
+                <button class="btn btn-primary btn-lg w-100" style="border: white; background-color: rgb(161, 49, 49);">Add</button>
             </form>
+        </div>
+    </div>
+
         </div>
     </div>
 @endsection

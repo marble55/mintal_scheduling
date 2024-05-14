@@ -66,8 +66,8 @@
     border-bottom: 0.3em solid;
 }
 /* Sidebar */
-::after,
-::before {
+#sidebar::after,
+#sidebar::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -88,6 +88,7 @@ h1 {
 
 body {
     font-family: "Poppins", sans-serif;
+    margin: 0; /* Ensure no margin for body */
 }
 
 .wrapper {
@@ -96,10 +97,12 @@ body {
 
 .main {
     min-height: 100vh;
-    width: 100%;
+    width: calc(100% - 70px); /* Adjust width to accommodate sidebar */
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
+    margin-bottom: 80px;
+    margin-left: 70px; /* Shift content to right to accommodate sidebar */
 }
 
 #sidebar {
@@ -109,6 +112,10 @@ body {
     transition: all 0.25s ease-in-out;
     display: flex;
     flex-direction: column;
+    position: fixed; /* Make sidebar fixed */
+    left: 0; /* Fix it to the left side */
+    top: 0; /* Fix it to the top */
+    height: 100vh; /* Make sidebar full height of viewport */
 }
 
 #sidebar.expand {
@@ -162,8 +169,7 @@ a.sidebar-link {
     margin-right: 0.75rem;
 }
 
-a.sidebar-link:hover,
-a.sidebar-link.active {
+a.sidebar-link:hover {
     background-color: rgba(255, 255, 255, 0.075);
     border-left: 3px solid #ffffff;
 }
@@ -206,19 +212,49 @@ a.sidebar-link.active {
     transform: rotate(45deg);
     transition: all 0.2s ease-out;
 }
+
 /* Footer */
-footer {
-    position: relative;
-    margin-top: 30%;
-    margin-left: -4%;
-    height: 10%;
+// footer {
+//     position: relative;
+//     margin-top: 30%;
+//     margin-left: -4%;
+//     height: 10%;
+//     bottom: 0;
+//     width: 110%;
+//     padding-top: 3px;
+//     background-color: #64202b;
+// }
+// footer .copyright {
+//     margin-top: 2rem;
+//     text-align: center;
+//     color: white;
+// }
+
+.footer {
+    position: fixed; /* Fixed position at the bottom */
+    left: 0;
     bottom: 0;
-    width: 110%;
-    padding-top: 3px;
+    width: 100%; /* Full width */
     background-color: #64202b;
-}
-footer .copyright {
-    margin-top: 2rem;
-    text-align: center;
+    padding: 10px 0; /* Padding for content inside the footer */
     color: white;
+    text-align: center; /* Center-align text */
+    z-index: 500;
+}
+
+/* Additional styling for copyright text */
+.footer .copyright {
+    margin-top: 10px;
+}
+// Toastr
+#toast-container > .toast {
+    opacity: 1 !important;
+}
+.toast-success {
+    background-color: #51a351 !important;
+    color: #fff !important;
+}
+.toast-error {
+    background-color: #bd362f !important;
+    color: #fff !important;
 }

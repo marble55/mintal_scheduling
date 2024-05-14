@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\FacultyScheduleController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +42,9 @@ Route::resource('block', BlockController::class)
 
 Route::resource('schedule', ScheduleController::class)
     ->middleware(['auth', 'verified']);
-
+// Kani kay para sa faculty schedule nga route
+Route::resource('facultySchedule', FacultyScheduleController::class)
+    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
