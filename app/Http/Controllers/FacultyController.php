@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Block;
+use App\Models\Classroom;
 use App\Models\Faculty;
+use App\Models\SchoolYear;
+use App\Models\Semester;
+use App\Models\Subject;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -50,8 +55,24 @@ class FacultyController extends Controller
      */
     public function show(Faculty $faculty)
     {
+        // Temporary and should be removed later
+        $semesters = Semester::all();
+        $sy = SchoolYear::all();
+        $subjects = Subject::all();
+        $classrooms =  Classroom::all();
+        $blocks = Block::all();
+
         $schedules = $faculty->schedules()->getResults();
-        return view('faculty.faculty-profile', compact('faculty', 'schedules'));
+        return view('faculty.faculty-profile', compact(
+            'faculty', 
+            'schedules',
+            'sy',
+            'classrooms',
+            'blocks',
+            'subjects',
+            'semesters',
+            'sy',
+        ));
     }
 
     /**

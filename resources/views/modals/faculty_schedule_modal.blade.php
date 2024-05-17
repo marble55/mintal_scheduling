@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
     <div class="modal fade" id="addScheduleModal" tabindex="-1" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -9,6 +6,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <!-- Your form content goes here -->
                     <form action="{{ route('schedule.store') }}" method="POST">
                             @csrf
@@ -18,9 +16,7 @@
                                     <i class='bx bx-id-card'></i>
                                 </span>
                                 <select name="faculty_id" id="faculty_id" class="form-control form-control-lg fs-6" required>
-                                    @foreach ($faculties as $faculty)
-                                        <option value="{{ $faculty->id }}">{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
-                                    @endforeach
+                                    <option value="{{ $faculty->id }}">{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
                                 </select>
                             </div>
 
@@ -139,4 +135,3 @@
             </div>
         </div>
     </div>
-@endsection

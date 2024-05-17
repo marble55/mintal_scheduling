@@ -40,6 +40,7 @@ class FacultyScheduleController extends Controller
         $subjects = Subject::all();
         $classrooms =  Classroom::all();
         $blocks = Block::all();
+        
         // Ang kani kay para ni sa faculty schedule
         return view('schedule.faculty-schedule', compact([
             'semesters', 'sy', 'faculties', 'subjects', 'classrooms', 'blocks'

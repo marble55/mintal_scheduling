@@ -17,13 +17,12 @@
                                 <div class="user-avatar">
                                     <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
@@ -135,6 +134,11 @@
         <a href="{{route('facultySchedule.create')}}">Assign Schedule</a>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScheduleModal">Add Schedule</button>
     </div>
-    <!-- I uncomment ni siya para sa modals, pero mu error siya -->
-<!-- @include('modals.faculty_schedule_modal') -->
+    {{-- I uncomment ni siya para sa modals, pero mu error siya --}}
+    @include('modals.faculty_schedule_modal', [
+        'faculties' => $faculty,
+        'subjects' => $subjects,
+        'classroom' => $classrooms,
+        'blocks' => $blocks,
+        ]) 
 @endsection
