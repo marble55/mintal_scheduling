@@ -125,4 +125,14 @@
             </li>
         </ul>
     </li>
+
+    <!-- Academic Calendar Settings -->
+    <!-- Dashboard -->
+    <li class="sidebar-item">
+        <a href="{{ route('academic-calendar.create') }}" class="sidebar-link">
+            <i class="lni lni-cog"></i>
+            <span>Academic Calendar Settings</span>
+        </a>
+    </li>
+    
 </ul>

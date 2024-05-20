@@ -18,6 +18,15 @@ class Schedule extends Model
         'subject_id', 'classroom_id', 'block_id', //optional foreign keys
     ];
 
+    
+    /**
+     * Checks for existing DAY, ROOM, and TIME
+     * 
+     * returns an array of values depending whether the check is good or not
+     * the similar schedule will be returned
+     * @return array if error [check, schedule_id, faculty, classroom, day, time_start, time_end] || if noError [check]
+     */
+
     //---relation functions---///
 
     public function faculty():BelongsTo

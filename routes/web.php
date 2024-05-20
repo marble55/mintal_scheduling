@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademicCalendarController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DashboardController;
@@ -26,7 +27,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-->middleware(['auth', 'verified'])->name('dashboard');
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('faculty', FacultyController::class)
     ->middleware(['auth', 'verified']);
@@ -38,6 +39,10 @@ Route::resource('subject', SubjectController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('block', BlockController::class)
+    ->middleware(['auth', 'verified']);
+
+
+Route::resource('academic-calendar', AcademicCalendarController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('schedule', ScheduleController::class)

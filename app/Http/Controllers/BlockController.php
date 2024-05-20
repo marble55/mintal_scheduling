@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlockRequest;
 use App\Models\Block;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class BlockController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlockRequest $request)
     {
         Block::create($request->all());
         
@@ -46,7 +47,7 @@ class BlockController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $block = Block::findOrFail($id);
 
@@ -56,7 +57,7 @@ class BlockController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlockRequest $request, string $id)
     {
         $block = Block::find($id);
 

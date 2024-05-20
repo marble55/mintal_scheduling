@@ -12,7 +12,12 @@ class SchoolYear extends Model
 
 
     protected $table = 'school_year';
+
+    public $timestamps = false;
     
+    protected $fillable = [
+        'academic_year'
+    ];
     public function schedules():HasMany
     {
         return $this->hasMany(Schedule::class, 'sy_id');

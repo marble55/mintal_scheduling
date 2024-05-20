@@ -70,7 +70,7 @@
                 "closeButton": true,
                 "positionClass": "toast-top-right"
             };
-            toastr.error("{{ Session::get('error') }}", 'Error!', { timeOut: 12000 });
+            toastr.error("{{ Session::get('error') }}", 'Error!', { timeOut: 30000 });
         </script>
     @endif
 

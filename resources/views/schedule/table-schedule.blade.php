@@ -36,15 +36,21 @@
                                 {{ $time_slot->time_start . '-' . $time_slot->time_end }}
                             @endforeach
                         </td>
-                        <td>{{ $schedule->subject_id }}</td>
+                        <td>{{ $schedule->subject->subject_code }}</td>
                         <td>{{ $schedule->is_lab }}</td>
-                        <td>{{ $schedule->classroom_id }}</td>
-                        <td>{{ $schedule->block_id }}</td>
-                        <td>{{ $schedule->sy_id }}</td>
-                        <td>{{ $schedule->semesters_id }}</td>
+                        <td>{{ $schedule->classroom->room }}</td>
+                        <td>{{ $schedule->block->section }}</td>
+                        <td>{{ $schedule->school_year->academic_year }}</td>
+                        <td>{{ $schedule->semester->name }}</td>
 
-                        <td><a href="?page=graduate">Edit | </a>
-                            <a href="?page=graduate">Delete</a>
+                        <td>
+                            <a href="{{ route('schedule.edit', $schedule->id) }}">Edit</a> |
+                            <form method="POST" action="{{ route('schedule.destroy', $schedule->id) }}">
+                                @csrf
+                                @method('delete')
+                                <a href="{{ route('schedule.destroy', $schedule->id) }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

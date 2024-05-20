@@ -9,10 +9,24 @@ use App\Models\Schedule;
 use App\Models\SchoolYear;
 use App\Models\Semester;
 use App\Models\Subject;
+use App\Services\AcademicCalendarService;
+use App\Services\CurrentSemesterService;
+use App\Services\ScheduleService;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+
+
+    protected $currentSemester;
+    protected $currentYear;
+
+    public function __construct(AcademicCalendarService $academicCalendarService)
+    {
+        $this->currentSemester = $academicCalendarService->getCurrentSemester();
+        $this->currentYear = $academicCalendarService->getCurrentYear();
+    }
+
     /**
      * display listing of resources
      * 
@@ -47,16 +61,19 @@ class ScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ScheduleService $scheduleService)
     {
-        $schedule = Schedule::create($request->all());
+        $result = $scheduleService->createSchedule(
+            $request->except(['sy_id', 'semesters_id']), 
+            $this->currentSemester, 
+            $this->currentYear
+        );
         
-        $time_slot = $schedule->time_slots->first;
-        
-        $time_slot->update($request->all());
-        
-        return redirect()->route('schedule.index')->with('message', 'The Action is successful!');
-        
+        if($result['success']){
+            return redirect()->route('schedule.index')->with('message', 'New schedule added!');
+        } else{
+            return redirect()->back()->with('error', $result['message']);
+        }   
     }
 
     /**
@@ -72,15 +89,37 @@ class ScheduleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+        $semesters = Semester::all();
+        $sy = SchoolYear::all();
+        $faculties = Faculty::all();
+        $subjects = Subject::all();
+        $classrooms =  Classroom::all();
+        $blocks = Block::all();
+
+        return view('schedule.form-schedule', compact([
+            'schedule',
+            'semesters', 
+            'sy', 
+            'faculties', 
+            'subjects', 
+            'classrooms', 
+            'blocks'
+        ]))->with(['action' => 'update']);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, ScheduleService $scheduleService)
     {
-        //
+        $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id);
+        
+        if($result['success']){
+            return redirect()->route('schedule.index')->with('message', 'Schedule Updated!');
+        } else{
+            return redirect()->back()->with('error', $result['message']);
+        }   
     }
 
     /**
@@ -88,6 +127,8 @@ class ScheduleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Schedule::findOrFail($id)->delete();
+
+        return redirect()->route('schedule.index')->with('message', 'Schedule Deleted!');
     }
 }
