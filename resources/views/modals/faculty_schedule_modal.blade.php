@@ -1,137 +1,103 @@
-    <div class="modal fade" id="addScheduleModal" tabindex="-1" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addScheduleModalLabel">Add Schedule</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+@push('styles')
+    <style>
+        .modal-dialog {
+            max-width: 100%;
+            width: auto !important;
+            margin: 0;
+        }
 
-                    <!-- Your form content goes here -->
+        .modal-content {
+            height: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-body {
+            max-height: calc(100vh - 210px);
+            overflow-y: auto;
+        }
+    </style>
+@endpush
+
+<div class="modal fade" id="addScheduleModal" tabindex="-1" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addScheduleModalLabel">Add Schedule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form content goes here -->
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="example_length"><label>Show <select name="example_length"
+                                    aria-controls="example" class="form-select form-select-sm">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select> entries</label></div>
+                        <div class="dt-buttons btn-group flex-wrap"> <button
+                                class="btn btn-secondary buttons-copy buttons-html5" tabindex="0"
+                                aria-controls="example" type="button"><span>Copy</span></button> <button
+                                class="btn btn-secondary buttons-csv buttons-html5" tabindex="0"
+                                aria-controls="example" type="button"><span>CSV</span></button> <button
+                                class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                                aria-controls="example" type="button"><span>Excel</span></button> <button
+                                class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
+                                aria-controls="example" type="button"><span>PDF</span></button> <button
+                                class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example"
+                                type="button"><span>Print</span></button> </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div id="example_filter" class="dataTables_filter"><label>Search:<input type="search"
+                                    class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container pt-5">
                     <form action="{{ route('schedule.store') }}" method="POST">
-                            @csrf
-                            <!-- Faculty ID Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-id-card'></i>
-                                </span>
-                                <select name="faculty_id" id="faculty_id" class="form-control form-control-lg fs-6" required>
-                                    <option value="{{ $faculty->id }}">{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
-                                </select>
-                            </div>
-
-                            <!-- Subject ID Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-id-card'></i>
-                                </span>
-                                <select name="subject_id" id="subject_id" class="form-control form-control-lg fs-6" required>
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}">{{ $subject->subject_code . ': ' . $subject->description }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- Lab Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bxs-school'></i>
-                                </span>
-                                <input type="checkbox" class="text-input" id="is_lab" name="is_lab" value="0" style="margin-left:10px;" {{ old('is_lab') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="is_lab">&nbsp;Lab </label>
-                            </div>
-
-                            <!-- Block ID Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-id-card'></i>
-                                </span>
-                                <select name="block_id" id="block_id" class="form-control form-control-lg fs-6" required>
-                                    @foreach ($blocks as $block)
-                                        <option value="{{ $block->id }}">{{ $block->course . ' ' . $block->section }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <!-- Classroom ID Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-id-card'></i>
-                                </span>
-                                <select name="classroom_id" id="classroom_id" class="form-control form-control-lg fs-6" required>
-                                    @foreach ($classrooms as $classroom)
-                                        <option value="{{ $classroom->id }}">{{ $classroom->room . ' in ' . $classroom->building }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <!-- Right Column -->
-                            <!-- Day Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-user-pin'></i>
-                                </span>
-                                <select name="day" id="day" class="form-control form-control-lg fs-6" required>
-                                    <option value="MONDAY">Monday</option>
-                                    <option value="TUESDAY">Tuesday</option>
-                                    <option value="WEDNESDAY">Wednesday</option>
-                                    <option value="THURSDAY">Thursday</option>
-                                    <option value="FRIDAY">Friday</option>
-                                    <option value="SATURDAY">Saturday</option>
-                                    <option value="SUNDAY">Sunday</option>
-                                </select>
-                            </div>
-
-                            <!-- Time Start Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-time'></i>
-                                </span>
-                                <input type="time" class="form-control form-control-lg fs-6" name="time_start" placeholder="Time Start" required>
-                            </div>
-
-                            <!-- Time End Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-time'></i>
-                                </span>
-                                <input type="time" class="form-control form-control-lg fs-6" name="time_end" placeholder="Time End" required>
-                            </div>
-
-                            <!-- School Year Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-calendar'></i>
-                                </span>
-                                <select name="semesters_id" id="semesters_id" class="form-control form-control-lg fs-6" required>
-                                    @foreach ($semesters as $semester)
-                                        <option value="{{ $semester->id }}">{{ $semester->semester }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- Semester Input -->
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bx-calendar'></i>
-                                </span>
-                                <select name="sy_id" id="sy_id" class="form-control form-control-lg fs-6" required>
-                                    @foreach ($sy as $schoolyear)
-                                        <option value="{{ $schoolyear->id }}">{{ $schoolyear->year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                            <!-- Add Button -->
-                            <button class="btn btn-primary btn-lg w-100" style="border: white; background-color: rgb(161, 49, 49);">Add</button>
-                        </form>
+                        @csrf
+                        <!-- Table for displaying schedules -->
+                        <table id="example" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Sched ID</th>
+                                    <th>Day</th>
+                                    <th>Time Slot</th>
+                                    <th>Subject ID</th>
+                                    <th>Is Lab?</th>
+                                    <th>Class ID</th>
+                                    <th>Block ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($schedules as $schedule)
+                                    <tr>
+                                        <td>{{ $schedule->id }}</td>
+                                        <td>{{ $schedule->day }}</td>
+                                        <td>
+                                            @foreach ($schedule->time_slots as $time_slot)
+                                                {{ $time_slot->time_start . '-' . $time_slot->time_end }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $schedule->subject->subject_code }}</td>
+                                        <td>{{ $schedule->is_lab ? 'Yes' : 'No' }}</td>
+                                        <td>{{ $schedule->classroom->room }}</td>
+                                        <td>{{ $schedule->block->section }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button> <!-- You can customize this button as needed -->
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
+</div>

@@ -29,8 +29,8 @@
                 @foreach ($schedules as $schedule)
                     <tr>
                         <td>{{ $schedule->id }}</td>
-                        <td>{{ $schedule->faculty->first_name }}</td>
-                        <td>{{ $schedule->day }}</td>
+                        <td>{{ $schedule->faculty->first_name ?? '' }}</td>
+                        <td>{{ $schedule->day ?? '' }}</td>
                         <td>
                             @foreach ($schedule->time_slots as $time_slot)
                                 {{ $time_slot->time_start . '-' . $time_slot->time_end }}
@@ -38,8 +38,8 @@
                         </td>
                         <td>{{ $schedule->subject->subject_code }}</td>
                         <td>{{ $schedule->is_lab }}</td>
-                        <td>{{ $schedule->classroom->room }}</td>
-                        <td>{{ $schedule->block->section }}</td>
+                        <td>{{ $schedule->classroom->room ?? '' }}</td>
+                        <td>{{ $schedule->block->section ?? '' }}</td>
                         <td>{{ $schedule->school_year->academic_year }}</td>
                         <td>{{ $schedule->semester->name }}</td>
 

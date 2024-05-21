@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Block;
 use App\Models\Classroom;
 use App\Models\Faculty;
+use App\Models\Schedule;
 use App\Models\SchoolYear;
 use App\Models\Semester;
 use App\Models\Subject;
@@ -36,7 +37,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('faculty.assign-form');
+        return view('faculty.assign-form')->with(['action' => 'add']);
     }
 
     /**
@@ -44,6 +45,7 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $request->user()->faculties()
             ->create($request->all());
             
@@ -62,6 +64,7 @@ class FacultyController extends Controller
         $classrooms =  Classroom::all();
         $blocks = Block::all();
 
+        $allSchedules = Schedule::all()->whereNull('faculty_id');
         $schedules = $faculty->schedules()->getResults();
         return view('faculty.faculty-profile', compact(
             'faculty', 
@@ -72,6 +75,7 @@ class FacultyController extends Controller
             'subjects',
             'semesters',
             'sy',
+            'allSchedules',
         ));
     }
 
@@ -79,8 +83,9 @@ class FacultyController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Faculty $faculty)
-    {
-        return view('faculty.edit-form', compact('faculty'));
+    {   
+        
+        return view('faculty.assign-form', compact('faculty'))->with(['action' => 'update']);
     }
 
     /**
@@ -89,7 +94,6 @@ class FacultyController extends Controller
     public function update(Request $request, Faculty $faculty)
     {
         $faculty->update($request->all());
-
         return redirect()->route('faculty.index');
     }
 

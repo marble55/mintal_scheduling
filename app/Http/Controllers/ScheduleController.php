@@ -36,7 +36,7 @@ class ScheduleController extends Controller
         $schedules = Schedule::with([
             'faculty', 'semester', 'school_year',
             'subject', 'classroom', 'block',  'time_slots'
-        ])->get();
+        ])->where('semesters_id', '=', $this->currentSemester)->get();
 
         return view('schedule.table-schedule', compact('schedules'));
     }
@@ -46,15 +46,13 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $semesters = Semester::all();
-        $sy = SchoolYear::all();
-        $faculties = Faculty::all();
-        $subjects = Subject::all();
-        $classrooms =  Classroom::all();
-        $blocks = Block::all();
-
+        $faculties = Faculty::select('*')->orderBy('first_name')->get();
+        $subjects = Subject::select('*')->orderBy('subject_code')->get();
+        $classrooms =  Classroom::select('*')->orderBy('building')->get();
+        $blocks = Block::select('*')->orderBy('course')->get();
+        
         return view('schedule.form-schedule', compact([
-            'semesters', 'sy', 'faculties', 'subjects', 'classrooms', 'blocks'
+            'faculties', 'subjects', 'classrooms', 'blocks'
         ]))->with(['action' => 'add']);
     }
 
@@ -90,21 +88,19 @@ class ScheduleController extends Controller
     public function edit(string $id)
     {
         $schedule = Schedule::findOrFail($id);
-        $semesters = Semester::all();
-        $sy = SchoolYear::all();
-        $faculties = Faculty::all();
-        $subjects = Subject::all();
-        $classrooms =  Classroom::all();
-        $blocks = Block::all();
+        $faculties = Faculty::select('*')->orderBy('first_name')->get();
+        $subjects = Subject::select('*')->orderBy('subject_code')->get();
+        $classrooms =  Classroom::select('*')->orderBy('building')->get();
+        $blocks = Block::select('*')->orderBy('course')->get();
+        $timeSlot = $schedule->time_slots()->firstOr();
 
         return view('schedule.form-schedule', compact([
             'schedule',
-            'semesters', 
-            'sy', 
             'faculties', 
             'subjects', 
             'classrooms', 
-            'blocks'
+            'blocks',
+            'timeSlot',
         ]))->with(['action' => 'update']);
     }
 
@@ -113,6 +109,7 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, string $id, ScheduleService $scheduleService)
     {
+        // dd($request->all());
         $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id);
         
         if($result['success']){

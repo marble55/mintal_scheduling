@@ -3,7 +3,7 @@
 @section('content')
     <div class="text-center">
         <h1>
-            Faculty
+            Faculty Details
         </h1>
         <br>
     </div>
@@ -123,15 +123,21 @@
                         <td>{{ $schedule->sy_id }}</td>
                         <td>{{ $schedule->semesters_id }}</td>
 
-                        <td><a href="#">Edit | </a>
-                            <a href="#">Delete</a>
+                        <td>
+                            <a href="{{ route('schedule.edit', $schedule->id) }}">Edit</a> |
+                            <form method="POST" action="{{ route('schedule.destroy', $schedule->id) }}">
+                                @csrf
+                                @method('delete')
+                                <a href="{{ route('schedule.destroy', $schedule->id) }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
-        <a href="{{route('facultySchedule.create')}}">Assign Schedule</a>
+        {{-- <a href="{{route('facultySchedule.create')}}">Assign Schedule</a> --}}
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScheduleModal">Add Schedule</button>
     </div>
     {{-- I uncomment ni siya para sa modals, pero mu error siya --}}
@@ -140,5 +146,6 @@
         'subjects' => $subjects,
         'classroom' => $classrooms,
         'blocks' => $blocks,
+        'schedules' => $allSchedules,
         ]) 
 @endsection

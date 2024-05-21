@@ -7,15 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('dist/assets/images/CDM_Logo.png') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/css/datatables.min.css') }}">
      <!-- Although mugana ang toastr if dili cdn, kaso matubanan siya sa baba :(  -->
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('dist/assets/css/LR.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/css/Form.css') }}">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    @stack('styles')
     <title>Mintal Scheduling System</title>
     
     <!-- Scripts -->
@@ -78,6 +79,7 @@
     <script src="{{ asset('dist/assets/js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('dist/assets/js/custom.js') }}"></script>
     <script src="{{ asset('dist/assets/js/sidebar.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

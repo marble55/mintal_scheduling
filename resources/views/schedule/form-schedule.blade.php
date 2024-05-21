@@ -23,13 +23,14 @@
                             @csrf
 
                             <!-- Faculty ID Input -->
+                            
+                            <label for="faculty_id">Faculty:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="faculty_id" id="faculty_id" class="form-control form-control-lg fs-6"
-                                    required>
-                                    @if ($action === 'update')
+                                <select name="faculty_id" id="faculty_id" class="form-control form-control-lg fs-6" autofocus>
+                                    @if ($action === 'update' && $schedule->faculty_id != null)
                                         <option value="{{ $schedule->faculty_id }}">
                                             {{ $schedule->faculty->first_name . ' ' . $schedule->faculty->last_name }}
                                         </option>
@@ -42,6 +43,7 @@
                                                 {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
                                         @endforeach
                                     @else
+                                        <option value=""></option>
                                         @foreach ($faculties as $faculty)
                                             <option value="{{ $faculty->id }}">
                                                 {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
@@ -51,12 +53,13 @@
                             </div>
 
                             <!-- Subject ID Input -->
+                            <label for="subject_id">Subject:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="subject_id" id="subject_id" class="form-control form-control-lg fs-6"
-                                    required>
+                                <select name="subject_id" id="subject_id" class="form-control form-control-lg fs-6" required
+                                    >
                                     @if ($action === 'update')
                                         <option value="{{ $schedule->subject_id }}">
                                             {{ $schedule->subject->subject_code . ': ' . $schedule->subject->description }}
@@ -71,6 +74,7 @@
                                             </option>
                                         @endforeach
                                     @else
+                                    <option value=""></option>
                                         @foreach ($subjects as $subject)
                                             <option value="{{ $subject->id }}">
                                                 {{ $subject->subject_code . ': ' . $subject->description }}
@@ -81,23 +85,25 @@
                             </div>
 
                             <!-- Lab Input -->
+                            <label for="is_lab">Subject Unit:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bxs-school'></i>
                                 </span>
-                                <input type="checkbox" class="text-input" id="is_lab" name="is_lab" value="0"
+                                <input type="checkbox"  class="text-input" id="is_lab" name="is_lab" value="0"
                                     style="margin-left:10px;" {{ old('is_lab') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="is_lab">&nbsp;Lab </label>
                             </div>
 
                             <!-- Block ID Input -->
+                            <label for="is_lab">Block:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="block_id" id="block_id" class="form-control form-control-lg fs-6" required>
+                                <select name="block_id" id="block_id" class="form-control form-control-lg fs-6" >
 
-                                    @if ($action === 'update')
+                                    @if ($action === 'update' && $schedule->block_id != null)
                                         <option value="{{ $schedule->block_id }}">
                                             {{ $schedule->block->course . ' ' . $schedule->block->section }}
                                         </option>
@@ -111,6 +117,7 @@
                                             </option>
                                         @endforeach
                                     @else
+                                    <option value=""></option>
                                         @foreach ($blocks as $block)
                                             <option value="{{ $block->id }}">
                                                 {{ $block->course . ' ' . $block->section }}
@@ -120,13 +127,14 @@
                                 </select>
                             </div>
                             <!-- Classroom ID Input -->
+                            <label for="is_lab">Classroom:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
                                 <select name="classroom_id" id="classroom_id" class="form-control form-control-lg fs-6"
-                                    required>
-                                    @if ($action === 'update')
+                                    >
+                                    @if ($action === 'update' && $schedule->classroom_id != null)
                                         <option value="{{ $schedule->classroom_id }}">
                                             {{ $schedule->classroom->room . ' in ' . $schedule->classroom->building}}
                                         </option>
@@ -138,6 +146,7 @@
                                             <option value="{{ $classroom->id }}">{{ $classroom->room . ' in ' . $classroom->building }}</option>
                                         @endforeach
                                     @else
+                                    <option value=""></option>
                                         @foreach ($classrooms as $classroom)
                                             <option value="{{ $classroom->id }}">{{ $classroom->room . ' in ' . $classroom->building }}</option>
                                         @endforeach
@@ -151,12 +160,13 @@
                         <!-- Right Column -->
                         <!-- Add the rest of your input fields here -->
                         <!-- Day Input -->
+                        <label for="is_lab">Days:</label><br>
                         <div class="input-group mb-3">
                             <span class="input-group-checkbox">
                                 <i class='bx bx-user-pin'></i>
                             </span>
                             
-                            <input type="checkbox" id="day-monday" name="day[]" value="M">
+                            <input type="checkbox" id="day-monday" name="day[]" value="M" >
                             <label for="day-monday">Monday</label><br>
                             
                             <input type="checkbox" id="day-tuesday" name="day[]" value="T">
@@ -176,27 +186,29 @@
                         </div>
 
                         <!-- Time Start Input -->
+                        <label for="is_lab">Time Start:</label><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class='bx bx-time'></i>
                             </span>
                             <input type="time" class="form-control form-control-lg fs-6" name="time_start"
-                                placeholder="Time Start" required>
+                                placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}" required >
                         </div>
 
                         <!-- Time End Input -->
+                        <label for="is_lab">Time End:</label><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class='bx bx-time'></i>
                             </span>
                             <input type="time" class="form-control form-control-lg fs-6" name="time_end"
-                                placeholder="Time End" required>
+                                placeholder="Time End" value="{{ $timeSlot->time_end ?? '' }}"  required>
                         </div>
 
                     </div>
                     <!-- Add Button -->
                     <button class="btn btn-primary btn-lg w-100"
-                        style="border: white; background-color: rgb(161, 49, 49);">Add</button>
+                        style="border: white; background-color: rgb(161, 49, 49);">{{ ucfirst($action) }}</button>
                     </form>
                 </div>
             </div>

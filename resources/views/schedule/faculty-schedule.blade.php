@@ -1,5 +1,7 @@
 @extends('layouts.app')
 <!-- Just in case na dili mu work ang faculty-schedule_modal -->
+
+
 @section('content')
     <div class="row align-items-center justify-content-center">
         <div class="col col-sm-6 col-lg-7 col-xl-6">

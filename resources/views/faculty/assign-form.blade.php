@@ -3,7 +3,7 @@
 @section('content')
     <div class="text-center">
         <h1>
-            Add Faculty
+            {{ ucfirst($action) }} Faculty
         </h1>
         <br>
     </div>
@@ -48,15 +48,15 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="id_usep">Usep ID</label>
-                                        <input type="text" class="form-control" name="id_usep"
-                                            placeholder="Enter Usep ID" required maxlength=10>
+                                        <input type="text" class="form-control" name="id_usep" value="{{ $faculty->user_id ?? '' }}"
+                                            placeholder="Enter Usep ID" required maxlength="10">
                                     </div>
                                 </div>
                                 <!-- first name -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" name="first_name"
+                                        <input type="text" class="form-control" name="first_name" value="{{ $faculty->first_name ?? '' }}"
                                             placeholder="Enter First name" required>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name"
+                                        <input type="text" class="form-control" name="last_name" value="{{ $faculty->last_name ?? '' }}"
                                             placeholder="Enter Last name" required>
                                     </div>
                                 </div>
@@ -72,35 +72,36 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="remarks">Remarks</label>
-                                        <input type="text" class="form-control" name="remarks"
-                                            placeholder="Enter Remarks" required>
+                                        <input type="text" class="form-control" name="remarks" value="{{ $faculty->remarks ?? '' }}"
+                                            placeholder="Enter Remarks">
                                     </div>
                                 </div>
                                 <label for="remarks">Degree</label>
                                 <!-- is partimer -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <input type="checkbox" class="text-input" id="is_part_timer" name="is_part_timer"
+                                    <input type="checkbox" class="text-input" id="is_part_timer" name="is_part_timer" 
+                                    @if (isset($faculty) && $faculty->is_part_timer == true)
+                                        checked
+                                    @endif
                                         value="1" {{ old('is_part_timer') ? 'checked' : '' }}>
                                     <label class="text-input" for="is_part_timer">Part-timer?</label>
                                 </div>
                                 <!-- designation-->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="id_usep">Designation (Optional)</label>
-                                        <input type="text" class="form-control" name="designation"
+                                        <label for="designation">Designation (Optional)</label>
+                                        <input type="text" class="form-control" name="designation" value="{{ $faculty->designation ?? '' }}"
                                             placeholder="Enter Designation" required maxlength="255">
                                     </div>
                                 </div>
                                 <!-- designation_load -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="id_usep">Designation Load (Optional)</label> <!-- optional term is optional -->
-                                        <input type="number" class="form-control" name="id_usep"
-                                            placeholder="Enter Usep ID" required max="99.99" min="0">
+                                        <label for="designation_load">Designation Load (Optional)</label> <!-- optional term is optional -->
+                                        <input type="number" class="form-control" name="designation_load" value="{{ $faculty->designation_load ?? '' }}"
+                                            placeholder="Enter Usep ID" max="99.99" min="0">
                                     </div>
                                 </div>
-                                
-                                
                             </div>
                             <br>
                             
