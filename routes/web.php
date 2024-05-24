@@ -41,7 +41,6 @@ Route::resource('subject', SubjectController::class)
 Route::resource('block', BlockController::class)
     ->middleware(['auth', 'verified']);
 
-
 Route::resource('academic-calendar', AcademicCalendarController::class)
     ->middleware(['auth', 'verified']);
 

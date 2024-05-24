@@ -13,7 +13,7 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Account</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Account</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
