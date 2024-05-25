@@ -13,17 +13,19 @@
 
                 <!-- Icon Cards-->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
-                    <div class="inforide">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-4 col-4 rideone">
-                                <i class="lni lni-calendar"></i>
-                            </div>
-                            <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
-                                <h4>Schedule</h4>
-                                <h2>{{ $tot_schedules }}</h2>
+                    <a style="color:black;"href="{{ route('schedule.index') }}">
+                        <div class="inforide">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-4 rideone">
+                                    <i class="lni lni-calendar"></i>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
+                                    <h4>Schedule</h4>
+                                    <h2>{{ $tot_schedules }}</h2>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
@@ -33,7 +35,7 @@
                                 <i class="lni lni-users"></i>
                             </div>
                             <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
-                                <h4>Faculty</h4>
+                                <h4>Total Faculty</h4>
                                 <h2>{{ $total_faculties }}</h2>
                             </div>
                         </div>

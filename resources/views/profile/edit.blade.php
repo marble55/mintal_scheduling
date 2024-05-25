@@ -1,25 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                @include('profile.partials.update-profile-information-form')
-            </div>
-        </div>
+<div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-center">
+                                        <br>
+                                        <button type="button" id="submit" name="submit" class="btn btn-primary"
+                                            style="background-color: rgb(161, 49, 49); border:white;">Add Image</button>
+                                        <button type="button" id="submit" name="submit" class="btn btn-secondary"
+                                            style="border:white;">Remove Image</button>
+                                    </div>
+                                </div>
 
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                @include('profile.partials.update-password-form')
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="py-12">
+                            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                    <div class="max-w-xl">
+                                        @include('profile.partials.update-profile-information-form')
+                                    </div>
+                                </div>
 
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                @include('profile.partials.delete-user-form')
+                                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                    <div class="max-w-xl">
+                                        @include('profile.partials.update-password-form')
+                                    </div>
+                                </div>
+
+                                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                    <div class="max-w-xl">
+                                        @include('profile.partials.delete-user-form')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 </div>
 @endsection

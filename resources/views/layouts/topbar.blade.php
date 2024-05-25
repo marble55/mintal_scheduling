@@ -1,6 +1,7 @@
 <div class="navbar-container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <div class="container-fluid">
+
             <a class="navbar-brand" style="color: black; font-size:1.5rem">School Year: {{ app('current_academic_year')->getCurrentYearName() }} - {{ app('current_academic_year')->getCurrentSemesterName() }}</a>
             
             <div class="navbar-collapse" id="navbarSupportedContent">
