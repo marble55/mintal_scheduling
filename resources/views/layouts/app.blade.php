@@ -32,10 +32,13 @@
         <aside id="sidebar" class="bg-dark-maroon">
             @include('layouts.sidebar')
         </aside>
-
+        <div class="topbar-wrapper">
+            <div class="topbar-content">
+                @include('layouts.topbar')
+            </div>
+        </div>
         <!-- Main -->
         <div class="main p-3">
-            @include('layouts.topbar')
 
             <!-- ========== Main Content Start ========== -->
             @yield('content')

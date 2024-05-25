@@ -1,8 +1,8 @@
 <div class="navbar-container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-        <div class="container-fluid">
+        <div class="container-fluid position-relative">
             <!-- Navbar Brand (School Year and Semester) -->
-            <div class="d-flex flex-column align-items-start">
+            <div class="d-flex flex-column align-items-center position-absolute top-0 start-50 translate-middle-x">
                 <a class="navbar-brand fs-5 mb-1 mb-lg-0" style="color: black;">School Year: {{ app('current_academic_year')->getCurrentYearName() }}</a>
                 <span class="navbar-text fs-6 fs-lg-1" style="color: black;">Semester: {{ app('current_academic_year')->getCurrentSemesterName() }}</span>
             </div>
