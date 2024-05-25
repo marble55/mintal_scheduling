@@ -45,7 +45,7 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->user()->faculties()
             ->create($request->all());
             
@@ -64,6 +64,10 @@ class FacultyController extends Controller
         $classrooms =  Classroom::all();
         $blocks = Block::all();
 
+        $subjectLoad = $faculty->schedules()->leftJoin('subject','subject.id','=','subject_id')->sum('load');
+        $facultyLoad = $faculty->designation_load;
+        $totalLoad = $subjectLoad + $facultyLoad;
+
         $allSchedules = Schedule::all()->whereNull('faculty_id');
         $schedules = $faculty->schedules()->getResults();
         return view('faculty.faculty-profile', compact(
@@ -76,6 +80,7 @@ class FacultyController extends Controller
             'semesters',
             'sy',
             'allSchedules',
+            'totalLoad',
         ));
     }
 
@@ -93,8 +98,10 @@ class FacultyController extends Controller
      */
     public function update(Request $request, Faculty $faculty)
     {
-        $faculty->update($request->all());
-        return redirect()->route('faculty.index');
+        // dd($request->all());
+        $faculty->fill($request->all());
+        $faculty->update();
+        return redirect()->route('faculty.index')->with('message', 'Faculty updated successfully');
     }
 
     /**

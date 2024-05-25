@@ -49,7 +49,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="first_name">
-                                        <h6 style="font-weight:600;">First Name</h6>
+                                            <h6 style="font-weight:600;">First Name</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->first_name }}</label>
@@ -59,7 +59,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="last_name">
-                                        <h6 style="font-weight:600;">Last Name</h6>
+                                            <h6 style="font-weight:600;">Last Name</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->last_name }}</label>
@@ -69,14 +69,14 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="remarks">
-                                        <h6 style="font-weight:600;">Remarks</h6>
+                                            <h6 style="font-weight:600;">Remarks</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->remarks }}</label>
                                     </div>
                                 </div>
                                 <label for="remarks">
-                                <h6 style="font-weight:600;">Part-timer?</h6>
+                                    <h6 style="font-weight:600;">Part-timer?</h6>
                                 </label>
                                 <label for="id_usep">
                                     {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
@@ -93,59 +93,82 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Sched ID</th>
-                    <th>Day</th>
-                    <th>Time Slot</th>
-                    <th>Subject ID</th>
-                    <th>Is Lab?</th>
-                    <th>Class ID</th>
-                    <th>Block ID</th>
-                    <th>School Year</th>
-                    <th>Semester</th>
+                    <th>Subject Code</th>
+                    <th>Description</th>
+                    <th>YR/Block</th>
+                    <th>Unit:Lec</th>
+                    <th>Unit:Lab</th>
+                    <th>Sched:Day</th>
+                    <th>Sched:Time</th>
+                    <th>Sched:Room</th>
+                    <th>Faculty Load</th>
                     <th>Action</th>
-
                 </tr>
             </thead>
             <tbody>
                 @foreach ($schedules as $schedule)
                     <tr>
-                        <td>{{ $schedule->id }}</td>
+                        <td>{{ $schedule->subject->subject_code }}</td>
+                        <td>{{ $schedule->subject->description }}</td>
+                        <td>{{ $schedule->block->course . ' ' . $schedule->block->section }}</td>
+                        <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
+                        <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
                         <td>{{ $schedule->day }}</td>
                         <td>
                             @foreach ($schedule->time_slots as $time_slot)
                                 {{ $time_slot->time_start . '-' . $time_slot->time_end }}
                             @endforeach
                         </td>
-                        <td>{{ $schedule->subject_id }}</td>
-                        <td>{{ $schedule->is_lab ? 'Yes' : 'No'}}</td> {{--  should be casted into true or false --}}
-                        <td>{{ $schedule->classroom_id }}</td>
-                        <td>{{ $schedule->block_id }}</td>
-                        <td>{{ $schedule->sy_id }}</td>
-                        <td>{{ $schedule->semesters_id }}</td>
-
+                        <td>{{ $schedule->classroom->room }}</td>
+                        <td>{{ $schedule->subject->load }}</td>
                         <td>
-                            <a href="{{ route('schedule.edit', $schedule->id) }}">Edit</a> |
-                            <form method="POST" action="{{ route('schedule.destroy', $schedule->id) }}">
+                            <form method="POST" action="{{ route('facultySchedule.destroy', $schedule->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('schedule.destroy', $schedule->id) }}"
-                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Delete</a>
+                                <a href="{{ route('facultySchedule.destroy', $schedule->id) }}"
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Remove</a>
                             </form>
                         </td>
                     </tr>
                 @endforeach
-
+                @if ($faculty->designation)
+                    <tr>
+                        <td>TD</td>
+                        <td>{{ $schedule->faculty->designation }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ $schedule->faculty->designation_load }}</td>
+                        <td></td>
+                    </tr>
+                @endif
             </tbody>
         </table>
-        {{-- <a href="{{route('facultySchedule.create')}}">Assign Schedule</a> --}}
+
+        <div>
+                @if ($totalLoad > 25)
+                <h5 style="font-weight: 500; margin-top: 1.5rem;">Total Load:
+                    <span style="color: red">{{ $totalLoad }}</span>
+                </h5>
+                <h6 style="margin-bottom: 1rem; color: red;">Total Load exceeds 25</h6>
+                @else
+                <h5 style="font-weight: 500; margin: 1.5rem 0;">Total Load:
+                    <span>{{ $totalLoad }}</span>
+                </h5>
+                @endif
+
+        </div>
+
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScheduleModal">Add Schedule</button>
     </div>
-    {{-- I uncomment ni siya para sa modals, pero mu error siya --}}
     @include('modals.faculty_schedule_modal', [
         'faculties' => $faculty,
         'subjects' => $subjects,
         'classroom' => $classrooms,
         'blocks' => $blocks,
         'schedules' => $allSchedules,
-        ]) 
+    ])
 @endsection
