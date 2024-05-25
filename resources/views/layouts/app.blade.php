@@ -27,11 +27,13 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body>
+<body >
     <div class="wrapper">
         <!-- Sidebar -->
         <aside id="sidebar" class="bg-dark-maroon">
-            @include('layouts.sidebar')
+            <div class="sidebar-wrapper" style="position:fixed;">
+                @include('layouts.sidebar')
+            </div>
         </aside>
 
         <!-- Main -->
@@ -41,13 +43,14 @@
             <!-- ========== Main Content Start ========== -->
             @yield('content')
             <!-- ========== Main Content End ========== -->
-
-            <!-- Footer -->
-            <footer class="footer">
-                <p class="copyright"> © Zeller & Friends | All Rights Reserved 2024</p>
-            </footer>
         </div>
     </div>
+        <!-- Footer -->
+    <footer class="footer bg-dark-maroon">
+        <div class="footer-content">
+            <p class="copyright">© Zeller & Friends | All Rights Reserved 2024</p>
+        </div>
+    </footer>
 
     <script src="{{ asset('dist/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/jquery-3.6.0.min.js') }}"></script>
@@ -83,6 +86,7 @@
     <script src="{{ asset('dist/assets/js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('dist/assets/js/custom.js') }}"></script>
     <script src="{{ asset('dist/assets/js/sidebar.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/alerts.js') }}"></script>
     @stack('scripts')
 </body>
 

@@ -36,9 +36,9 @@
                         <td><a href="{{ route('subject.edit', $subject->id) }}">Edit</a>
                             <form method="POST" action="{{ route('subject.destroy', $subject->id) }}">
                                 @csrf
-                                @method('delete')
+                                @method('DELETE')
                                 <a href="{{ route('subject.destroy', $subject->id) }}"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Delete</a>
                             </form>
                         </td>
                     </tr>

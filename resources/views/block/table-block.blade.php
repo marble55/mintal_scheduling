@@ -8,7 +8,7 @@
         <br>
         <!-- <img src="table.png"></img> -->
     </div>
-    <div class="container pt-5" style="margin-bottom:-5%;">
+    <div class="container pt-5">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -31,9 +31,9 @@
                         <td><a href="{{ route('block.edit', $block->id) }}">Edit</a> |
                             <form method="POST" action="{{ route('block.destroy', $block->id) }}">
                                 @csrf
-                                @method('delete')
+                                @method('DELETE')
                                 <a href="{{ route('block.destroy', $block->id) }}"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Delete</a>
                             </form>
                         </td>
                     </tr>

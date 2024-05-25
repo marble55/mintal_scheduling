@@ -39,7 +39,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="id_usep">
-                                            <h5>Usep ID</h5>
+                                            <h6 style="font-weight:600;">Usep ID</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->id_usep }}</label>
@@ -49,7 +49,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="first_name">
-                                            <h5>First Name</h5>
+                                        <h6 style="font-weight:600;">First Name</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->first_name }}</label>
@@ -59,7 +59,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="last_name">
-                                            <h5>Last Name</h5>
+                                        <h6 style="font-weight:600;">Last Name</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->last_name }}</label>
@@ -69,14 +69,14 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="remarks">
-                                            <h5>Remarks</h5>
+                                        <h6 style="font-weight:600;">Remarks</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->remarks }}</label>
                                     </div>
                                 </div>
                                 <label for="remarks">
-                                    <h5>Part-timer?</h5>
+                                <h6 style="font-weight:600;">Part-timer?</h6>
                                 </label>
                                 <label for="id_usep">
                                     {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
@@ -127,9 +127,9 @@
                             <a href="{{ route('schedule.edit', $schedule->id) }}">Edit</a> |
                             <form method="POST" action="{{ route('schedule.destroy', $schedule->id) }}">
                                 @csrf
-                                @method('delete')
+                                @method('DELETE')
                                 <a href="{{ route('schedule.destroy', $schedule->id) }}"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Delete</a>
                             </form>
                         </td>
                     </tr>

@@ -23,7 +23,8 @@
                     placeholder="Enter academic year">
             </div>
 
-            <button type="submit" class="btn btn-primary">Update Academic Calendar</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px; 
+            background-color: rgb(161, 49, 49); border-color:white;">Update Academic Calendar</button>
         </form>
     </div>
 @endsection

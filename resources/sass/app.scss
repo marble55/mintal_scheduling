@@ -17,25 +17,17 @@
 @import "bootstrap/scss/bootstrap";
 
 @import url("faculty-assign.scss");
-// Additions
-
-/* Topbar */
-.navbar-container {
+*{
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
-
-.navbar a {
-    color: #000000;
-}
-
-.navbar button {
-    background-color: #380e15;
-    border: black;
-    box-shadow: 0 2px 5px rgb(0, 0, 0);
-    color: white;
-}
-.navbar button:hover {
-    background-color: #92505b;
+body{
+    min-height: 100%;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
 }
 
 /* Profile Picture */
@@ -66,18 +58,27 @@
     border-bottom: 0.3em solid;
 }
 /* Sidebar */
-#sidebar::after,
-#sidebar::before {
+.logo-tag {
+    height: 100px;
+    background-color: #ff4a4a;
+}
+#sidebar .sidebar-wrapper .logo-tag{
+    max-width: 70px;
+    min-width: 70px;
+    transition: all 0.5s ease-out;
+}
+::after,
+::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-#sidebar a {
-    text-decoration: none;
+a {
+    text-decoration: none !important;
 }
 
-.sidebar-nav li {
+li {
     list-style: none;
 }
 
@@ -86,39 +87,31 @@ h1 {
     font-size: 1.5rem;
 }
 
-body {
-    font-family: "Poppins", sans-serif;
-    margin: 0; /* Ensure no margin for body */
-}
-
 .wrapper {
     display: flex;
+    // flex-direction: column;
+    
 }
 
 .main {
     min-height: 100vh;
-    width: calc(100% - 70px); /* Adjust width to accommodate sidebar */
+    width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
-    margin-bottom: 80px;
-    margin-left: 70px; /* Shift content to right to accommodate sidebar */
+    // margin-bottom: 70px;
+    flex: 1;
+    padding: 3rem;
 }
 
 #sidebar {
     width: 70px;
-    min-width: 70px;
     z-index: 1000;
-    transition: all 0.25s ease-in-out;
+    transition: all 0.5s ease;
     display: flex;
     flex-direction: column;
-    position: fixed; /* Make sidebar fixed */
-    left: 0; /* Fix it to the left side */
-    top: 0; /* Fix it to the top */
-    height: 100vh; /* Make sidebar full height of viewport */
 }
-
-#sidebar.expand {
+#sidebar.expand, #sidebar.expand .logo-tag {
     width: 260px;
     min-width: 260px;
 }
@@ -169,82 +162,114 @@ a.sidebar-link {
     margin-right: 0.75rem;
 }
 
-a.sidebar-link:hover {
+a.sidebar-link:hover,
+a.sidebar-link.active {
     background-color: rgba(255, 255, 255, 0.075);
     border-left: 3px solid #ffffff;
 }
 
-.sidebar-item {
+/* Sidebar Dropdown Styles */
+.has-dropdown.active > .sidebar-dropdown {
+    display: block;
+}
+
+.sidebar-dropdown {
+    display: none;
+    background-color: #6b2020; /* Dropdown background color */
+    padding: 0;
+    min-width: 15rem;
+}
+
+.sidebar-dropdown .sidebar-item {
     position: relative;
 }
 
-#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
-    position: absolute;
-    top: 0;
-    left: 70px;
-    background-color: #6b2020;
-    padding: 0;
-    min-width: 15rem;
+.sidebar-dropdown .sidebar-link {
+    padding: 0.625rem 1.625rem;
+    color: #fff; /* Dropdown item text color */
+    display: block;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.sidebar-dropdown .sidebar-link i {
+    font-size: 1.1rem;
+    margin-left: 1.5rem;
+}
+
+.sidebar-dropdown .sidebar-link:hover,
+.sidebar-dropdown .sidebar-link.active {
+    background-color: rgba(255, 255, 255, 0.075); /* Dropdown item hover background color */
+    border-left: 3px solid #ffffff; /* Dropdown item border color */
+}
+
+/* Adjustments for expandable sidebar */
+#sidebar.expand .has-dropdown.active > .sidebar-dropdown {
+    display: block;
+}
+
+/* Hide the icon when the sidebar is closed */
+#sidebar:not(.expand) .sidebar-item .sidebar-link i.arrow,
+#sidebar:not(.expand) .sidebar-dropdown {
     display: none;
 }
-
-#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown {
+/* Show dropdown on hover when the sidebar is not expanded */
+#sidebar:not(.expand) .sidebar-item:hover .sidebar-dropdown {
     display: block;
-    max-height: 15em;
-    width: 100%;
-    opacity: 1;
+    left: 70px;
+    top: 0;
+    background-color: #6b2020; /* Dropdown background color */
+    z-index: 999;
+}
+/* Style the dropdown items */
+#sidebar:not(.expand) .sidebar-item:hover .sidebar-dropdown .sidebar-link {
+    white-space: nowrap;
+    padding: 0.625rem 1.625rem;
+    color: #fff;
 }
 
-#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
-    border: solid;
-    border-width: 0 0.075rem 0.075rem 0;
-    content: "";
-    display: inline-block;
-    padding: 2px;
+/* Ensure dropdown items are styled correctly */
+#sidebar:not(.expand) .sidebar-item:hover .sidebar-dropdown .sidebar-link i {
+    margin-left: 50px;
+}
+
+/* Show and position the icon to the right of the link when the sidebar is open */
+#sidebar.expand .sidebar-item .sidebar-link {
+    position: relative;
+}
+
+#sidebar.expand .sidebar-item .sidebar-link i.arrow {
+    display: inline-block; /* Ensure the icon is displayed */
     position: absolute;
-    right: 1.5rem;
-    top: 1.4rem;
-    transform: rotate(-135deg);
-    transition: all 0.2s ease-out;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: #fff;
 }
 
-#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
-    transform: rotate(45deg);
-    transition: all 0.2s ease-out;
+/* Rotate the arrow icon when the sidebar item is active */
+#sidebar .sidebar-nav .sidebar-item.active i.arrow {
+    transform: translateY(-50%) rotate(180deg);
+    transition: transform 0.3s ease-in-out;
 }
-
-/* Footer */
-// footer {
-//     position: relative;
-//     margin-top: 30%;
-//     margin-left: -4%;
-//     height: 10%;
-//     bottom: 0;
-//     width: 110%;
-//     padding-top: 3px;
-//     background-color: #64202b;
-// }
-// footer .copyright {
-//     margin-top: 2rem;
-//     text-align: center;
-//     color: white;
-// }
 
 .footer {
-    position: fixed; /* Fixed position at the bottom */
+    position: relative; /* Fixed position at the bottom */
     left: 0;
     bottom: 0;
     width: 100%; /* Full width */
-    background-color: #64202b;
     padding: 10px 0; /* Padding for content inside the footer */
     color: white;
     text-align: center; /* Center-align text */
-    z-index: 500;
+    z-index: 0;
+    
 }
 
 /* Additional styling for copyright text */
 .footer .copyright {
-    margin-top: 10px;
+    // margin-top: 10px;
+    margin: 0;
 }
 // Toastr
 #toast-container > .toast {
