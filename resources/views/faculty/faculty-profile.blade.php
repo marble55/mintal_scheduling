@@ -49,7 +49,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="first_name">
-                                        <h6 style="font-weight:600;">First Name</h6>
+                                        <h6 style="font-weight:600;">Full Name</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">{{ $faculty->first_name.' '.$faculty->last_name }}</label>
