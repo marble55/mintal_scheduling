@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endpush
+
 @if ($action === 'update')
-    @push('javascript-head')
+    @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("faculty_select").value = "{{ $schedule->faculty_id }}";
@@ -62,11 +68,11 @@
                                 <select name="subject_id" id="subject_select" class="form-control form-control-lg fs-6"
                                     required>
                                     <option value="">No Assigned</option>
-                                        @foreach ($subjects as $subject)
-                                            <option value="{{ $subject->id }}">
-                                                {{ $subject->subject_code . ': ' . $subject->description }}
-                                            </option>
-                                        @endforeach
+                                    @foreach ($subjects as $subject)
+                                        <option value="{{ $subject->id }}">
+                                            {{ $subject->subject_code . ': ' . $subject->description }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -148,8 +154,9 @@
                             <span class="input-group-text">
                                 <i class='bx bx-time'></i>
                             </span>
-                            <input type="time" id="time-start_input" class="form-control form-control-lg fs-6" name="time_start"
-                                placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}" required>
+                            <input type="time" id="time-start_input" class="form-control form-control-lg fs-6"
+                                name="time_start" placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}"
+                                required>
                         </div>
 
                         <!-- Time End Input -->
@@ -159,7 +166,8 @@
                                 <i class='bx bx-time'></i>
                             </span>
                             <input type="time" class="form-control form-control-lg fs-6" name="time_end"
-                                placeholder="Time End" id="time-end_input" value="{{ $timeSlot->time_end ?? '' }}" required>
+                                placeholder="Time End" id="time-end_input" value="{{ $timeSlot->time_end ?? '' }}"
+                                required>
                         </div>
 
                     </div>
@@ -173,3 +181,12 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#faculty_select').select2()
+    </script>
+@endpush
