@@ -17,6 +17,7 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @stack('styles')
+    @stack('javascript-head')
     <title>Mintal Scheduling System</title>
     
     <!-- Scripts -->
