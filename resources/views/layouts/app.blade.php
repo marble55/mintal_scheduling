@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('dist/assets/images/CDM_Logo.png') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/assets/css/datatables.min.css') }}">
-     <!-- Although mugana ang toastr if dili cdn, kaso matubanan siya sa baba :(  -->
+    <!-- Although mugana ang toastr if dili cdn, kaso matubanan siya sa baba :(  -->
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     {{-- <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}"> --}}
@@ -18,22 +18,19 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     {{-- ======JQUERY===== --}}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     @stack('styles')
     @stack('javascript-head')
     <title>Mintal Scheduling System</title>
-    
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body >
+<body>
     <div class="wrapper">
         <!-- Sidebar -->
         <aside id="sidebar" class="bg-dark-maroon">
-            <div class="sidebar-wrapper" style="position:fixed;">
-                @include('layouts.sidebar')
-            </div>
+            @include('layouts.sidebar')
         </aside>
 
         <!-- Main -->
@@ -45,10 +42,11 @@
             <!-- ========== Main Content End ========== -->
         </div>
     </div>
-        <!-- Footer -->
+
+    <!-- Footer -->
     <footer class="footer bg-dark-maroon">
         <div class="footer-content">
-            <p class="copyright">© Zeller & Friends | All Rights Reserved 2024</p>
+            <p class="copyright"> © Zeller & Friends | All Rights Reserved 2024</p>
         </div>
     </footer>
 
@@ -60,33 +58,40 @@
     <!-- Although mugana ang toastr if dili cdn, kaso matubanan siya sa baba :(  -->
     <!-- <script src="{{ asset('dist/assets/js/toastr.min.js') }}"></script> -->
     <!-- Toastr -->
-    @if(Session::has('message'))
+    @if (Session::has('message'))
         <script>
             toastr.options = {
                 "progressBar": true,
                 "closeButton": true,
                 "positionClass": "toast-top-right"
             };
-            toastr.success("{{ Session::get('message') }}", 'Success!', { timeOut: 12000 });
+            toastr.success("{{ Session::get('message') }}", 'Success!', {
+                timeOut: 12000
+            });
         </script>
     @endif
 
-    @if(Session::has('error'))
+    @if (Session::has('error'))
         <script>
             toastr.options = {
                 "progressBar": true,
                 "closeButton": true,
                 "positionClass": "toast-top-right"
             };
-            toastr.error("{{ Session::get('error') }}", 'Error!', { timeOut: 30000 });
+            toastr.error("{{ Session::get('error') }}", 'Error!', {
+                timeOut: 30000
+            });
         </script>
     @endif
-
     <script src="{{ asset('dist/assets/js/pdfmake.min.js') }}"></script>
     <script src="{{ asset('dist/assets/js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('dist/assets/js/custom.js') }}"></script>
     <script src="{{ asset('dist/assets/js/sidebar.js') }}"></script>
-    <script src="{{ asset('dist/assets/js/alerts.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    
     @stack('scripts')
 </body>
 

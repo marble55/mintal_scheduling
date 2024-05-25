@@ -6,19 +6,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 
-@if ($action === 'update')
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById("faculty_select").value = "{{ $schedule->faculty_id }}";
-                document.getElementById("subject_select").value = "{{ $schedule->subject_id }}";
-                document.getElementById("classroom_select").value = "{{ $schedule->classroom_id }}";
-                document.getElementById("block_select").value = "{{ $schedule->block_id }}";
-            });
-        </script>
-    @endpush
-@endif
-
 @section('content')
     <div class="row align-items-center justify-content-center">
         <div class="col col-sm-6 col-lg-7 col-xl-6">
@@ -49,7 +36,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="faculty_id" id="faculty_select" class="form-control form-control-lg fs-6"
+                                <select name="faculty_id" id="faculty_select"
                                     autofocus>
                                     <option value="">No Assigned</option>
                                     @foreach ($faculties as $faculty)
@@ -65,7 +52,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="subject_id" id="subject_select" class="form-control form-control-lg fs-6"
+                                <select name="subject_id" id="subject_select"
                                     required>
                                     <option value="">No Assigned</option>
                                     @foreach ($subjects as $subject)
@@ -93,7 +80,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="block_id" id="block_select" class="form-control form-control-lg fs-6">
+                                <select name="block_id" id="block_select">
                                     <option value="">No Assigned</option>
                                     @foreach ($blocks as $block)
                                         <option value="{{ $block->id }}">
@@ -108,7 +95,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="classroom_id" id="classroom_select" class="form-control form-control-lg fs-6">
+                                <select name="classroom_id" id="classroom_select">
                                     <option value="">No Assigned</option>
                                     @foreach ($classrooms as $classroom)
                                         <option value="{{ $classroom->id }}">
@@ -183,10 +170,21 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
-        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('#faculty_select').select2()
+        $('#subject_select').select2()
+        $('#classroom_select').select2()
+        $('#block_select').select2()    
     </script>
 @endpush
+
+@if ($action === 'update')
+    @push('scripts')
+    <script>
+        $('#faculty_select').val('{{ $schedule->faculty_id }}').trigger('change');
+        $('#subject_select').val('{{ $schedule->subject_id }}').trigger('change');
+        $('#classroom_select').val('{{ $schedule->classroom_id }}').trigger('change');
+        $('#block_select').val('{{ $schedule->block_id }}').trigger('change');
+    </script>
+    @endpush
+@endif
