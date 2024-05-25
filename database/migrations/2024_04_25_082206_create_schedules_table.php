@@ -26,12 +26,12 @@ return new class extends Migration
 
         Schema::create('semesters', function (Blueprint $table) {
             $table->id();
-            $table->string('semester', 35);
+            $table->string('name', 35);
         });
 
         Schema::create('school_year', function (Blueprint $table) {
             $table->id();
-            $table->string('year', 25)->default('2020');
+            $table->string('academic_year', 25)->default('2024-2025');
         });
     }
 
