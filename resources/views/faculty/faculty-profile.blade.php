@@ -52,21 +52,12 @@
                                         <h6 style="font-weight:600;">First Name</h6>
                                         </label>
                                         <br>
-                                        <label for="id_usep">{{ $faculty->first_name }}</label>
+                                        <label for="id_usep">{{ $faculty->first_name.' '.$faculty->last_name }}</label>
                                     </div>
                                 </div>
-                                <!-- last name -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="last_name">
-                                        <h6 style="font-weight:600;">Last Name</h6>
-                                        </label>
-                                        <br>
-                                        <label for="id_usep">{{ $faculty->last_name }}</label>
-                                    </div>
-                                </div>
+                                
                                 <!-- remarks -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
                                     <div class="form-group">
                                         <label for="remarks">
                                         <h6 style="font-weight:600;">Remarks</h6>
@@ -75,12 +66,18 @@
                                         <label for="id_usep">{{ $faculty->remarks }}</label>
                                     </div>
                                 </div>
-                                <label for="remarks">
-                                <h6 style="font-weight:600;">Part-timer?</h6>
-                                </label>
-                                <label for="id_usep">
-                                    {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
-                                </label>
+                                <!-- Part Timer? -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
+                                    <div class="form-group">
+                                        <label for="remarks">
+                                        <h6 style="font-weight:600;">Part-timer?</h6>
+                                        </label>
+                                        <br>
+                                        <label for="id_usep">
+                                            {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
+                                        </label>
+                                    </div>  
+                                </div> 
                             </div>
                             <br>
                         </form>
