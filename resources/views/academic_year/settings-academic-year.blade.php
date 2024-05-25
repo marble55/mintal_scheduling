@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <label for="academic_year">Academic Year:</label>
-                <input type="text" name="academic_year" id="academic_year" class="form-control"
+                <input type="text" value="{{ $currentYear }}" name="academic_year" id="academic_year" class="form-control"
                     placeholder="Enter academic year">
             </div>
 

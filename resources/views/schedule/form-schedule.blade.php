@@ -34,10 +34,11 @@
                                         <option value="{{ $schedule->faculty_id }}">
                                             {{ $schedule->faculty->first_name . ' ' . $schedule->faculty->last_name }}
                                         </option>
-
+                                        <option value=""></option>
                                         @foreach ($faculties as $faculty)
                                             @if ($faculty->id == $schedule->faculty_id)
                                                 @continue
+
                                             @endif
                                             <option value="{{ $faculty->id }}">
                                                 {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>

@@ -15,19 +15,43 @@
                     <th>Classroom ID</th>
                     <th>Room</th>
                     <th>Building</th>
+                    <th>Vaccant</th>
                     <th>Action</th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach ($classrooms as $classroom)
+                @foreach ($classroomsWithoutSchedules as $classroom)
                     <tr>
                         <!--id-->
-                        <td> {{$classroom->id}} </td>
+                        <td> {{ $classroom->id }} </td>
                         <!--Room-->
-                        <td> {{$classroom->room}} </td>
+                        <td> {{ $classroom->room }} </td>
                         <!--building-->
-                        <td> {{$classroom->building}} </td>
+                        <td> {{ $classroom->building }} </td>
+                        <!--If vaccant-->
+                        <td> Yes </td>
+                        <!--Action-->
+                        <td><a href="{{ route('classroom.edit', $classroom->id) }}">Edit</a> |
+                            <form method="POST" action="{{ route('classroom.destroy', $classroom->id) }}">
+                                @csrf
+                                @method('delete')
+                                <a href="{{ route('classroom.destroy', $classroom->id) }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                @foreach ($classroomsWithSchedules as $classroom)
+                    <tr>
+                        <!--id-->
+                        <td> {{ $classroom->id }} </td>
+                        <!--Room-->
+                        <td> {{ $classroom->room }} </td>
+                        <!--building-->
+                        <td> {{ $classroom->building }} </td>
+                        <!--If vaccant-->
+                        <td> No </td>
                         <!--Action-->
                         <td><a href="{{ route('classroom.edit', $classroom->id) }}">Edit</a> |
                             <form method="POST" action="{{ route('classroom.destroy', $classroom->id) }}">
@@ -41,6 +65,6 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('classroom.create')}}"> Add a Room</a>
+        <a href="{{ route('classroom.create') }}"> Add a Room</a>
     </div>
 @endsection

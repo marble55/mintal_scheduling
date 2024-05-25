@@ -12,8 +12,10 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $classrooms = Classroom::all();
-        return view('classroom.table-classroom', compact('classrooms'));
+        $classroomsWithSchedules = Classroom::whereHas('schedules')->get();
+        $classroomsWithoutSchedules = Classroom::whereDoesntHave('schedules')->get();
+        
+        return view('classroom.table-classroom', compact(['classroomsWithSchedules', 'classroomsWithoutSchedules']));
     }
 
     /**

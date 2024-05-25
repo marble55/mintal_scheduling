@@ -23,7 +23,14 @@ class AcademicCalendarController extends Controller
      */
     public function create()
     {  
-        return view('academic_year.settings-academic-year');
+        $currentSemester = $this->currentAcademicCalendar->getCurrentSemesterName();
+        $currentYear = $this->currentAcademicCalendar->getCurrentYearName();
+        
+
+        return view('academic_year.settings-academic-year', compact(
+            'currentSemester',
+            'currentYear',    
+        ));
     }
 
     /**
