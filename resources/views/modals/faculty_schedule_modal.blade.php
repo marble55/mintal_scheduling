@@ -82,7 +82,7 @@
                                         <td>{{ $schedule->day }}</td>
                                         <td>
                                             @foreach ($schedule->time_slots as $time_slot)
-                                                {{ $time_slot->time_start . '-' . $time_slot->time_end }}
+                                                {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                                             @endforeach
                                         </td>
                                         <td>{{ $schedule->subject->subject_code }}</td>
