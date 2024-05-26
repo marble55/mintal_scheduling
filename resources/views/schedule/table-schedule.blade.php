@@ -19,7 +19,6 @@
                     <th>Lab</th>
                     <th>Classroom ID</th>
                     <th>Block ID</th>
-                    <th>School Year</th>
                     <th>Semester</th>
                     <th>Action</th>
 
@@ -40,7 +39,6 @@
                         <td>{{ $schedule->is_lab }}</td>
                         <td>{{ $schedule->classroom->room ?? '' }}</td>
                         <td>{{ $schedule->block->section ?? '' }}</td>
-                        <td>{{ $schedule->school_year->academic_year }}</td>
                         <td>{{ $schedule->semester->name }}</td>
 
                         <td>

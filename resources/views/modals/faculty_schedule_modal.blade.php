@@ -58,25 +58,27 @@
                 </div>
 
                 <div class="container pt-5">
-                    <form action="{{ route('schedule.store') }}" method="POST">
+                    <form id="assign-schedule" action="{{ route('facultySchedule.update', $faculty->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <!-- Table for displaying schedules -->
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Sched ID</th>
+                                    <th>Add Schedule</th>
                                     <th>Day</th>
                                     <th>Time Slot</th>
                                     <th>Subject ID</th>
                                     <th>Is Lab?</th>
-                                    <th>Class ID</th>
+                                    <th>Classroom</th>
                                     <th>Block ID</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($schedules as $schedule)
                                     <tr>
-                                        <td>{{ $schedule->id }}</td>
+                                        <td><input type="checkbox" name="schedules[{{ $schedule->id }}]" id="schedule_checkbox">
+                                        </td>
                                         <td>{{ $schedule->day }}</td>
                                         <td>
                                             @foreach ($schedule->time_slots as $time_slot)
@@ -96,8 +98,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Save changes</button>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        function submitForm() {
+            document.getElementById('assign-schedule').submit();
+        }
+    </script>
+@endpush

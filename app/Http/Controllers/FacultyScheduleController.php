@@ -82,7 +82,16 @@ class FacultyScheduleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $schedules = array_keys($request->input('schedules'));
+        
+        foreach($schedules as $schedule){
+            $schedule = Schedule::find($schedule);
+            $schedule->faculty_id = $id;
+            $schedule->save();
+        }
+        
+        return redirect()->back()->with('message', 'Schedules added to faculty');
     }
 
     /**
@@ -90,6 +99,10 @@ class FacultyScheduleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $schedule = Schedule::find($id);
+        $schedule->faculty_id = null;
+        $schedule->save();
+        return redirect()->back()->with('message', 'Schedule has been removed from faculty!');
+
     }
 }

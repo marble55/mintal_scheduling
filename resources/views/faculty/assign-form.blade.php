@@ -21,8 +21,15 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-center">
                                         <br>
-                                        <button type="button" id="submit" name="submit" class="btn btn-primary"
-                                            style="background-color: rgb(161, 49, 49); border:white;">Add Image</button>
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                            <div>
+                                                <label for="image">Choose Image:</label>
+                                                <input type="file" name="image" id="image">
+                                            </div>
+                                            <br>
+                                            <button type="button" id="submit" name="submit" class="btn btn-primary"
+                                                style="background-color: rgb(161, 49, 49); border:white;">Upload Image</button>
+                                        </form>
                                         <button type="button" id="submit" name="submit" class="btn btn-secondary"
                                             style="border:white;">Remove Image</button>
                                     </div>
@@ -38,7 +45,10 @@
                     <div class="card-body">
 
                         <!-- Form -->
-                        <form action="{{ route('faculty.store') }}" method="POST">
+                        <form method="POST" action="{{ $action === 'update' ? route('faculty.update', $faculty->id) : route('faculty.store') }}">
+                            @if ($action === 'update')
+                                @method('PUT')
+                            @endif
                             @csrf
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -91,7 +101,7 @@
                                     <div class="form-group">
                                         <label for="designation">Designation (Optional)</label>
                                         <input type="text" class="form-control" name="designation" value="{{ $faculty->designation ?? '' }}"
-                                            placeholder="Enter Designation" required maxlength="255">
+                                            placeholder="Enter Designation" maxlength="255">
                                     </div>
                                 </div>
                                 <!-- designation_load -->

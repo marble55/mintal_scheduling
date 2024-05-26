@@ -9,7 +9,7 @@
         <!-- <img src="table.png"></img> -->
     </div>
     <div class="container pt-5">
-        <table id="example" class="table table-striped" style="width:100%">
+        <table id="example" class="table table-striped">
             <thead>
                 <tr>
                     <th>Classroom ID</th>
