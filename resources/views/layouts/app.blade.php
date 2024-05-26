@@ -30,7 +30,9 @@
     <div class="wrapper">
         <!-- Sidebar -->
         <aside id="sidebar" class="bg-dark-maroon">
-            @include('layouts.sidebar')
+            <div class="sidebar-wrapper" style="position:fixed;">
+                @include('layouts.sidebar')
+            </div>
         </aside>
         <div class="topbar-wrapper">
             <div class="topbar-content">
