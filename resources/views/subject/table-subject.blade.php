@@ -37,12 +37,13 @@
                         <td>{{ $subject->load }}</td>
 
                         <!--Action-->
-                        <td><a href="{{ route('subject.edit', $subject->id) }}">Edit</a>
+                        <td >
+                            <a href="{{ route('subject.edit', $subject->id) }}">Edit</a>
                             <form method="POST" action="{{ route('subject.destroy', $subject->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{ route('subject.destroy', $subject->id) }}"
-                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);" class="text-danger">Delete</a>
                             </form>
                         </td>
                     </tr>

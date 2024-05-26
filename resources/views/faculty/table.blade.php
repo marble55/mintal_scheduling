@@ -31,9 +31,6 @@
                         </td>
                         <!--First Name-->
                         <td>{{ $faculty->first_name }}
-                            @if ($faculty->is($faculty->program_head->faculty))
-                                (You)
-                            @endif
                         </td>
                         <!--last name-->
                         <td>{{ $faculty->last_name }}</td>
@@ -44,19 +41,22 @@
                         <!--Designation-->
                         {{-- <td>{{ $faculty->designation_id }}</td> --}}
                         <!--Program Head-->
-                        <td>{{ $faculty->program_head->name }}</td>
+                        <td>{{ $faculty->program_head->name ?? '' }}</td>
                         <!--Date Added-->
                         @php $dateTime = \Carbon\Carbon::parse($faculty->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>
                         <!--Action-->
-                        <td><a href="{{ route('faculty.edit', $faculty) }}">Edit</a> |
-                            <form method="POST" action="{{ route('faculty.destroy', $faculty) }}">
+                        <td class="d-flex align-items-center gap-3">
+                            <a href="{{ route('faculty.edit', $faculty) }}">Edit</a>
+                            <form method="POST" action="{{ route('faculty.destroy', $faculty) }}" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{ route('faculty.destroy', $faculty) }}"
-                                    onclick="event.preventDefault(); confirmDeletion(event, this);">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);" class="text-danger">Delete</a>
                             </form>
                         </td>
+                        
+                        
 
 
                     </tr>

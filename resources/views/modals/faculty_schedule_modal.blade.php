@@ -88,7 +88,7 @@
                                         <td>{{ $schedule->subject->subject_code }}</td>
                                         <td>{{ $schedule->is_lab ? 'Yes' : 'No' }}</td>
                                         <td>{{ $schedule->classroom->room }}</td>
-                                        <td>{{ $schedule->block->section }}</td>
+                                        <td>{{ $schedule->block->section ?? '' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

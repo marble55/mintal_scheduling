@@ -157,7 +157,7 @@
 
                     </div>
                     <!-- Add Button -->
-                    <button class="btn btn-primary btn-lg w-100"
+                    <button class="btn btn-primary btn-lg w-80"
                         style="border: white; background-color: rgb(161, 49, 49);">{{ ucfirst($action) }}</button>
                     </form>
                 </div>
