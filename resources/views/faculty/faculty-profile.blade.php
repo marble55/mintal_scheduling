@@ -87,19 +87,24 @@
         </div>
     </div>
     <div class="container pt-5">
-        <table id="example" class="table table-striped" style="width:100%">
-            <thead>
+        <h4>Schedules</h4>
+        <table class="table table-bordered table-striped border-dark" style="width:100%">
+            <thead class="table-dark">
                 <tr>
-                    <th>Subject Code</th>
-                    <th>Description</th>
-                    <th>YR/Block</th>
-                    <th>Unit:Lec</th>
-                    <th>Unit:Lab</th>
-                    <th>Sched:Day</th>
-                    <th>Sched:Time</th>
-                    <th>Sched:Room</th>
-                    <th>Faculty Load</th>
-                    <th>Action</th>
+                    <th rowspan="2" class="align-middle">Subject Code</th>
+                    <th rowspan="2" class="align-middle">Description</th>
+                    <th rowspan="2" class="align-middle">YR/Block</th>
+                    <th colspan="2" class="text-center">Unit</th>
+                    <th colspan="3" class="text-center">Schedule</th>
+                    <th rowspan="2" class="align-middle">Faculty Load</th>
+                    <th rowspan="2" class="align-middle">Action</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Lec</th>
+                    <th class="text-center">Lab</th>
+                    <th class="text-center">DAY</th>
+                    <th class="text-center">TIME</th>
+                    <th class="text-center">ROOM</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,14 +115,14 @@
                         <td>{{ $schedule->block->course . ' ' . $schedule->block->section }}</td>
                         <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
                         <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
-                        <td>{{ $schedule->day }}</td>
-                        <td>
+                        <td class="text-center">{{ $schedule->day }}</td>
+                        <td class="text-center">
                             @foreach ($schedule->time_slots as $time_slot)
                                 {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                             @endforeach
                         </td>
-                        <td>{{ $schedule->classroom->room }}</td>
-                        <td>{{ $schedule->subject->load }}</td>
+                        <td class="text-center">{{ $schedule->classroom->room }}</td>
+                        <td class="text-center">{{ $schedule->subject->load }}</td>
                         <td>
                             <form method="POST" action="{{ route('facultySchedule.destroy', $schedule->id) }}">
                                 @csrf
@@ -130,39 +135,32 @@
                 @endforeach
                 @if ($faculty->designation)
                     <tr>
-                        <td>TD</td>
-                        <td>{{ $schedule->faculty->designation }}</td>
                         <td></td>
+                        <td>{{ $schedule->faculty->designation ?? 'test' }}</td>
+                        <td colspan="6"></td>
+                        <td class="text-center">{{ $schedule->faculty->designation_load }}</td>
                         <td></td>
+                    </tr>
+                @endif
+                @if ($totalLoad > 25)
+                    <tr class="table-warning">
                         <td></td>
+                        <td class="text-danger">Total Load:</td>
+                        <td colspan="6" class="text-danger">Warning: Total Load Greater Than 25</td>
+                        <td class="text-center text-danger">{{ $totalLoad }}</td>
                         <td></td>
+                    </tr>
+                @else
+                    <tr>
                         <td></td>
-                        <td></td>
-                        <td>{{ $schedule->faculty->designation_load }}</td>
+                        <td>Total Load:</td>
+                        <td colspan="6"></td>
+                        <td class="text-center">{{ $totalLoad }}</td>
                         <td></td>
                     </tr>
                 @endif
             </tbody>
         </table>
-
-        <div>
-            @if ($totalLoad > 25)
-                <div class="border border-danger border-1 rounded p-2 w-25 h-25 mb-2 mt-2">
-                    <h5 style="font-weight: 500; margin-top: 1.5rem;">Total Load:
-                        <span style="color: red">{{ $totalLoad }}</span>
-                    </h5>
-                    <h6 style="margin-bottom: 1rem; color: red;">Total Load exceeds 25</h6>
-                </div>
-            @else
-                <div class="border border-danger border-1 rounded p-2 w-25 h-25 mb-2 mt-2">
-                    <h5 style="font-weight: 500; margin: 1.5rem 0;">Total Load:
-                        <span>{{ $totalLoad }}</span>
-                    </h5>
-                </div>
-            @endif
-
-        </div>
-
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScheduleModal">Add Schedule</button>
     </div>
     @include('modals.faculty_schedule_modal', [

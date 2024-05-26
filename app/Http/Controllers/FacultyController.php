@@ -24,13 +24,12 @@ class FacultyController extends Controller
     {
 
         $category = request('category');
-        
-        if($category === "part-timer")
-        {
+
+        if ($category === "part-timer") {
             $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '1')->get();
-        }else{
+        } else {
             $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '0')->get();
-        } 
+        }
         return view('faculty.table', compact('faculties', 'category'));
     }
 
@@ -50,7 +49,7 @@ class FacultyController extends Controller
         // dd($request->all());
         $request->user()->faculties()
             ->create($request->all());
-            
+
         return redirect()->route('faculty.index', ['category' => 'graduate'])->with('message', 'The Action is successful!');
     }
 
@@ -63,17 +62,31 @@ class FacultyController extends Controller
         $semesters = Semester::all();
         $sy = SchoolYear::all();
         $subjects = Subject::all();
-        $classrooms =  Classroom::all();
+        $classrooms = Classroom::all();
         $blocks = Block::all();
 
-        $subjectLoad = $faculty->schedules()->leftJoin('subject','subject.id','=','subject_id')->sum('load');
+        $subjectLoad = $faculty->schedules()
+                        ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
+                        ->select('schedule.*')
+                        ->sum('load');
+
         $facultyLoad = $faculty->designation_load;
         $totalLoad = $subjectLoad + $facultyLoad;
 
-        $allSchedules = Schedule::all()->whereNull('faculty_id')->where('semesters_id', '=', $academicCalendar->getCurrentSemester());
-        $schedules = $faculty->schedules()->getResults();
+        $allSchedules = Schedule::where('semesters_id', '=', $academicCalendar->getCurrentSemester())
+                        ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
+                        ->select('schedule.*')
+                        ->orderBy('subject_code')
+                        ->get();
+
+        $schedules = $faculty->schedules()
+                        ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
+                        ->select('schedule.*')
+                        ->orderBy('subject_code')
+                        ->get();
+
         return view('faculty.faculty-profile', compact(
-            'faculty', 
+            'faculty',
             'schedules',
             'sy',
             'classrooms',
@@ -83,15 +96,16 @@ class FacultyController extends Controller
             'sy',
             'allSchedules',
             'totalLoad',
-        ));
+        )
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Faculty $faculty)
-    {   
-        
+    {
+
         return view('faculty.assign-form', compact('faculty'))->with(['action' => 'update']);
     }
 
@@ -109,15 +123,16 @@ class FacultyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Faculty $faculty):RedirectResponse
-    {   
+    public function destroy(Faculty $faculty): RedirectResponse
+    {
         //Gate::authorize('delete', $faculty);
 
         $part_timer = $faculty->getAttribute('is_part_timer');
 
-        if($part_timer){
+        if ($part_timer) {
             $category = 'part-timer';
-        }else $category = 'graduate';
+        } else
+            $category = 'graduate';
 
         $faculty->delete();
 

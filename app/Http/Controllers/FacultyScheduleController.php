@@ -98,7 +98,8 @@ class FacultyScheduleController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
+    {   
+        // dd($id);
         $schedule = Schedule::find($id);
         $schedule->faculty_id = null;
         $schedule->save();
