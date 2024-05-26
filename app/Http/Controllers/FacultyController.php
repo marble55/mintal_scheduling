@@ -9,6 +9,8 @@ use App\Models\Schedule;
 use App\Models\SchoolYear;
 use App\Models\Semester;
 use App\Models\Subject;
+use App\Services\AcademicCalendarService;
+use App\Services\ScheduleService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -55,7 +57,7 @@ class FacultyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Faculty $faculty)
+    public function show(Faculty $faculty, AcademicCalendarService $academicCalendar)
     {
         // Temporary and should be removed later
         $semesters = Semester::all();
@@ -68,7 +70,7 @@ class FacultyController extends Controller
         $facultyLoad = $faculty->designation_load;
         $totalLoad = $subjectLoad + $facultyLoad;
 
-        $allSchedules = Schedule::all()->whereNull('faculty_id');
+        $allSchedules = Schedule::all()->whereNull('faculty_id')->where('semesters_id', '=', $academicCalendar->getCurrentSemester());
         $schedules = $faculty->schedules()->getResults();
         
 

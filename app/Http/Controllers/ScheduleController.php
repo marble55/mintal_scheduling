@@ -12,6 +12,7 @@ use App\Models\Subject;
 use App\Services\AcademicCalendarService;
 use App\Services\CurrentSemesterService;
 use App\Services\ScheduleService;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -37,7 +38,7 @@ class ScheduleController extends Controller
             'faculty', 'semester', 'school_year',
             'subject', 'classroom', 'block',  'time_slots'
         ])->where('semesters_id', '=', $this->currentSemester)->get();
-
+        
         return view('schedule.table-schedule', compact('schedules'));
     }
 
@@ -110,8 +111,8 @@ class ScheduleController extends Controller
     public function update(Request $request, string $id, ScheduleService $scheduleService)
     {
         // dd($request->all());
-        $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id);
-        
+        $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id, $this->currentSemester);
+
         if($result['success']){
             return redirect()->route('schedule.index')->with('message', 'Schedule Updated!');
         } else{

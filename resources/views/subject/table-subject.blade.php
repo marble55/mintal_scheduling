@@ -8,11 +8,12 @@
         <br>
         <!-- <img src="table.png"></img> -->
     </div>
-    <div class="container pt-5" style="margin-bottom:-5%;">
+    <div class="container pt-5" style="margin-bottom: 5%;">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Subject ID</th>
+                    <th>Program</th>
                     <th>Subject Code</th>
                     <th>Description</th>
                     <th>Lec</th>
@@ -26,6 +27,9 @@
                 @foreach ($subjects as $subject)
                     <tr>
                         <td>{{ $subject->id }}</td>
+                        <td>
+                            <p class="fw-bold">{{ $subject->is_graduate_program ? 'Graduate' : 'Undergraduate' }}</p>
+                        </td>
                         <td>{{ $subject->subject_code }}</td>
                         <td>{{ $subject->description }}</td>
                         <td>{{ $subject->units_lecture }}</td>

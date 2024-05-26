@@ -49,13 +49,13 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="first_name">
-                                        <h6 style="font-weight:600;">Full Name</h6>
+                                            <h6 style="font-weight:600;">Full Name</h6>
                                         </label>
                                         <br>
-                                        <label for="id_usep">{{ $faculty->first_name.' '.$faculty->last_name }}</label>
+                                        <label for="id_usep">{{ $faculty->first_name . ' ' . $faculty->last_name }}</label>
                                     </div>
                                 </div>
-                                
+
                                 <!-- remarks -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
                                     <div class="form-group">
@@ -70,14 +70,14 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
                                     <div class="form-group">
                                         <label for="remarks">
-                                        <h6 style="font-weight:600;">Part-timer?</h6>
+                                            <h6 style="font-weight:600;">Part-timer?</h6>
                                         </label>
                                         <br>
                                         <label for="id_usep">
                                             {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
                                         </label>
-                                    </div>  
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                             <br>
                         </form>
@@ -117,7 +117,7 @@
                         <td>{{ $schedule->day }}</td>
                         <td>
                             @foreach ($schedule->time_slots as $time_slot)
-                                {{ $time_slot->time_start . '-' . $time_slot->time_end }}
+                                {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                             @endforeach
                         </td>
                         <td>{{ $schedule->classroom->room }}</td>
@@ -150,16 +150,20 @@
         </table>
 
         <div>
-                @if ($totalLoad > 25)
-                <h5 style="font-weight: 500; margin-top: 1.5rem;">Total Load:
-                    <span style="color: red">{{ $totalLoad }}</span>
-                </h5>
-                <h6 style="margin-bottom: 1rem; color: red;">Total Load exceeds 25</h6>
-                @else
-                <h5 style="font-weight: 500; margin: 1.5rem 0;">Total Load:
-                    <span>{{ $totalLoad }}</span>
-                </h5>
-                @endif
+            @if ($totalLoad > 25)
+                <div class="border border-danger border-1 rounded p-2 w-25 h-25 mb-2 mt-2">
+                    <h5 style="font-weight: 500; margin-top: 1.5rem;">Total Load:
+                        <span style="color: red">{{ $totalLoad }}</span>
+                    </h5>
+                    <h6 style="margin-bottom: 1rem; color: red;">Total Load exceeds 25</h6>
+                </div>
+            @else
+                <div class="border border-danger border-1 rounded p-2 w-25 h-25 mb-2 mt-2">
+                    <h5 style="font-weight: 500; margin: 1.5rem 0;">Total Load:
+                        <span>{{ $totalLoad }}</span>
+                    </h5>
+                </div>
+            @endif
 
         </div>
 

@@ -12,7 +12,7 @@ class ScheduleService
     public function createSchedule(array $data, $currentSemester, $currentYear)
     {
         //check if DAY, ROOM, TIME already exists
-        $constraintResult = $this->checkScheduleConstraint($data);
+        $constraintResult = $this->checkScheduleConstraint($data, $currentSemester);
 
         if ($constraintResult['check'] == 'error') {
             return ['success' => false, 'message' => 'Schedule conflict found.'];
@@ -31,16 +31,16 @@ class ScheduleService
         return ['success' => true, 'message' => 'New schedule added!'];
     }
 
-    public function updateSchedule(array $data, $id)
+    public function updateSchedule(array $data, $id, $currentSemester)
     {
         if (isset($data['day']) && isset($data['classroom_id'])) {
             //check if DAY, ROOM, TIME already exists
-            $constraintResult = $this->checkScheduleConstraint($data);
+            $constraintResult = $this->checkScheduleConstraint($data, $currentSemester);
             if ($constraintResult['check'] == 'error') {
                 return ['success' => false, 'message' => 'Schedule conflict found with scheduleID:00'.$constraintResult['schedule_id']];
             }//'Schedule conflict found with scheduleID:00'.$result['schedule_id']
 
-            $constraintResult = $this->checkFacultyScheduleConstraint($data);
+            $constraintResult = $this->checkFacultyScheduleConstraint($data, $currentSemester);
             if ($constraintResult['check'] == 'error') {
                 return ['success' => false, 'message' => 'Schedule conflict found for faculty'];
             }
@@ -60,7 +60,7 @@ class ScheduleService
     }
 
 
-    public function checkScheduleConstraint(array $scheduleInputs, Collection $schedulesByFaculty = null)
+    public function checkScheduleConstraint(array $scheduleInputs, $currentSemester ,Collection $schedulesByFaculty = null)
     {
         $days = $scheduleInputs['day'];
         $classroom_id = $scheduleInputs['classroom_id'];
@@ -72,7 +72,7 @@ class ScheduleService
 
             //gets the data with the day
             $schedules = $schedulesByFaculty ?? Schedule::where('classroom_id', '=', $classroom_id)
-                ->where('day', 'LIKE', '%' . $day . '%')->with('time_slots')->get();
+                ->where('day', 'LIKE', '%' . $day . '%')->where('semesters_id', '=' , $currentSemester)->with('time_slots')->get();
 
             foreach ($schedules as $schedule) {
                 //gets the time_slot for the schedule
@@ -101,14 +101,14 @@ class ScheduleService
         return ['check' => 'noError'];
     }
 
-    public function checkFacultyScheduleConstraint(array $data)
+    public function checkFacultyScheduleConstraint(array $data, $currentSemester)
     {
 
         $faculty = Faculty::findOrFail($data['faculty_id']);
         $schedules = $faculty->schedules()->get();
 
         if ($schedules->count() > 0) {
-            $result = $this->checkScheduleConstraint($data, $schedules);
+            $result = $this->checkScheduleConstraint($data, $currentSemester, $schedules);
             return $result;
         }
 

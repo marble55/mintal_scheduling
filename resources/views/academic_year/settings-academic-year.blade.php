@@ -10,7 +10,7 @@
 
             <div class="form-group">
                 <label for="semester">Select Semester:</label>
-                <select name="semester_id" id="semester" class="form-control">
+                <select id="semester_select" name="semester_id" id="semester" class="form-control">
                     <option value="1">1st Semester</option>
                     <option value="2">2nd Semester</option>
                     <option value="3">Summer</option>
@@ -28,3 +28,7 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script>document.getElementById("semester_select").value = "{{ app('current_academic_year')->getCurrentSemester() }}";</script>
+@endpush
