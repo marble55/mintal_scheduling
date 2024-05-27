@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="row align-items-center justify-content-center">
-        <div class="col col-sm-6 col-lg-7 col-xl-6">
+        <div class="col col-sm-6 col-lg-7 col-xl-10">
             <!-- Title -->
             <div class="text-center mb-5">
                 <h3 class="fw-bold">{{ ucfirst($action) }} Schedule</h3>
@@ -112,24 +112,22 @@
                         <!-- Day Input -->
                         <label for="">Days:</label><br>
                         <div class="input-group mb-3">
-                            <span class="input-group-checkbox">
-                                <i class='bx bx-user-pin'></i>
-                            </span>
+                            
 
                             <input type="checkbox" id="day-monday" name="day[]" value="M">
-                            <label for="day-monday">Monday</label><br>
+                            <label for="day-monday" class="form-check-label me-2">Monday</label><br>
 
                             <input type="checkbox" id="day-tuesday" name="day[]" value="T">
-                            <label for="day-tuesday">Tuesday</label><br>
+                            <label for="day-tuesday" class="form-check-label me-2">Tuesday</label><br>
 
                             <input type="checkbox" id="day-wednesday" name="day[]" value="W">
-                            <label for="day-wednesday">Wednesday</label><br>
+                            <label for="day-wednesday" class="form-check-label me-2">Wednesday</label><br>
 
                             <input type="checkbox" id="day-thursday" name="day[]" value="TH">
-                            <label for="day-thursday">Thursday</label><br>
+                            <label for="day-thursday" class="form-check-label me-2">Thursday</label><br>
 
                             <input type="checkbox" id="day-friday" name="day[]" value="F">
-                            <label for="day-friday">Friday</label><br>
+                            <label for="day-friday" class="form-check-label me-2">Friday</label><br>
 
                             <input type="checkbox" id="day-saturday" name="day[]" value="S">
                             <label for="day-saturday">Saturday</label><br>
@@ -159,7 +157,7 @@
 
                     </div>
                     <!-- Add Button -->
-                    <button class="btn btn-primary btn-lg w-100"
+                    <button class="btn btn-primary btn-lg w-80"
                         style="border: white; background-color: rgb(161, 49, 49);">{{ ucfirst($action) }}</button>
                     </form>
                 </div>

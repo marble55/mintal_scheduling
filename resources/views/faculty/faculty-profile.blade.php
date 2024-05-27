@@ -8,6 +8,11 @@
         <br>
     </div>
     <div class="container">
+        @if ($faculty->is_part_timer)
+            <a href="{{ route('faculty.index', ['category' => 'part-timer']) }}">Back</a>
+        @else
+            <a href="{{ route('faculty.index', ['category' => 'faculty']) }}">Back</a>
+        @endif
         <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
@@ -15,7 +20,11 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
+                                @if ($faculty->profile_image)
+                                    <img src="{{ Storage::url($faculty->profile_image) }}" alt="{{ $faculty->first_name }}'s profile image">
+                                @else
                                     <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -112,7 +121,11 @@
                     <tr>
                         <td>{{ $schedule->subject->subject_code }}</td>
                         <td>{{ $schedule->subject->description }}</td>
-                        <td>{{ $schedule->block->course . ' ' . $schedule->block->section }}</td>
+                        @if ($schedule->block)
+                            <td>{{ $schedule->block->course ?? '' . ' ' . $schedule->block->section ?? '' }}</td>
+                        @else
+                            <td></td>
+                        @endif
                         <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
                         <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
                         <td class="text-center">{{ $schedule->day }}</td>

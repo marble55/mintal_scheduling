@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Classroom;
 use App\Models\Faculty;
 use App\Models\Schedule;
@@ -46,11 +47,26 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // other validation rules
+        ]);
+    
         // dd($request->all());
-        $request->user()->faculties()
-            ->create($request->all());
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('profile_image', 'public');
+            
+            $request->merge(['profile_image' => $path]);
 
-        return redirect()->route('faculty.index', ['category' => 'graduate'])->with('message', 'The Action is successful!');
+        }
+
+        // dd($path);
+        // dd($request->all());
+
+        $request->user()->faculties()->create($request->all());
+    
+        return redirect()->route('faculty.index', ['category' => 'faculty'])
+            ->with('message', 'The Action is successful!');
     }
 
     /**
@@ -115,9 +131,29 @@ class FacultyController extends Controller
     public function update(Request $request, Faculty $faculty)
     {
         // dd($request->all());
+        // $faculty->fill($request->all());
+        // $faculty->update();
+        // return redirect()->route('faculty.index')->with('message', 'Faculty updated successfully');
+        $request->validate([
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // other validation rules
+        ]);
+    
+        if ($request->hasFile('profile_image')) {
+            // Delete the old image if it exists
+            if ($faculty->profile_image) {
+                Storage::disk('public')->delete($faculty->profile_image);
+            }
+    
+            $path = $request->file('profile_image')->store('profile_images', 'public');
+            $request->merge(['profile_image' => $path]);
+        }
+    
         $faculty->fill($request->all());
-        $faculty->update();
-        return redirect()->route('faculty.index')->with('message', 'Faculty updated successfully');
+        $faculty->save();
+    
+        return redirect()->route('faculty.index')
+            ->with('message', 'Faculty updated successfully');
     }
 
     /**

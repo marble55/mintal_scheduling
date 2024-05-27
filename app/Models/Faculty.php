@@ -24,6 +24,7 @@ class Faculty extends Model
         'user_id',
         'designation',
         'designation_load',
+        'profile_image',
     ];
 
     public static function createTempFaculty(): self

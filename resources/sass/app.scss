@@ -76,10 +76,13 @@ body{
     height: 100px;
     background-color: #ff4a4a;
 }
+.logo-tag h2{
+    font-size: clamp(1rem, 3vw, 2.5rem);
+}
 #sidebar .sidebar-wrapper .logo-tag{
     max-width: 70px;
     min-width: 70px;
-    transition: all 0.5s ease-out;
+    // transition: all 0.43s ease-out;
 }
 ::after,
 ::before {
@@ -121,13 +124,16 @@ h1 {
 #sidebar {
     width: 70px;
     z-index: 1000;
-    transition: all 0.5s ease;
+    transition: all 0.1s ease-out;
     display: flex;
     flex-direction: column;
 }
 #sidebar.expand, #sidebar.expand .logo-tag {
     width: 260px;
     min-width: 260px;
+}
+#sidebar .sidebar-wrapper{
+    transition: all 0.5s ease;
 }
 
 .toggle-btn {

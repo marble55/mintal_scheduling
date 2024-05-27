@@ -3,7 +3,7 @@
         <img src="{{ asset('dist/assets/images/CDM_Logo.png') }}" style="width:50px; height:50px;">
     </button>
     <div class="sidebar-logo">
-        <a href="#">USeP Mintal <br> Scheduling System</a>
+        <a href="#"><h2>UMSS</h2></a>
     </div>
 </div>
 <ul class="sidebar-nav">

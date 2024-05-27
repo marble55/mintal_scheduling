@@ -20,7 +20,7 @@
     {{-- ======JQUERY===== --}}
     @stack('styles')
     @stack('javascript-head')
-    <title>Mintal Scheduling System</title>
+    <title>USeP Mintal Scheduling System</title>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

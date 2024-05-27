@@ -8,7 +8,16 @@
         <br>
     </div>
     <div class="container">
-        
+        {{-- @if ($faculty->is_part_timer)
+        <a href="{{ route('faculty.index', ['category' => 'part-timer']) }}">Back</a>
+         @else
+        <a href="{{ route('faculty.index', ['category' => 'faculty']) }}">Back</a>
+        @endif --}}
+    <form action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @if(isset($faculty))
+                                            @method('PUT')
+                                        @endif
         <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
@@ -16,14 +25,25 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
+                                @if ($action == 'update' && $faculty->profile_image)
+                                    <img src="{{ Storage::url($faculty->profile_image) }}" alt="{{ $faculty->first_name }}'s profile image">
+                                @else
                                     <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
+                                @endif
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-center">
                                         <br>
-                                        <button type="button" id="submit" name="submit" class="btn btn-primary"
-                                            style="background-color: rgb(161, 49, 49); border:white;">Add Image</button>
-                                        <button type="button" id="submit" name="submit" class="btn btn-secondary"
+                                            <div>
+                                                <label for="image">Choose Image:</label>
+                                                <input type="file" name="image" id="image" accept="image/*"
+                                                style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            </div>
+                                            <br>
+                                            <!-- <button type="submit" id="submit" name="submit" class="btn btn-primary"
+                                                style="background-color: rgb(161, 49, 49); border:white;">{{ isset($faculty) ? 'Update' : 'Create' }}</button> -->
+                                        </form>
+                                        <button type="button" id="removeImageButton" name="submit" class="btn btn-secondary"
                                             style="border:white;">Remove Image</button>
                                     </div>
                                 </div>
@@ -36,14 +56,7 @@
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
-
-                        <!-- Form -->
-                        <form method="POST" action="{{ $action === 'update' ? route('faculty.update', $faculty->id) : route('faculty.store') }}">
-                            @if ($action === 'update')
-                                @method('PUT')
-                            @endif
-                            @csrf
-                            <div class="row gutters">
+                         <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <h6 class="details" style="color: rgb(161, 49, 49);">Set Personal Details</h6>
                                 </div>
@@ -102,7 +115,7 @@
                                     <div class="form-group">
                                         <label for="designation_load">Designation Load (Optional)</label> <!-- optional term is optional -->
                                         <input type="number" class="form-control" name="designation_load" value="{{ $faculty->designation_load ?? '' }}"
-                                            placeholder="Enter Usep ID" max="99.99" min="0">
+                                            placeholder="Enter Designation Load" max="99.99" min="0">
                                     </div>
                                 </div>
                             </div>
@@ -112,17 +125,42 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-right">
                                         <br>
-                                        <button type="submit" id="submit" name="submit"
-                                            class="btn btn-secondary">Cancel</button>
+                    
                                         <button type="submit" id="submit" name="submit" class="btn btn-primary"
-                                            style="background-color: rgb(161, 49, 49); border:white;">Submit</button>
+                                            style="background-color: rgb(161, 49, 49); border:white;">{{ isset($faculty) ? 'Update' : 'Create' }}</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.getElementById('image');
+        var removeButton = document.getElementById('removeImageButton');
+        var imgElement = document.querySelector('.user-avatar img');
+
+        removeButton.addEventListener('click', function() {
+            fileInput.value = ''; // Clear the file input
+
+            // Reset the displayed image to the default image
+            imgElement.src = '{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}';
+        });
+
+        fileInput.addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    imgElement.src = e.target.result; // Set the img src to the selected file
+                };
+                reader.readAsDataURL(file); // Read the selected file as a data URL
+            }
+        });
+    });
+
+    </script>
 @endsection

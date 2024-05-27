@@ -13,8 +13,16 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-center">
                                         <br>
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                        <div>
+                                            <label for="image">Choose Image:</label>
+                                            <input type="file" name="image" id="image">
+                                        </div>
+                                        <br>
                                         <button type="button" id="submit" name="submit" class="btn btn-primary"
-                                            style="background-color: rgb(161, 49, 49); border:white;">Add Image</button>
+                                            style="background-color: rgb(161, 49, 49); border:white;">Upload Image</button>
+                                        </form>
+
                                         <button type="button" id="submit" name="submit" class="btn btn-secondary"
                                             style="border:white;">Remove Image</button>
                                     </div>

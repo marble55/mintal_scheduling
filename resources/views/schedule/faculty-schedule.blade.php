@@ -138,7 +138,7 @@
                         </div>
                     </div>
                         <!-- Add Button -->
-                        <button class="btn btn-primary btn-lg w-100" style="border: white; background-color: rgb(161, 49, 49);">Add</button>
+                        <button class="btn btn-primary btn-lg w-auto" style="border: white; background-color: rgb(161, 49, 49);">Add</button>
                     </form>
                 </div>
             </div>
