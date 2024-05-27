@@ -40,9 +40,7 @@
                                                 style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
                                             </div>
                                             <br>
-                                            <!-- <button type="submit" id="submit" name="submit" class="btn btn-primary"
-                                                style="background-color: rgb(161, 49, 49); border:white;">{{ isset($faculty) ? 'Update' : 'Create' }}</button> -->
-                                        </form>
+                                           
                                         <button type="button" id="removeImageButton" name="submit" class="btn btn-secondary"
                                             style="border:white;">Remove Image</button>
                                     </div>

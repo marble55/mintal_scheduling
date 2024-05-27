@@ -23,6 +23,13 @@ body {
     border-radius: 8px;
     height: 125px;
 }
+.inforide-1 {
+    box-shadow: 1px 2px 8px 0px #f1f1f1;
+    background-color: white;
+    border-radius: 8px;
+    height: 160px;
+
+}
 
 .rideone i {
     font-size: 3.5rem;
@@ -50,7 +57,7 @@ body {
     padding-top: 30px;
     border-radius: 8px 0px 0px 8px;
     text-align: center;
-    height: 125px;
+    height: 160px;
     margin-left: 15px;
 }
 

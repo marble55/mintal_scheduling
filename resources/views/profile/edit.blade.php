@@ -14,16 +14,17 @@
                                     <div class="text-center">
                                         <br>
                                         <form action="" method="POST" enctype="multipart/form-data">
-                                        <div>
-                                            <label for="image">Choose Image:</label>
-                                            <input type="file" name="image" id="image">
-                                        </div>
+                                            <div>
+                                                <label for="image">Choose Image:</label>
+                                                <input type="file" name="image" id="image" accept="image/*"
+                                                style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            </div>
                                         <br>
                                         <button type="button" id="submit" name="submit" class="btn btn-primary"
                                             style="background-color: rgb(161, 49, 49); border:white;">Upload Image</button>
                                         </form>
 
-                                        <button type="button" id="submit" name="submit" class="btn btn-secondary"
+                                        <button type="button" id="removeImageButton" name="submit" class="btn btn-secondary"
                                             style="border:white;">Remove Image</button>
                                     </div>
                                 </div>
@@ -61,4 +62,30 @@
                 </div>
             </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var fileInput = document.getElementById('image');
+    var removeButton = document.getElementById('removeImageButton');
+    var imgElement = document.querySelector('.user-avatar img');
+
+    removeButton.addEventListener('click', function() {
+        fileInput.value = ''; // Clear the file input
+
+        // Reset the displayed image to the default image
+        imgElement.src = '{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}';
+    });
+
+    fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                imgElement.src = e.target.result; // Set the img src to the selected file
+            };
+            reader.readAsDataURL(file); // Read the selected file as a data URL
+        }
+    });
+});
+
+</script>
 @endsection
