@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -19,6 +20,37 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
+    }
+
+    public function updateImage(Request $request){
+        // dd($request->all());
+
+        $request->validate([
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $faculty = $request->user()->faculty;
+
+        if ($request->hasFile('image')) {
+            if ($faculty->profile_image) {
+                Storage::disk('public')->delete($faculty->profile_image);
+            }
+
+            $path = $request->file('image')->store('profile_image', 'public');
+
+            $request->merge(['profile_image' => $path]);
+        } elseif ($request->input('remove_img')) {
+            if ($faculty->profile_image) {
+                Storage ::disk('public')->delete($faculty->profile_image);
+            }
+
+            $request->merge(['profile_image' => null]);
+        }
+
+        $faculty->fill($request->all());
+        $faculty->update();
+
+        return redirect()->back()->with('message', 'Profile image has been updated!');
     }
 
     /**
