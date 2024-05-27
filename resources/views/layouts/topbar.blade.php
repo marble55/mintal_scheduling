@@ -3,8 +3,10 @@
         <div class="container-fluid position-relative">
             <!-- Navbar Brand (School Year and Semester) -->
             <div class="d-flex flex-column align-items-center position-absolute top-0 start-50 translate-middle-x">
-                <a class="navbar-brand fs-md-1 fs-lg-6 mb-1 mb-lg-0" style="color: black;">School Year: {{ app('current_academic_year')->getCurrentYearName() }}</a>
-                <span class="navbar-text fs-sm-1 fs-lg-6" style="color: black;">Semester: {{ app('current_academic_year')->getCurrentSemesterName() }}</span>
+                <a class="navbar-brand fs-md-1 fs-lg-6 mb-1 mb-lg-0" style="color: black;">School Year:
+                    {{ app('current_academic_year')->getCurrentYearName() }}</a>
+                <span class="navbar-text fs-sm-1 fs-lg-6" style="color: black;">Semester:
+                    {{ app('current_academic_year')->getCurrentSemesterName() }}</span>
             </div>
 
             <!-- Profile Dropdown -->
@@ -13,12 +15,18 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-pic">
-                            <img src="{{ asset('dist/assets/images/JIM.jpg') }}" alt="Profile Picture">
+                            @if (app('user_image'))
+                                <img src="{{ app('user_image') }}" alt="Profile Picture">
+                            @else
+                                <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}" alt="Profile Picture">
+                            @endif
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Account</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <!-- Logout Form -->
                             <form method="POST" action="{{ route('logout') }}">

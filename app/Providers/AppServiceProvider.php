@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\AcademicCalendarService;
 use App\Services\ScheduleService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(ScheduleService::class, function(){
             return new ScheduleService();
+        });
+
+        $this->app->singleton('user_image', function($app){
+            return Auth::user()->faculty->profile_image;
         });
     }
 
