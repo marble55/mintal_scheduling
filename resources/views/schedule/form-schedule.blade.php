@@ -36,8 +36,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="faculty_id" id="faculty_select"
-                                    autofocus>
+                                <select name="faculty_id" id="faculty_select" autofocus>
                                     <option value="">No Assigned</option>
                                     @foreach ($faculties as $faculty)
                                         <option value="{{ $faculty->id }}">
@@ -52,8 +51,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="subject_id" id="subject_select"
-                                    required>
+                                <select name="subject_id" id="subject_select" required>
                                     <option value="">No Assigned</option>
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">
@@ -110,10 +108,8 @@
                         <!-- Right Column -->
                         <!-- Add the rest of your input fields here -->
                         <!-- Day Input -->
-                        <label for="">Days:</label><br>
-                        <div class="input-group mb-3">
-                            
-
+                        <label for="form-check_day">Days:</label><br>
+                        <div id="form-check_day" class="form-check form-check-inline mb-3">
                             <input type="checkbox" id="day-monday" name="day[]" value="M">
                             <label for="day-monday" class="form-check-label me-2">Monday</label><br>
 
@@ -129,32 +125,37 @@
                             <input type="checkbox" id="day-friday" name="day[]" value="F">
                             <label for="day-friday" class="form-check-label me-2">Friday</label><br>
 
-                            <input type="checkbox" id="day-saturday" name="day[]" value="S">
+                            <input type="checkbox" id="day-saturday" name="day[]" value="SAT">
                             <label for="day-saturday">Saturday</label><br>
+
+                            <input type="checkbox" id="day-saturday" name="day[]" value="SUN">
+                            <label for="day-saturday">Sunday</label><br>
                         </div>
 
-                        <!-- Time Start Input -->
-                        <label for="time-start_input">Time Start:</label><br>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">
-                                <i class='bx bx-time'></i>
-                            </span>
-                            <input type="time" id="time-start_input" class="form-control form-control-lg fs-6"
-                                name="time_start" placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}"
-                                required>
-                        </div>
+                        <div>
+                            <!-- Time Start Input -->
+                            <label for="time-start_input">Time Start:</label><br>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class='bx bx-time'></i>
+                                </span>
+                                <input type="time" id="time-start_input" class="form-control form-control-lg fs-6"
+                                    name="time_start" placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}"
+                                    required>
+                            </div>
 
-                        <!-- Time End Input -->
-                        <label for="time-end_input">Time End:</label><br>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">
-                                <i class='bx bx-time'></i>
-                            </span>
-                            <input type="time" class="form-control form-control-lg fs-6" name="time_end"
-                                placeholder="Time End" id="time-end_input" value="{{ $timeSlot->time_end ?? '' }}"
-                                required>
-                        </div>
+                            <!-- Time End Input -->
+                            <label for="time-end_input">Time End:</label><br>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class='bx bx-time'></i>
+                                </span>
+                                <input type="time" class="form-control form-control-lg fs-6" name="time_end"
+                                    placeholder="Time End" id="time-end_input" value="{{ $timeSlot->time_end ?? '' }}"
+                                    required>
+                            </div>
 
+                        </div>
                     </div>
                     <!-- Add Button -->
                     <button class="btn btn-primary btn-lg w-80"
@@ -172,17 +173,17 @@
         $('#faculty_select').select2()
         $('#subject_select').select2()
         $('#classroom_select').select2()
-        $('#block_select').select2()    
+        $('#block_select').select2()
     </script>
 @endpush
 
 @if ($action === 'update')
     @push('scripts')
-    <script>
-        $('#faculty_select').val('{{ $schedule->faculty_id }}').trigger('change');
-        $('#subject_select').val('{{ $schedule->subject_id }}').trigger('change');
-        $('#classroom_select').val('{{ $schedule->classroom_id }}').trigger('change');
-        $('#block_select').val('{{ $schedule->block_id }}').trigger('change');
-    </script>
+        <script>
+            $('#faculty_select').val('{{ $schedule->faculty_id }}').trigger('change');
+            $('#subject_select').val('{{ $schedule->subject_id }}').trigger('change');
+            $('#classroom_select').val('{{ $schedule->classroom_id }}').trigger('change');
+            $('#block_select').val('{{ $schedule->block_id }}').trigger('change');
+        </script>
     @endpush
 @endif

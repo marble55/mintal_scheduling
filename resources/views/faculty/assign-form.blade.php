@@ -13,7 +13,7 @@
          @else
         <a href="{{ route('faculty.index', ['category' => 'faculty']) }}">Back</a>
         @endif --}}
-    <form action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="faculty_form" action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @if(isset($faculty))
                                             @method('PUT')
@@ -40,10 +40,8 @@
                                                 style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
                                             </div>
                                             <br>
-                                            <!-- <button type="submit" id="submit" name="submit" class="btn btn-primary"
-                                                style="background-color: rgb(161, 49, 49); border:white;">{{ isset($faculty) ? 'Update' : 'Create' }}</button> -->
                                         </form>
-                                        <button type="button" id="removeImageButton" name="submit" class="btn btn-secondary"
+                                        <button type="button" id="removeImageButton" name="remove_img" class="btn btn-secondary"
                                             style="border:white;">Remove Image</button>
                                     </div>
                                 </div>
@@ -64,7 +62,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="id_usep">Usep ID</label>
-                                        <input type="text" class="form-control" name="id_usep" value="{{ $faculty->user_id ?? '' }}"
+                                        <input type="text" class="form-control" name="id_usep" value="{{ $faculty->id_usep ?? '' }}"
                                             placeholder="Enter Usep ID" required maxlength="10">
                                     </div>
                                 </div>
@@ -137,6 +135,31 @@
         </div>
     </form>
     </div>
+
+    @push('scripts')
+    <script>
+        document.getElementById('removeImageButton').addEventListener('click', function() {
+          this.classList.toggle('checked');
+          const isChecked = this.classList.contains('checked');
+    
+          // Remove any existing hidden input
+          const existingInput = document.querySelector('input[name="remove_img"]');
+          if (existingInput) {
+            existingInput.remove();
+          }
+    
+          // If the button is checked, add a hidden input to the form
+          if (isChecked) {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'remove_img';
+            hiddenInput.value = '1';
+            document.getElementById('faculty_form').appendChild(hiddenInput);
+          }
+        });
+      </script>
+
+      
     <script>
         document.addEventListener('DOMContentLoaded', function() {
         var fileInput = document.getElementById('image');
@@ -161,6 +184,6 @@
             }
         });
     });
-
     </script>
+    @endpush
 @endsection

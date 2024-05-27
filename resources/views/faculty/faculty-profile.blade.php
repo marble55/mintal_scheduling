@@ -20,11 +20,12 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
-                                @if ($faculty->profile_image)
-                                    <img src="{{ Storage::url($faculty->profile_image) }}" alt="{{ $faculty->first_name }}'s profile image">
-                                @else
-                                    <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
-                                @endif
+                                    @if ($faculty->profile_image)
+                                        <img src="{{ Storage::url($faculty->profile_image) }}"
+                                            alt="{{ $faculty->first_name }}'s profile image">
+                                    @else
+                                        <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -122,12 +123,21 @@
                         <td>{{ $schedule->subject->subject_code }}</td>
                         <td>{{ $schedule->subject->description }}</td>
                         @if ($schedule->block)
-                            <td>{{ $schedule->block->course ?? '' . ' ' . $schedule->block->section ?? '' }}</td>
+                            <td>{{ $schedule->block->course ?? ('' . ' ' . $schedule->block->section ?? '') }}</td>
                         @else
                             <td></td>
                         @endif
-                        <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
-                        <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
+
+                        @if ($schedule->is_lab)
+                            <td></td>
+                            <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
+                        @elseif (!$schedule->is_lab)
+                            <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
+                            <td></td>
+                        @else
+                            <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
+                            <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
+                        @endif
                         <td class="text-center">{{ $schedule->day }}</td>
                         <td class="text-center">
                             @foreach ($schedule->time_slots as $time_slot)
@@ -149,9 +159,9 @@
                 @if ($faculty->designation)
                     <tr>
                         <td></td>
-                        <td>{{ $schedule->faculty->designation ?? 'test' }}</td>
+                        <td>{{ $faculty->designation ?? 'test' }}</td>
                         <td colspan="6"></td>
-                        <td class="text-center">{{ $schedule->faculty->designation_load }}</td>
+                        <td class="text-center">{{ $faculty->designation_load ?? '' }}</td>
                         <td></td>
                     </tr>
                 @endif

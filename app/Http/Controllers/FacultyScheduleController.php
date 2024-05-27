@@ -84,9 +84,15 @@ class FacultyScheduleController extends Controller
     {
         // dd($request->all());
         $schedules = array_keys($request->input('schedules'));
-        
+        $faculty = Faculty::find($id);
+
         foreach($schedules as $schedule){
             $schedule = Schedule::find($schedule);
+
+            foreach($faculty->subjects as $facultySubj){
+                dd($facultySubj);
+            }
+
             $schedule->faculty_id = $id;
             $schedule->save();
         }

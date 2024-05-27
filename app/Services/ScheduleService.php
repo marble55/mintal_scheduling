@@ -24,6 +24,7 @@ class ScheduleService
         $data['semesters_id'] = $currentSemester;
         $data['sy_id'] = $currentYear;
 
+        dd($currentSemester);
         // Create schedule and update time slot
         $schedule = Schedule::create($data);
         $schedule->time_slots->first->update($data);

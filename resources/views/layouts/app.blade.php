@@ -91,16 +91,30 @@
     @endif
     <script src="{{ URL::asset('dist/assets/js/pdfmake.min.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/vfs_fonts.js') }}"></script>
-    <script src="{{ URL::asset('dist/assets/js/custom.js') }}"></script>
+
+    {{-- REMOVED FOR NOW FOR BUILDING PURPOSES --}}
+    {{-- <script src="{{ URL::asset('dist/assets/js/custom.js') }}"></script> --}}
     <script src="{{ URL::asset('dist/assets/js/sidebar.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/alerts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{{ asset('dist/assets/js/alerts.js') }}"></script>
-
-    
+    <script src="{{ asset('dist/assets/js/alerts.js') }}"></script>
     @stack('scripts')
+
+    <script>
+        var table = $('#example').DataTable({
+            order: [],
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            search: {
+                boundary: true
+            }
+
+        });
+
+        table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
+    </script>
 </body>
 
 </html>

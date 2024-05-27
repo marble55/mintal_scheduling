@@ -51,22 +51,22 @@ class FacultyController extends Controller
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             // other validation rules
         ]);
-    
-        // dd($request->all());
+
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_image', 'public');
-            
-            $request->merge(['profile_image' => $path]);
 
+            $request->merge(['profile_image' => $path]);
         }
 
-        // dd($path);
-        // dd($request->all());
-
         $request->user()->faculties()->create($request->all());
-    
-        return redirect()->route('faculty.index', ['category' => 'faculty'])
+
+        if($request->input('is_part_timer') == 1){
+            return redirect()->route('faculty.index', ['category' => 'part-timer'])
             ->with('message', 'The Action is successful!');
+        }else{
+            return redirect()->route('faculty.index', ['category' => 'faculty'])
+            ->with('message', 'The Action is successful!');
+        }
     }
 
     /**
@@ -82,37 +82,39 @@ class FacultyController extends Controller
         $blocks = Block::all();
 
         $subjectLoad = $faculty->schedules()
-                        ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-                        ->select('schedule.*')
-                        ->sum('load');
+            ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
+            ->select('schedule.*')
+            ->sum('load');
 
         $facultyLoad = $faculty->designation_load;
         $totalLoad = $subjectLoad + $facultyLoad;
 
         $allSchedules = Schedule::where('semesters_id', '=', $academicCalendar->getCurrentSemester())
-                        ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-                        ->select('schedule.*')
-                        ->orderBy('subject_code')
-                        ->get();
+            ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
+            ->select('schedule.*')
+            ->orderBy('subject_code')
+            ->get();
 
         $schedules = $faculty->schedules()
-                        ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-                        ->select('schedule.*')
-                        ->orderBy('subject_code')
-                        ->get();
+            ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
+            ->select('schedule.*')
+            ->orderBy('subject_code')
+            ->get();
 
-        return view('faculty.faculty-profile', compact(
-            'faculty',
-            'schedules',
-            'sy',
-            'classrooms',
-            'blocks',
-            'subjects',
-            'semesters',
-            'sy',
-            'allSchedules',
-            'totalLoad',
-        )
+        return view(
+            'faculty.faculty-profile',
+            compact(
+                'faculty',
+                'schedules',
+                'sy',
+                'classrooms',
+                'blocks',
+                'subjects',
+                'semesters',
+                'sy',
+                'allSchedules',
+                'totalLoad',
+            )
         );
     }
 
@@ -130,28 +132,29 @@ class FacultyController extends Controller
      */
     public function update(Request $request, Faculty $faculty)
     {
-        // dd($request->all());
-        // $faculty->fill($request->all());
-        // $faculty->update();
-        // return redirect()->route('faculty.index')->with('message', 'Faculty updated successfully');
         $request->validate([
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // other validation rules
         ]);
-    
-        if ($request->hasFile('profile_image')) {
-            // Delete the old image if it exists
+
+        if ($request->hasFile('image')) {
             if ($faculty->profile_image) {
                 Storage::disk('public')->delete($faculty->profile_image);
             }
-    
-            $path = $request->file('profile_image')->store('profile_images', 'public');
+
+            $path = $request->file('image')->store('profile_image', 'public');
+
             $request->merge(['profile_image' => $path]);
+        } elseif ($request->input('remove_img')) {
+            if ($faculty->profile_image) {
+                Storage::disk('public')->delete($faculty->profile_image);
+            }
+
+            $request->merge(['profile_image' => null]);
         }
-    
+
         $faculty->fill($request->all());
-        $faculty->save();
-    
+        $faculty->update();
+
         return redirect()->route('faculty.index')
             ->with('message', 'Faculty updated successfully');
     }
