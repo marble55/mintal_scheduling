@@ -20,17 +20,17 @@
 <body>
     <div class="row vh-100 g-0">
         <!-- Left Side -->
-        <div class="col-lg-6">
+        <div class="col-lg-6 d-none d-lg-block">
             <div class="bg-holder" style="background-image: url('{{ asset('dist/assets/images/MINTAL.jpg') }}"></div>
         </div>
 
         <!-- Right Side -->
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-12">
             <div class="bg-holder d-flex align-items-center justify-content-center g-0">
                 <div class="col col-sm-6 col-lg-7 col-xl-6">
                     <!-- Logo -->
                     <a href="#" class="d-flex justify-content-center mb-4">
-                        <img src="{{ asset('dist/assets/images/CDM_Logo.png') }}" alt="" width="200">
+                        <img src="{{ asset('dist/assets/images/CDM_Logo.png') }}" alt="" class="img-fluid" style="max-width: 200px; width: 100%;">
                     </a>
                     <div class="text-center">
                         <h3 class="fw-bold">Log In | Program Head</h3>

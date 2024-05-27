@@ -3,9 +3,10 @@
         <div class="container-fluid position-relative">
             <!-- Navbar Brand (School Year and Semester) -->
             <div class="d-flex flex-column align-items-center position-absolute top-0 start-50 translate-middle-x">
-                <a class="navbar-brand fs-5 mb-1 mb-lg-0" style="color: black;">School Year: {{ app('current_academic_year')->getCurrentYearName() }}</a>
-                <span class="navbar-text fs-6 fs-lg-1" style="color: black;">Semester: {{ app('current_academic_year')->getCurrentSemesterName() }}</span>
+                <a class="navbar-brand fs-md-1 fs-lg-6 mb-1 mb-lg-0" style="color: black;">School Year: {{ app('current_academic_year')->getCurrentYearName() }}</a>
+                <span class="navbar-text fs-sm-1 fs-lg-6" style="color: black;">Semester: {{ app('current_academic_year')->getCurrentSemesterName() }}</span>
             </div>
+
             <!-- Profile Dropdown -->
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item dropdown">
