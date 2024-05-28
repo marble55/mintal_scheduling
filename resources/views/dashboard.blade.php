@@ -9,7 +9,7 @@
 </div>
     <div class="content-wrapper">
         <div class="container-fluid">
-            <h3>Welcome Program Head {{ $user->name }}</h3>
+            <h3>Welcome Program Head, {{ $user->name }}</h3>
             <div class="row">
 
                 <!-- Icon Cards-->

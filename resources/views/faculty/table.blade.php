@@ -3,7 +3,11 @@
 @section('content')
     <div class="text-center">
         <h1>
-            {{ ucfirst($category) }}
+            @if ($category == 'part-timer')
+                Faculty Part-Timers
+            @else
+                Faculty
+            @endif
         </h1>
         <br>
     </div>
@@ -14,8 +18,6 @@
                     <th>Faculty ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Remarks</th>
-                    <th>Part-timer</th>
                     <th>Program Head</th>
                     <th>Date Added</th>
                     <th>Edit | Delete</th>
@@ -34,10 +36,6 @@
                         </td>
                         <!--last name-->
                         <td>{{ $faculty->last_name }}</td>
-                        <!--Remarks-->
-                        <td>{{ $faculty->remarks }}</td>
-                        <!--part-timer-->
-                        <td>{{ $faculty->is_part_timer ? 'Yes' : 'No' }}</td>
                         <!--Designation-->
                         {{-- <td>{{ $faculty->designation_id }}</td> --}}
                         <!--Program Head-->
@@ -52,11 +50,12 @@
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{ route('faculty.destroy', $faculty) }}"
-                                    onclick="event.preventDefault(); confirmDeletion(event, this);" class="text-danger">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);"
+                                    class="text-danger">Delete</a>
                             </form>
                         </td>
-                        
-                        
+
+
 
 
                     </tr>
@@ -64,7 +63,7 @@
 
             </tbody>
         </table>
-        <a href="{{route('faculty.create')}}"> Add a Faculty</a>
+        <a href="{{ route('faculty.create') }}"> Add a Faculty</a>
     </div>
     </body>
 @endsection

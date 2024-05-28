@@ -26,7 +26,7 @@ class ProfileController extends Controller
         // dd($request->all());
 
         $request->validate([
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $faculty = $request->user()->faculty;

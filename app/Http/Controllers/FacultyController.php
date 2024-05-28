@@ -48,25 +48,30 @@ class FacultyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             // other validation rules
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('profile_image', 'public');
+            $path = $request->file('image')->store('image', 'public');
 
             $request->merge(['profile_image' => $path]);
         }
 
-        $request->user()->faculties()->create($request->all());
-
-        if($request->input('is_part_timer') == 1){
-            return redirect()->route('faculty.index', ['category' => 'part-timer'])
-            ->with('message', 'The Action is successful!');
-        }else{
-            return redirect()->route('faculty.index', ['category' => 'faculty'])
-            ->with('message', 'The Action is successful!');
+        try {
+            $request->user()->faculties()->create($request->all());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('error', 'Faculty ID taken');
         }
+
+        if ($request->input('is_part_timer') == 1) {
+            return redirect()->route('faculty.index', ['category' => 'part-timer'])
+                ->with('message', 'The Action is successful!');
+        } else {
+            return redirect()->route('faculty.index', ['category' => 'faculty'])
+                ->with('message', 'The Action is successful!');
+        }
+
     }
 
     /**
@@ -133,7 +138,7 @@ class FacultyController extends Controller
     public function update(Request $request, Faculty $faculty)
     {
         $request->validate([
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {

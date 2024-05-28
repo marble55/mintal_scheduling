@@ -49,10 +49,25 @@ class TimeSlot extends Model
             })->exists();
     }
 
+    public function checkSpecificTimeEquals($old_time_start, $old_time_end, $new_time_start, $new_time_end)
+    {
+        if (
+            ($old_time_start <= $new_time_start && $new_time_start < $old_time_end) ||  // Partial overlap at the start
+            ($old_time_start < $new_time_end && $new_time_end <= $old_time_end) ||     // Partial overlap at the end
+            ($new_time_start <= $old_time_start && $new_time_end >= $old_time_end) ||  // Complete overlap
+            ($old_time_start == $new_time_start && $old_time_end == $new_time_end)
+        ) {  // Exact overlap
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     /**
      * @return string 12 hour time
      */
-    public function time_start_12hour():string
+    public function time_start_12hour(): string
     {
         $dateTime = DateTime::createFromFormat('H:i:s', $this->getAttribute('time_start'));
 
@@ -62,7 +77,7 @@ class TimeSlot extends Model
     /**
      * @return string 12 hour time
      */
-    public function time_end_12hour():string
+    public function time_end_12hour(): string
     {
         $dateTime = DateTime::createFromFormat('H:i:s', $this->getAttribute('time_end'));
 
@@ -71,7 +86,7 @@ class TimeSlot extends Model
 
     protected function casts(): array
     {
-        return[
+        return [
             'time_start' => 'date',
             'time_end' => 'date',
         ];

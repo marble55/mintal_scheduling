@@ -82,14 +82,14 @@
                                             placeholder="Enter Last name" required>
                                     </div>
                                 </div>
-                                <!-- remarks -->
+                                {{-- <!-- remarks -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="remarks">Remarks</label>
                                         <input type="text" class="form-control" name="remarks" value="{{ $faculty->remarks ?? '' }}"
                                             placeholder="Enter Remarks">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <label for="remarks">Degree</label>
                                 <!-- is partimer -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

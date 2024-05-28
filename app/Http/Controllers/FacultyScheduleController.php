@@ -22,8 +22,13 @@ class FacultyScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::with([
-            'faculty', 'semester', 'school_year',
-            'subject', 'classroom', 'block',  'time_slots'
+            'faculty',
+            'semester',
+            'school_year',
+            'subject',
+            'classroom',
+            'block',
+            'time_slots'
         ])->get();
 
         return view('schedule.table-schedule', compact('schedules'));
@@ -38,12 +43,17 @@ class FacultyScheduleController extends Controller
         $sy = SchoolYear::all();
         $faculties = Faculty::all();
         $subjects = Subject::all();
-        $classrooms =  Classroom::all();
+        $classrooms = Classroom::all();
         $blocks = Block::all();
-        
+
         // Ang kani kay para ni sa faculty schedule
         return view('schedule.faculty-schedule', compact([
-            'semesters', 'sy', 'faculties', 'subjects', 'classrooms', 'blocks'
+            'semesters',
+            'sy',
+            'faculties',
+            'subjects',
+            'classrooms',
+            'blocks'
         ]))->with(['action' => 'add']);
     }
 
@@ -53,9 +63,9 @@ class FacultyScheduleController extends Controller
     public function store(Request $request)
     {
         $schedule = Schedule::create($request->all());
-        
+
         $time_slot = $schedule->time_slots->first;
-        
+
         $time_slot->update($request->all());
 
         return redirect()->route('schedule.index');
@@ -86,17 +96,13 @@ class FacultyScheduleController extends Controller
         $schedules = array_keys($request->input('schedules'));
         $faculty = Faculty::find($id);
 
-        foreach($schedules as $schedule){
-            $schedule = Schedule::find($schedule);
-
-            foreach($faculty->subjects as $facultySubj){
-                dd($facultySubj);
-            }
+        foreach ($schedules as $scheduleID) {
+            $schedule = Schedule::find($scheduleID);
 
             $schedule->faculty_id = $id;
             $schedule->save();
         }
-        
+
         return redirect()->back()->with('message', 'Schedules added to faculty');
     }
 
@@ -104,7 +110,7 @@ class FacultyScheduleController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {   
+    {
         // dd($id);
         $schedule = Schedule::find($id);
         $schedule->faculty_id = null;
