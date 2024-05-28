@@ -25,14 +25,18 @@ class ScheduleService
             }
 
             // For converting day[] into a single string
-            $data['day'] = implode($data['day']);
         }
+
+        if (isset($data['day']))
+            $data['day'] = implode($data['day']);
+        else
+            $data['day'] = '';
 
         $data['semesters_id'] = $currentSemester;
         $data['sy_id'] = $currentYear;
 
-        dd($data);
-
+        // dd($data);
+        // dd($data);
         // Create schedule and update time slot
         $schedule = Schedule::create($data);
         $schedule->time_slots->first->update($data);

@@ -67,6 +67,8 @@ class ScheduleController extends Controller
             $this->currentSemester, 
             $this->currentYear
         );
+
+        // dd($request);
         
         if($result['success']){
             return redirect()->route('schedule.index')->with('message', 'New schedule added!');
