@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\AcademicCalendarService;
 use App\Services\ScheduleService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('user_image', function($app){
-            return Auth::user()->faculty->profile_image;
+        
+            return URL::asset(Auth::user()->faculty->profile_image ?? 'dist/assets/images/DEFAULT-PROFILE.jpg');
         });
     }
 

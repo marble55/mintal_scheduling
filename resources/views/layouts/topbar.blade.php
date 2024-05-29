@@ -15,11 +15,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="profile-pic">
-                            @if (app('user_image'))
-                                <img src="{{ app('user_image') }}" alt="Profile Picture">
-                            @else
-                                <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}" alt="Profile Picture">
-                            @endif
+                            <img src="{{ app('user_image') }}" alt="Profile Picture">
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

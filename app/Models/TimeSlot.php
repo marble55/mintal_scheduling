@@ -23,7 +23,7 @@ class TimeSlot extends Model
      * @return boolean
      * 
      */
-    public function checkTimeEquals($time_start, $time_end)
+    public function checkDatabaseTimeEquals($time_start, $time_end)
     {
         return $this->query()
             // Ensure that we are checking against the current record by matching its ID
@@ -49,14 +49,14 @@ class TimeSlot extends Model
             })->exists();
     }
 
-    public function checkSpecificTimeEquals($old_time_start, $old_time_end, $new_time_start, $new_time_end)
-    {
+    public function checkTimeEquals($new_time_start, $new_time_end)
+    {;
         if (
-            ($old_time_start <= $new_time_start && $new_time_start < $old_time_end) ||  // Partial overlap at the start
-            ($old_time_start < $new_time_end && $new_time_end <= $old_time_end) ||     // Partial overlap at the end
-            ($new_time_start <= $old_time_start && $new_time_end >= $old_time_end) ||  // Complete overlap
-            ($old_time_start == $new_time_start && $old_time_end == $new_time_end)
-        ) {  // Exact overlap
+            ($this->time_start <= $new_time_start && $new_time_start < $this->time_end) ||  // Partial overlap at the start
+            ($this->time_start < $new_time_end && $new_time_end <= $this->time_end) ||     // Partial overlap at the end
+            ($new_time_start <= $this->time_start && $new_time_end >= $this->time_end) ||  // Complete overlap
+            ($this->time_start == $new_time_start && $this->time_end == $new_time_end) // Exact overlap
+        ) { 
             return true;
         } else {
             return false;
