@@ -35,8 +35,8 @@
                                 {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                             @endforeach
                         </td>
-                        <td>{{ $schedule->subject->subject_code }}</td>
-                        <td>{{ $schedule->is_lab }}</td>
+                        <td>{{ $schedule->subject->subject_code ?? '' }}</td>
+                        <td>{{ $schedule->is_lab ?? '' }}</td>
                         <td>{{ $schedule->classroom->room ?? '' }}</td>
                         <td>{{ $schedule->block->section ?? '' }}</td>
                         <td>{{ $schedule->semester->name }}</td>

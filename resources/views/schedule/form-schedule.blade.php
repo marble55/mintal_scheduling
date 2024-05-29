@@ -11,7 +11,7 @@
         <div class="col col-sm-6 col-lg-7 col-xl-10">
             <!-- Title -->
             <div class="text-center mb-5">
-                <h3 class="fw-bold">{{ ucfirst($action) }} Schedule</h3>
+                <h3 class="fw-bold">{{ $action == 'update' ? 'Update' : 'Create' }} Schedule</h3>
             </div>
             <!-- Divider -->
             <div class="position-relative">
@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <!-- Left Column -->
-                        <form method="POST"
+                        <form method="POST" id="form"
                             action="{{ $action === 'update' ? route('schedule.update', $schedule->id) : route('schedule.store') }}">
                             @if ($action === 'update')
                                 @method('PUT')
@@ -67,8 +67,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bxs-school'></i>
                                 </span>
-                                <input type="checkbox" class="text-input" id="is-lab_checkbox" name="is_lab" value="0"
-                                    style="margin-left:10px;" {{ old('is_lab') ? 'checked' : '' }}>
+                                <input type="checkbox" class="text-input" id="is-lab_checkbox" name="is_lab" value="0" style="margin-left:10px;" @checked($action === 'update' && $schedule->is_lab === 'LAB')>
                                 <label class="form-check-label" for="is_lab">&nbsp;Lab </label>
                             </div>
 
@@ -97,39 +96,44 @@
                                     <option value="">No Assigned</option>
                                     @foreach ($classrooms as $classroom)
                                         <option value="{{ $classroom->id }}">
-                                            {{ $classroom->room . ' in ' . $classroom->building }}</option>
+                                            {{ $classroom->room . ' in ' . $classroom->building }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
 
                     </div>
 
+
                     <div class="col-md-6">
                         <!-- Right Column -->
                         <!-- Add the rest of your input fields here -->
                         <!-- Day Input -->
                         <label for="form-check_day">Days:</label><br>
-                        <div id="form-check_day" class="form-check form-check-inline mb-3">
-                            <input type="checkbox" id="day-monday" name="day[]" value="M">
+                        <div id="form-check_day" class="form-check form-check-inline mb-3 required">
+                            <input type="checkbox" id="day-monday" name="day[]" class="form-check-input border-black" value="M" @checked($action === 'update' && strpos($schedule->day, 'M') !== false)>
                             <label for="day-monday" class="form-check-label me-2">Monday</label><br>
 
-                            <input type="checkbox" id="day-tuesday" name="day[]" value="T">
+                            <input type="checkbox" id="day-tuesday" class="form-check-input border-black" name="day[]" value="T" @checked($action === 'update' && strpos($schedule->day, 'T') !== false && strpos($schedule->day, 'TTH') === false)>
                             <label for="day-tuesday" class="form-check-label me-2">Tuesday</label><br>
 
-                            <input type="checkbox" id="day-wednesday" name="day[]" value="W">
+                            <input type="checkbox" id="day-wednesday" class="form-check-input border-black" name="day[]" value="W" @checked($action === 'update' && strpos($schedule->day, 'W') !== false)>
                             <label for="day-wednesday" class="form-check-label me-2">Wednesday</label><br>
 
-                            <input type="checkbox" id="day-thursday" name="day[]" value="TH">
+                            <input type="checkbox" id="day-thursday" class="form-check-input border-black" name="day[]" value="TH" @checked($action === 'update' && strpos($schedule->day, 'TH') !== false)>
                             <label for="day-thursday" class="form-check-label me-2">Thursday</label><br>
 
-                            <input type="checkbox" id="day-friday" name="day[]" value="F">
+                            <input type="checkbox" id="day-friday" class="form-check-input border-black" name="day[]" value="F" @checked($action === 'update' && strpos($schedule->day, 'F') !== false)>
                             <label for="day-friday" class="form-check-label me-2">Friday</label><br>
 
-                            <input type="checkbox" id="day-saturday" name="day[]" value="SAT">
-                            <label for="day-saturday">Saturday</label><br>
+                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="SAT" @checked($action === 'update' && strpos($schedule->day, 'SAT') !== false)>
+                            <label for="day-saturday" class="form-check-label me-2">Saturday</label><br>
 
-                            <input type="checkbox" id="day-saturday" name="day[]" value="SUN">
-                            <label for="day-saturday">Sunday</label><br>
+                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="SUN" @checked($action === 'update' && strpos($schedule->day, 'SUN') !== false)>
+                            <label for="day-saturday" class="form-check-label me-2">Sunday</label><br>
+                        
+                        
+                            <div class="invalid-feedback">Please check at least one</div>
                         </div>
 
                         <div>
@@ -184,6 +188,33 @@
             $('#subject_select').val('{{ $schedule->subject_id }}').trigger('change');
             $('#classroom_select').val('{{ $schedule->classroom_id }}').trigger('change');
             $('#block_select').val('{{ $schedule->block_id }}').trigger('change');
+        </script>
+
+        <script>
+             $(document).ready(function(){
+                $('form').submit(function(event){
+
+                    if($('div.form-check.required :checkbox:checked').length===0){
+                        event.preventDefault();
+                        $('div.form-check.required :checkbox').each(function(){
+                            $(this).removeClass('border-black').addClass('border-danger is-invalid');
+                        });
+
+                    }else{
+                        $('div.form-check.required :checkbox').each(function(){
+                            $(this).removeClass('border-danger is-invalid').addClass('border-black');
+                        });
+                    }
+                });
+
+                $('div.form-check.required :checkbox').change(function(){
+                    if($(this).is(':checked')){
+                        $('div.form-check.required :checkbox').each(function(){
+                            $(this).removeClass('border-danger is-invalid').addClass('border-black');
+                        });
+                    }
+                });
+            });
         </script>
     @endpush
 @endif

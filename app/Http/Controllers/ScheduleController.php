@@ -35,10 +35,15 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::with([
-            'faculty', 'semester', 'school_year',
-            'subject', 'classroom', 'block',  'time_slots'
+            'faculty',
+            'semester',
+            'school_year',
+            'subject',
+            'classroom',
+            'block',
+            'time_slots'
         ])->where('semesters_id', '=', $this->currentSemester)->get();
-        
+
         return view('schedule.table-schedule', compact('schedules'));
     }
 
@@ -49,11 +54,14 @@ class ScheduleController extends Controller
     {
         $faculties = Faculty::select('*')->orderBy('first_name')->get();
         $subjects = Subject::select('*')->orderBy('subject_code')->get();
-        $classrooms =  Classroom::select('*')->orderBy('building')->get();
+        $classrooms = Classroom::select('*')->orderBy('building')->get();
         $blocks = Block::select('*')->orderBy('course')->get();
-        
+
         return view('schedule.form-schedule', compact([
-            'faculties', 'subjects', 'classrooms', 'blocks'
+            'faculties',
+            'subjects',
+            'classrooms',
+            'blocks'
         ]))->with(['action' => 'add']);
     }
 
@@ -62,19 +70,18 @@ class ScheduleController extends Controller
      */
     public function store(Request $request, ScheduleService $scheduleService)
     {
+
         $result = $scheduleService->createSchedule(
-            $request->except(['sy_id', 'semesters_id']), 
-            $this->currentSemester, 
+            $request->except(['sy_id', 'semesters_id']),
+            $this->currentSemester,
             $this->currentYear
         );
 
-        // dd($request);
-        
-        if($result['success']){
+        if ($result['success']) {
             return redirect()->route('schedule.index')->with('message', 'New schedule added!');
-        } else{
+        } else {
             return redirect()->back()->with('error', $result['message']);
-        }   
+        }
     }
 
     /**
@@ -91,17 +98,19 @@ class ScheduleController extends Controller
     public function edit(string $id)
     {
         $schedule = Schedule::findOrFail($id);
-        $faculties = Faculty::select('*')->orderBy('first_name')->get();
-        $subjects = Subject::select('*')->orderBy('subject_code')->get();
-        $classrooms =  Classroom::select('*')->orderBy('building')->get();
-        $blocks = Block::select('*')->orderBy('course')->get();
+
+        $faculties = Faculty::orderBy('first_name')->get();
+        $subjects = Subject::orderBy('subject_code')->get();
+        $classrooms = Classroom::orderBy('building')->get();
+        $blocks = Block::orderBy('course')->get();
+
         $timeSlot = $schedule->time_slots()->firstOr();
 
         return view('schedule.form-schedule', compact([
             'schedule',
-            'faculties', 
-            'subjects', 
-            'classrooms', 
+            'faculties',
+            'subjects',
+            'classrooms',
             'blocks',
             'timeSlot',
         ]))->with(['action' => 'update']);
@@ -115,11 +124,11 @@ class ScheduleController extends Controller
         // dd($request->all());
         $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id, $this->currentSemester);
 
-        if($result['success']){
+        if ($result['success']) {
             return redirect()->route('schedule.index')->with('message', 'Schedule Updated!');
-        } else{
+        } else {
             return redirect()->back()->with('error', $result['message']);
-        }   
+        }
     }
 
     /**

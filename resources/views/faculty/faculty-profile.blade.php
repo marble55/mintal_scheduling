@@ -36,8 +36,38 @@
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
-
-                        <!-- Form -->
+                        <div class=" col-12">
+                            <p class="h6 fw-bold">Name:</p>
+                            <p class="h5">{{ $faculty->first_name.' '.$faculty->last_name }}</p>
+                        </div>
+                        <hr class="hr">
+                        <div class=" row">
+                            <div class=" col-6">    
+                                <p class="h6 fw-bold">USeP ID:</>
+                                <p class="h5">{{ $faculty->id_usep }}</p>
+                            </div>
+                            <div class=" col-6">    
+                                <p class="h6 fw-bold">Role:</p>
+                                <p class="h5">{{ $faculty->is_part_timer ? 'Part-Timer' : 'Faculty'}}</p>
+                            </div>
+                        </div>
+                        <hr class="hr">
+                        <div class=" col-12">
+                            <p class="h6 fw-bold">Remarks:</p>
+                            <form action="{{ route('faculty.update', $faculty) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="row">
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="None" value="{{ $faculty->remarks }}" name="remarks" id="input_remarks">
+                                    </div>
+                                    <div class="col-3">
+                                        <input class="w-50 form-control bg-maroon text-light" type="submit" value="Save">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {{-- <!-- Form -->
                         <form action="{{ route('faculty.store') }}" method="POST">
                             @csrf
                             <div class="row gutters">
@@ -76,6 +106,7 @@
                                         <label for="id_usep">{{ $faculty->remarks }}</label>
                                     </div>
                                 </div>
+                                
                                 <!-- Part Timer? -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
                                     <div class="form-group">
@@ -90,12 +121,13 @@
                                 </div>
                             </div>
                             <br>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container pt-5">
         <h4>Schedules</h4>
         <table class="table table-bordered table-striped border-dark" style="width:100%">
@@ -138,14 +170,14 @@
                             <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
                             <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
                         @endif
-                        <td class="text-center">{{ $schedule->day }}</td>
+                        <td class="text-center">{{ $schedule->day ?? ''}}</td>
                         <td class="text-center">
                             @foreach ($schedule->time_slots as $time_slot)
                                 {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                             @endforeach
                         </td>
-                        <td class="text-center">{{ $schedule->classroom->room }}</td>
-                        <td class="text-center">{{ $schedule->subject->load }}</td>
+                        <td class="text-center">{{ $schedule->classroom->room ?? ''}}</td>
+                        <td class="text-center">{{ $schedule->subject->load  ?? ''}}</td>
                         <td>
                             <form method="POST" action="{{ route('facultySchedule.destroy', $schedule->id) }}">
                                 @csrf
@@ -166,7 +198,7 @@
                     </tr>
                 @endif
                 @if ($totalLoad > 25)
-                    <tr class="table-warning">
+                    <tr class="table-warning border-danger">
                         <td></td>
                         <td class="text-danger">Total Load:</td>
                         <td colspan="6" class="text-danger">Warning: Total Load Greater Than 25</td>

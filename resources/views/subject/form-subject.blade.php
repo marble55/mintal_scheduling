@@ -58,7 +58,7 @@
                     <span class="input-group-text">
                         <i class='bx bx-time'></i>
                     </span>
-                    <input type="number" class="form-control form-control-lg fs-6" name="load" placeholder="Load"
+                    <input type="decimal" class="form-control form-control-lg fs-6" name="load" placeholder="Load"
                         value="{{ $subject->load ?? '' }}" required min="0" max="99.99">
                 </div>
                 <!-- Program Type select -->
