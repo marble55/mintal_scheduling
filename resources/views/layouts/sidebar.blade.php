@@ -127,5 +127,26 @@
             <span>Academic Calendar</span>
         </a>
     </li>
+
+    <!-- Program Head -->
+    <li class="sidebar-item has-dropdown">
+        <a href="#" class="sidebar-link">
+            <i class="lni lni-user"></i>
+            <span>Program Head</span>
+            <i class="lni lni-chevron-down arrow"></i>
+        </a>
+        <ul class="sidebar-dropdown list-unstyled">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-eye"></i> View Program Head
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-pencil"></i> Add Program Head
+                </a>
+            </li>
+        </ul>
+    </li>
     
 </ul>

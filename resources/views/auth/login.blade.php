@@ -107,9 +107,9 @@
                         </div>
                         <button type="submit" class="btn btn-light-maroon btn-lg w-100">Login</button>
                     </form>
-                    <div class="text-center mt-2 fs-md">
+                    {{-- <div class="text-center mt-2 fs-md">
                         <small>Don't have an account? <a href="{{ route('register') }}" class="fw-bold text-light-maroon text-decoration-none">Sign Up</a></small>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
