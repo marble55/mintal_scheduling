@@ -3,10 +3,13 @@
         <img src="{{ asset('dist/assets/images/CDM_Logo.png') }}" style="width:50px; height:50px;">
     </button>
     <div class="sidebar-logo">
-        <a href="#"><h2>UMSS</h2></a>
+        <a href="#">
+            <h2>UMSS</h2>
+        </a>
     </div>
 </div>
 <ul class="sidebar-nav">
+    
     <!-- Dashboard -->
     <li class="sidebar-item">
         <a href="{{ route('dashboard') }}" class="sidebar-link">
@@ -14,6 +17,7 @@
             <span>Dashboard</span>
         </a>
     </li>
+    
     <!-- Schedule -->
     <li class="sidebar-item has-dropdown">
         <a href="#" class="sidebar-link">
@@ -34,6 +38,7 @@
             </li>
         </ul>
     </li>
+    
     <!-- Faculty -->
     <li class="sidebar-item has-dropdown">
         <a href="#" class="sidebar-link">
@@ -59,47 +64,51 @@
             </li>
         </ul>
     </li>
-    <!-- Classroom -->
-    <li class="sidebar-item has-dropdown">
-        <a href="#" class="sidebar-link">
-            <i class="lni lni-school-bench"></i>
-            <span>Classroom</span>
-            <i class="lni lni-chevron-down arrow"></i>
-        </a>
-        <ul class="sidebar-dropdown list-unstyled">
-            <li class="sidebar-item">
-                <a href="{{ route('classroom.index') }}" class="sidebar-link">
-                    <i class="lni lni-eye"></i> View Room
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="{{ route('classroom.create') }}" class="sidebar-link">
-                    <i class="lni lni-pencil"></i> Add Room
-                </a>
-            </li>
-        </ul>
-    </li>
-    <!-- Subject -->
-    <li class="sidebar-item has-dropdown">
-        <a href="#" class="sidebar-link">
-            <i class="lni lni-notepad"></i>
-            <span>Subject</span>
-            <i class="lni lni-chevron-down arrow"></i>
-        </a>
-        <ul class="sidebar-dropdown list-unstyled">
-            <li class="sidebar-item">
-                <a href="{{ route('subject.index') }}" class="sidebar-link">
-                    <i class="lni lni-eye"></i> View Subject
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="{{ route('subject.create') }}" class="sidebar-link">
-                    <i class="lni lni-pencil"></i> Add Subject
-                </a>
-            </li>
-        </ul>
-    </li>
-    <!-- Block -->
+
+    @can('isAdmin')
+        <!-- Classroom -->
+        <li class="sidebar-item has-dropdown">
+            <a href="#" class="sidebar-link">
+                <i class="lni lni-school-bench"></i>
+                <span>Classroom</span>
+                <i class="lni lni-chevron-down arrow"></i>
+            </a>
+            <ul class="sidebar-dropdown list-unstyled">
+                <li class="sidebar-item">
+                    <a href="{{ route('classroom.index') }}" class="sidebar-link">
+                        <i class="lni lni-eye"></i> View Room
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('classroom.create') }}" class="sidebar-link">
+                        <i class="lni lni-pencil"></i> Add Room
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Subject -->
+        <li class="sidebar-item has-dropdown">
+            <a href="#" class="sidebar-link">
+                <i class="lni lni-notepad"></i>
+                <span>Subject</span>
+                <i class="lni lni-chevron-down arrow"></i>
+            </a>
+            <ul class="sidebar-dropdown list-unstyled">
+                <li class="sidebar-item">
+                    <a href="{{ route('subject.index') }}" class="sidebar-link">
+                        <i class="lni lni-eye"></i> View Subject
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('subject.create') }}" class="sidebar-link">
+                        <i class="lni lni-pencil"></i> Add Subject
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Block -->
     <li class="sidebar-item has-dropdown">
         <a href="#" class="sidebar-link">
             <i class="lni lni-blackboard"></i>
@@ -127,5 +136,6 @@
             <span>Academic Calendar</span>
         </a>
     </li>
-    
+
+    @endcan
 </ul>

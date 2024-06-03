@@ -54,7 +54,7 @@ class User extends Authenticatable
     public static function createWithFaculty($details)
     {
         $tempFaculty = Faculty::createTempFaculty();
-
+        
         $user = $tempFaculty->user()->create([
             'name' => $details['name'],
             'email' => $details['email'],
