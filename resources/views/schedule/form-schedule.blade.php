@@ -111,25 +111,25 @@
                         <!-- Day Input -->
                         <label for="form-check_day">Days:</label><br>
                         <div id="form-check_day" class="form-check form-check-inline mb-3 required">
-                            <input type="checkbox" id="day-monday" name="day[]" class="form-check-input border-black" value="M" @checked($action === 'update' && strpos($schedule->day, 'M') !== false)>
+                            <input type="checkbox" id="day-monday" name="day[]" class="form-check-input border-black" value="M," @checked($action === 'update' && strpos($schedule->day, 'M,') !== false)>
                             <label for="day-monday" class="form-check-label me-2">Monday</label><br>
 
-                            <input type="checkbox" id="day-tuesday" class="form-check-input border-black" name="day[]" value="T" @checked($action === 'update' && strpos($schedule->day, 'T') !== false && strpos($schedule->day, 'TTH') === false)>
+                            <input type="checkbox" id="day-tuesday" class="form-check-input border-black" name="day[]" value="T," @checked($action === 'update' && strpos($schedule->day, 'T,') !== false && strpos($schedule->day, 'TTH') === false)>
                             <label for="day-tuesday" class="form-check-label me-2">Tuesday</label><br>
 
-                            <input type="checkbox" id="day-wednesday" class="form-check-input border-black" name="day[]" value="W" @checked($action === 'update' && strpos($schedule->day, 'W') !== false)>
+                            <input type="checkbox" id="day-wednesday" class="form-check-input border-black" name="day[]" value="W," @checked($action === 'update' && strpos($schedule->day, 'W,') !== false)>
                             <label for="day-wednesday" class="form-check-label me-2">Wednesday</label><br>
 
-                            <input type="checkbox" id="day-thursday" class="form-check-input border-black" name="day[]" value="TH" @checked($action === 'update' && strpos($schedule->day, 'TH') !== false)>
+                            <input type="checkbox" id="day-thursday" class="form-check-input border-black" name="day[]" value="TH," @checked($action === 'update' && strpos($schedule->day, 'TH,') !== false)>
                             <label for="day-thursday" class="form-check-label me-2">Thursday</label><br>
 
-                            <input type="checkbox" id="day-friday" class="form-check-input border-black" name="day[]" value="F" @checked($action === 'update' && strpos($schedule->day, 'F') !== false)>
+                            <input type="checkbox" id="day-friday" class="form-check-input border-black" name="day[]" value="F," @checked($action === 'update' && strpos($schedule->day, 'F,') !== false)>
                             <label for="day-friday" class="form-check-label me-2">Friday</label><br>
 
-                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="SAT" @checked($action === 'update' && strpos($schedule->day, 'SAT') !== false)>
+                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="S," @checked($action === 'update' && strpos($schedule->day, 'S,') !== false)>
                             <label for="day-saturday" class="form-check-label me-2">Saturday</label><br>
 
-                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="SUN" @checked($action === 'update' && strpos($schedule->day, 'SUN') !== false)>
+                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="SU," @checked($action === 'update' && strpos($schedule->day, 'SUN,') !== false)>
                             <label for="day-saturday" class="form-check-label me-2">Sunday</label><br>
                         
                         
@@ -143,9 +143,7 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-time'></i>
                                 </span>
-                                <input type="time" id="time-start_input" class="form-control form-control-lg fs-6"
-                                    name="time_start" placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}"
-                                    required>
+                                <input type="time" id="time-start_input" class="form-control form-control-lg fs-6" name="time_start" placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}"required>
                             </div>
 
                             <!-- Time End Input -->

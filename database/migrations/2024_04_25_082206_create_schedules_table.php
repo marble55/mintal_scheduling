@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('schedule', function (Blueprint $table) {
             $table->id();
-            $table->string('day', 15);
+            $table->string('day', 20);
             $table->boolean('is_lab')->default(false);
             $table->timestamps();
         });
