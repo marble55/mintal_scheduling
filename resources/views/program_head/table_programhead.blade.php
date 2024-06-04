@@ -18,7 +18,6 @@
                     <th>Faculty ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Program Head</th>
                     <th>Date Added</th>
                     <th>Edit | Delete</th>
 
