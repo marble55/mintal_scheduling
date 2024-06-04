@@ -56,7 +56,6 @@
                         </td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
         <a href="{{ route('faculty.create') }}"> Add a Faculty</a>

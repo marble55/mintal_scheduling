@@ -14,7 +14,7 @@
                     <th>Faculty ID</th>
                     <th>Full Name</th>
                     <th>Date Registered</th>
-                    <th>Edit | Delete</th>
+                    <th>Actions</th>
 
                 </tr>
             </thead>
@@ -36,21 +36,22 @@
                         
                         <!--Action-->
                         <td class="d-flex align-items-center gap-3">
-                            <a href="#">Edit</a>
-                            <form method="POST" action="#" class="d-inline">
+                            <a href="{{ route('program-head.edit', $ph->id) }}">Edit</a>
+                            <form method="POST" action="{{ route('program-head.destroy', $ph->id) }}" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <a href="#"
+                                <a href="{{ route('program-head.destroy', $ph->id) }}"
                                     onclick="event.preventDefault(); confirmDeletion(event, this);"
                                     class="text-danger">Delete</a>
                             </form>
+                            <a href="{{ route('faculty.edit', $ph->faculty->id) }}" class="text-info">Check</a>
                         </td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
-        <a href="#"> Add a Program Head</a>
+        <a href="{{ route('program-head.create') }}"> Add a Program Head</a>
     </div>
     </body>
 @endsection

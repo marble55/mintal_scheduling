@@ -6,13 +6,9 @@ use App\Models\Block;
 use App\Models\Classroom;
 use App\Models\Faculty;
 use App\Models\Schedule;
-use App\Models\SchoolYear;
-use App\Models\Semester;
 use App\Models\Subject;
 use App\Services\AcademicCalendarService;
-use App\Services\CurrentSemesterService;
 use App\Services\ScheduleService;
-use DateTime;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller

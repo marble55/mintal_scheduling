@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endpush
+
 @section('content')
     <div class="text-center">
         <h1>
@@ -9,96 +15,64 @@
     </div>
 
     <div class="container mb-5">
-        <form id="faculty_form" action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="faculty_form" action="{{ route('program-head.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @if(isset($faculty))
+            @if(isset($user))
                 @method('PUT')
             @endif
             <div class="row gutters">
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="account-settings">
-                                <div class="user-profile">
-                                    <div class="user-avatar">
-                                    @if ($action == 'update' && $faculty->profile_image)
-                                        <img src="{{ Storage::url($faculty->profile_image) }}" alt="{{ $faculty->first_name }}'s profile image">
-                                    @else
-                                        <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
-                                    @endif
-                                    </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <div class="text-center">
-                                            <br>
-                                                <div>
-                                                    <label for="image">Choose Image:</label>
-                                                    <input type="file" name="image" id="image" accept="image/*"
-                                                    style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-                                                </div>
-                                                <br>
-                                            </form>
-                                            <button type="button" id="removeImageButton" name="remove_img" class="btn btn-secondary"
-                                                style="border:white;">Remove Image</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <h6 class="details" style="color: rgb(161, 49, 49);">Set Program Head Details</h6>
                                     </div>
+                                    
                                     <!-- id_usep-->
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="id_usep">Usep ID</label>
-                                            <input type="text" class="form-control" name="id_usep" value="{{ $faculty->id_usep ?? '' }}"
-                                                placeholder="Enter Usep ID" required maxlength="10">
+                                            <label for="faculty_select" class="form-label">Faculty: </label>
+                                            <select name="faculty_id" id="faculty_select" autofocus required style="min-width: 200px;">
+                                                @foreach ($faculties as $faculty)
+                                                    <option value="{{ $faculty->id }}">
+                                                        {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                                                @endforeach
+                                            </select>
                                             <br>
-                                            <label for="id_not_exsit" style="color:rgb(145, 40, 40); font-size:0.8rem;">Note: If ID doesn't exist, please <a href="{{ route('faculty.create') }}"> Add a Faculty</a> first.</label>
+                                            <label for="id_not_exsit" class="form-text text-input-helper">Note: If Faculty doesn't exist, please <a href="{{ route('faculty.create') }}"> Add a Faculty</a> first.</label>
                                         </div>
                                     </div>
+                                    
                                     <!-- Email -->
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="first_name">Email</label>
-                                            <input type="text" class="form-control" name="email"
+                                            <label for="first_name" class="form-label">Email</label>
+                                            <input type="text" class="form-control" name="email" value="@isset($user) {{ $user->email }} @endisset"
                                                 placeholder="Enter Email" required>
                                         </div>
                                     </div>
+                                    
                                     <!-- Username -->
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="first_name">Username</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter Username" required>
+                                            <label for="input_username" class="form-label">Username</label>
+                                            <input id="input_username" type="text" class="form-control" name="name" value="@isset($user) {{ $user->name }} @endisset" placeholder="Optional">
+                                            <div id="usernameHelpBlock" class="form-text text-input-helper">Leave blank to set user name as Faculty Name*</div>
                                         </div>
                                     </div>
+                                    
                                     <!-- password -->
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="last_name">Password</label>
-                                            <input type="password" class="form-control" name="password" placeholder="Password" required autocomplete="new-password">
+                                            <label for="input_password" class="form-label">Password</label>
+                                            <input id="input_password" type="password" class="form-control" name="password" placeholder="Optional" autocomplete="new-password">
+                                            <div id="passwordHelpBlock" class="form-text text-input-helper">Leave blank to set password as Faculty ID*</div>
                                         </div>
-                                    </div>
-                                    <!-- confirm password -->
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="last_name">Confirm Password</label>
-                                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required autocomplete="new-password">
-                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                        </div>
-                                    </div>
-                                
+                                    </div>                          
                                 </div>
-                                <br>
                                 
+                                <br>
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
@@ -146,11 +120,11 @@
                         
                         <!--Action-->
                         <td class="d-flex align-items-center gap-3">
-                            <a href="#">Edit</a>
-                            <form method="POST" action="#" class="d-inline">
+                            <a href="{{ route('program-head.edit', $ph->id) }}">Edit</a>
+                            <form method="POST" action="{{ route('program-head.destroy', $ph->id) }}" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <a href="#"
+                                <a href="{{ route('program-head.destroy', $ph->id) }}"
                                     onclick="event.preventDefault(); confirmDeletion(event, this);"
                                     class="text-danger">Delete</a>
                             </form>
@@ -160,7 +134,6 @@
 
             </tbody>
         </table>
-        <a href="#"> Add a Program Head</a>
     </div>
 
     @push('scripts')
@@ -211,6 +184,10 @@
             }
         });
     });
+    </script>
+
+    <script>
+        $('#faculty_select').select2()
     </script>
     @endpush
 @endsection

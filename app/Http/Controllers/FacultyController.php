@@ -11,10 +11,8 @@ use App\Models\SchoolYear;
 use App\Models\Semester;
 use App\Models\Subject;
 use App\Services\AcademicCalendarService;
-use App\Services\ScheduleService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class FacultyController extends Controller
 {
@@ -49,7 +47,6 @@ class FacultyController extends Controller
     {
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            // other validation rules
         ]);
 
         if ($request->hasFile('image')) {
@@ -64,14 +61,13 @@ class FacultyController extends Controller
             return redirect()->back()->with('error', 'Faculty ID taken');
         }
 
-        if ($request->input('is_part_timer') == 1) {
-            return redirect()->route('faculty.index', ['category' => 'part-timer'])
-                ->with('message', 'The Action is successful!');
-        } else {
-            return redirect()->route('faculty.index', ['category' => 'faculty'])
-                ->with('message', 'The Action is successful!');
+        if($request->input('previous') === 'program_head'){
+            return redirect()->route('program-head.create')->with('message', 'New Faculty Added!');
         }
 
+        $category = $request->input('is_part_timer') == 1 ? 'part-timer' : 'faculty';
+        return redirect()->route('faculty.index', ['category' => $category])->with('message', 'New Faculty Added!');
+        // return redirect($request->input('url'))->with('message', 'The Action is successful!');
     }
 
     /**
@@ -96,13 +92,13 @@ class FacultyController extends Controller
 
         $allSchedules = Schedule::where('semesters_id', '=', $academicCalendar->getCurrentSemester())
             ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-            ->select('schedule.*')
+            ->select('schedule.*')->with(['subject', 'block','time_slots','classroom', 'faculty'])
             ->orderBy('subject_code')
             ->get();
 
         $schedules = $faculty->schedules()
             ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-            ->select('schedule.*')
+            ->select('schedule.*')->with(['subject', 'block','time_slots','classroom'])
             ->orderBy('subject_code')
             ->get();
 

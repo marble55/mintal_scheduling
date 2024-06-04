@@ -39,15 +39,6 @@ class Faculty extends Model
 
     //----Relationship Functions----//
     /**
-     * returns the designation
-     * that the faculty is assigned with
-     */
-    public function designations(): BelongsTo
-    {
-        return $this->belongsTo(Designation::class);
-    }
-
-    /**
      * returns the program_head
      * that this faculty is UNDER
      */
@@ -58,7 +49,7 @@ class Faculty extends Model
 
     /**
      * returns the program_head id
-     * of the program_head faculty
+     * of the faculty
      */
     public function user(): HasOne
     {

@@ -30,6 +30,7 @@ class FacultyScheduleController extends Controller
             'block',
             'time_slots'
         ])->get();
+        // $schedles = Schedule::all();
 
         return view('schedule.table-schedule', compact('schedules'));
     }

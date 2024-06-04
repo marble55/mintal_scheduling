@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Faculty;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('program_head.table_programhead')->with('program_heads', User::with('faculty')->get());
+        return view('program_head.table_programhead')->with('program_heads', User::with('faculty')->orderByDesc('id')->get());
     }
 
     /**
@@ -21,9 +22,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('program_head.assign_programhead')
-            ->with('action', 'Register New')
-            ->with('program_heads', User::with('faculty')->get());
+        $program_heads = User::with('faculty')->orderByDesc('id')->get();
+        $faculties = Faculty::whereDoesntHave('user')->orderBy('first_name')->get();
+
+        return view('program_head.assign_programhead', compact(['program_heads', 'faculties',]))
+            ->with('action', 'Register New');
     }
 
     /**
@@ -31,7 +34,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $faculty = Faculty::find($request->faculty_id);
+        $username = $request->input('name') == null ? $faculty->first_name.' '.$faculty->last_name: $request->input('name');
+        $password = $request->input('password') == null ? $faculty->faculty_id : $request->input('password');
+
+        User::create([
+            'name' => $username,
+            'email' => $request->input('email'),
+            'password' => Hash::make($password),
+            'faculty_id' => $request->input('faculty_id')
+        ]);
+
+        return back()->with('message','New Program Head Registered!');
     }
 
     /**
@@ -39,7 +53,6 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -47,7 +60,12 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $program_heads = User::with('faculty')->orderByDesc('id')->get();
+        $user = User::find($id);
+        $faculties = Faculty::whereDoesntHave('user')->orderBy('first_name')->get();
+        return view('program_head.assign_programhead', compact([
+            'program_heads', 'user', 'faculties'
+        ]))->with('action','update');
     }
 
     /**
@@ -63,6 +81,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        
+        return back();
     }
 }

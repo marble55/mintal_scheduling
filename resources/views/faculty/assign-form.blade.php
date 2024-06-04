@@ -8,133 +8,195 @@
         <br>
     </div>
     <div class="container">
-        {{-- @if ($faculty->is_part_timer)
-        <a href="{{ route('faculty.index', ['category' => 'part-timer']) }}">Back</a>
-         @else
-        <a href="{{ route('faculty.index', ['category' => 'faculty']) }}">Back</a>
-        @endif --}}
-    <form id="faculty_form" action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        @if(isset($faculty))
-                                            @method('PUT')
-                                        @endif
-        <div class="row gutters">
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="account-settings">
-                            <div class="user-profile">
-                                <div class="user-avatar">
-                                @if ($action == 'update' && $faculty->profile_image)
-                                    <img src="{{ Storage::url($faculty->profile_image) }}" alt="{{ $faculty->first_name }}'s profile image">
-                                @else
-                                    <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
-                                @endif
-                                </div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-center">
-                                        <br>
-                                            <div>
-                                                <label for="image">Choose Image:</label>
-                                                <input type="file" name="image" id="image" accept="image/*"
-                                                style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-                                            </div>
+        <a href="{{ url()->previous() }}">Back</a>
+        <form id="faculty_form" action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @if(isset($faculty))
+                                                @method('PUT')
+                                            @endif
+            <div class="row gutters">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="account-settings">
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                    @if ($action == 'update' && $faculty->profile_image)
+                                        <img src="{{ Storage::url($faculty->profile_image) }}" alt="{{ $faculty->first_name }}'s profile image">
+                                    @else
+                                        <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
+                                    @endif
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="text-center">
                                             <br>
-                                        </form>
-                                        <button type="button" id="removeImageButton" name="remove_img" class="btn btn-secondary"
-                                            style="border:white;">Remove Image</button>
+                                                <div>
+                                                    <label for="image">Choose Image:</label>
+                                                    <input type="file" name="image" id="image" accept="image/*"
+                                                    style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                                </div>
+                                                <br>
+                                            </form>
+                                            <button type="button" id="removeImageButton" name="remove_img" class="btn btn-secondary"
+                                                style="border:white;">Remove Image</button>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h6 class="details" style="color: rgb(161, 49, 49);">Set Personal Details</h6>
+                                    </div>
 
+                                    <!-- id_usep-->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="id_usep">Usep ID</label>
+                                            <input type="text" class="form-control" name="id_usep" value="{{ $faculty->id_usep ?? '' }}"
+                                                placeholder="Enter Usep ID" required maxlength="10">
+                                        </div>
+                                    </div>
+                                    <!-- first name -->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="first_name">First Name</label>
+                                            <input type="text" class="form-control" name="first_name" value="{{ $faculty->first_name ?? '' }}"
+                                                placeholder="Enter First name" required>
+                                        </div>
+                                    </div>
+                                    <!-- last name -->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="last_name">Last Name</label>
+                                            <input type="text" class="form-control" name="last_name" value="{{ $faculty->last_name ?? '' }}"
+                                                placeholder="Enter Last name" required>
+                                        </div>
+                                    </div>
+                                    <label for="remarks">Degree</label>
+                                    <!-- is partimer -->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <input type="checkbox" class="text-input" id="is_part_timer" name="is_part_timer" 
+                                        @if (isset($faculty) && $faculty->is_part_timer == true)
+                                            checked
+                                        @endif
+                                            value="1" {{ old('is_part_timer') ? 'checked' : '' }}>
+                                        <label class="text-input" for="is_part_timer">Part-timer?</label>
+                                    </div>
+                                    <!-- designation-->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="designation">Designation (Optional)</label>
+                                            <input type="text" class="form-control" name="designation" value="{{ $faculty->designation ?? '' }}"
+                                                placeholder="Enter Designation" maxlength="255">
+                                        </div>
+                                    </div>
+                                    <!-- designation_load -->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="designation_load">Designation Load (Optional)</label> <!-- optional term is optional -->
+                                            <input type="number" class="form-control" name="designation_load" value="{{ $faculty->designation_load ?? '' }}"
+                                                placeholder="Enter Designation Load" max="99.99" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="text-right">
+                                            <br>
+                                            <button type="submit" id="submit" name="submit" class="btn btn-primary bg-light-maroon border border-white">{{ isset($faculty) ? 'Update' : 'Create' }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @isset($faculty)
+        @can('isAdmin')
+            <div class="container">
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100 mt-5">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-center fw-semibold">Program Head Details</h4>
+
+                            <div class="col-12 mb-3">
+                                <p class="fs-4">Assigned Program Head</p>
+                                <form action="">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="Program Head" value="{{ $faculty->program_head->name ?? '' }}">
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="submit" id="submit" name="submit" class="btn btn-primary bg-light-maroon border border-white">{{ isset($faculty) ? 'Update' : 'Create' }}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12">
+                                <p class="fs-4">Faculties Managed</p>
+                                <table id="example" class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Faculty ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Program Head</th>
+                                            <th>Date Added</th>
+                                            <th>Edit | Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($faculty->user->faculties as $faculty_under)
+                                            <tr>
+                                                <!--Usep ID (clicking will lead to faculty profile)-->
+                                                <td>
+                                                    <a href="{{ route('faculty.show', $faculty_under) }}"> {{ $faculty->id_usep }} </a>
+                                                </td>
+                                                <!--First Name-->
+                                                <td>{{ $faculty_under->first_name }}
+                                                </td>
+                                                <!--last name-->
+                                                <td>{{ $faculty_under->last_name }}</td>
+                                                <!--Designation-->
+                                                {{-- <td>{{ $faculty->designation_id }}</td> --}}
+                                                <!--Program Head-->
+                                                <td>{{ $faculty_under->program_head->name ?? '' }}</td>
+                                                <!--Date Added-->
+                                                @php $dateTime = \Carbon\Carbon::parse($faculty_under->created_at); @endphp
+                                                <td>{{ $dateTime->toDateString() }}</td>
+                                                <!--Action-->
+                                                <td class="align-items-center gap-3"> {{-- gi remove sa nako ang dflex --}}
+                                                    <a href="{{ route('faculty.edit', $faculty_under) }}">Edit</a>
+                                                    <form method="POST" action="{{ route('faculty.destroy', $faculty_under) }}" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('faculty.destroy', $faculty_under) }}"
+                                                            onclick="event.preventDefault(); confirmDeletion(event, this);"
+                                                            class="text-danger">Delete</a>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                         <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="details" style="color: rgb(161, 49, 49);">Set Personal Details</h6>
-                                </div>
-                                <!-- id_usep-->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="id_usep">Usep ID</label>
-                                        <input type="text" class="form-control" name="id_usep" value="{{ $faculty->id_usep ?? '' }}"
-                                            placeholder="Enter Usep ID" required maxlength="10">
-                                    </div>
-                                </div>
-                                <!-- first name -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" name="first_name" value="{{ $faculty->first_name ?? '' }}"
-                                            placeholder="Enter First name" required>
-                                    </div>
-                                </div>
-                                <!-- last name -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" value="{{ $faculty->last_name ?? '' }}"
-                                            placeholder="Enter Last name" required>
-                                    </div>
-                                </div>
-                                {{-- <!-- remarks -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="remarks">Remarks</label>
-                                        <input type="text" class="form-control" name="remarks" value="{{ $faculty->remarks ?? '' }}"
-                                            placeholder="Enter Remarks">
-                                    </div>
-                                </div> --}}
-                                <label for="remarks">Degree</label>
-                                <!-- is partimer -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <input type="checkbox" class="text-input" id="is_part_timer" name="is_part_timer" 
-                                    @if (isset($faculty) && $faculty->is_part_timer == true)
-                                        checked
-                                    @endif
-                                        value="1" {{ old('is_part_timer') ? 'checked' : '' }}>
-                                    <label class="text-input" for="is_part_timer">Part-timer?</label>
-                                </div>
-                                <!-- designation-->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="designation">Designation (Optional)</label>
-                                        <input type="text" class="form-control" name="designation" value="{{ $faculty->designation ?? '' }}"
-                                            placeholder="Enter Designation" maxlength="255">
-                                    </div>
-                                </div>
-                                <!-- designation_load -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="designation_load">Designation Load (Optional)</label> <!-- optional term is optional -->
-                                        <input type="number" class="form-control" name="designation_load" value="{{ $faculty->designation_load ?? '' }}"
-                                            placeholder="Enter Designation Load" max="99.99" min="0">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-right">
-                                        <br>
-                    
-                                        <button type="submit" id="submit" name="submit" class="btn btn-primary"
-                                            style="background-color: rgb(161, 49, 49); border:white;">{{ isset($faculty) ? 'Update' : 'Create' }}</button>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    </div>
+        @endcan
+    @endisset
 
     @push('scripts')
     <script>
