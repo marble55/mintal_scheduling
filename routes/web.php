@@ -32,24 +32,19 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::resource('faculty', FacultyController::class)
     ->middleware(['auth', 'verified']);
 
-Route::resource('classroom', ClassroomController::class)
-    ->middleware(['auth', 'verified']);
-
-Route::resource('subject', SubjectController::class)
-    ->middleware(['auth', 'verified']);
-
-Route::resource('block', BlockController::class)
-    ->middleware(['auth', 'verified']);
-
-Route::resource('academic-calendar', AcademicCalendarController::class)
-    ->middleware(['auth', 'verified']);
-
 Route::resource('schedule', ScheduleController::class)
     ->middleware(['auth', 'verified']);
 // Kani kay para sa faculty schedule nga route
 Route::resource('facultySchedule', FacultyScheduleController::class)
     ->middleware(['auth', 'verified']);
 
+//Admin Gate
+Route::middleware(['can:isAdmin','auth'])->group(function () {
+    Route::resource('classroom', ClassroomController::class);
+    Route::resource('subject', SubjectController::class);
+    Route::resource('block', BlockController::class);
+    Route::resource('academic-calendar', AcademicCalendarController::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
