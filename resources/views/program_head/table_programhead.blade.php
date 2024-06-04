@@ -2,61 +2,49 @@
 
 @section('content')
     <div class="text-center">
-        <h1>
-            @if ($category == 'part-timer')
-                Program Head Part-Timers
-            @else
-                Program Head
-            @endif
-        </h1>
+        <h1>Program Head</h1>
         <br>
     </div>
     <div class="container pt-5">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
                     <th>Faculty ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Date Added</th>
+                    <th>Full Name</th>
+                    <th>Date Registered</th>
                     <th>Edit | Delete</th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach ($faculties as $faculty)
+                @foreach ($program_heads as $ph)
                     <tr>
-                        <!--Usep ID (clicking will lead to faculty profile)-->
-                        <td>
-                            <a href="{{ route('faculty.show', $faculty) }}"> {{ $faculty->id_usep }} </a>
-                        </td>
-                        <!--First Name-->
-                        <td>{{ $faculty->first_name }}
-                        </td>
-                        <!--last name-->
-                        <td>{{ $faculty->last_name }}</td>
-
-                        <!--Designation-->
-                        <td>{{ $faculty->designation_id }}</td>
+                        <!--User Name-->
+                        <td>{{ $ph->name }}</td>
+                        <!--Email-->
+                        <td>{{ $ph->email }}</td>
+                        <!--Faculty ID-->
+                        <td>{{ $ph->faculty->id_usep ?? '' }}</td>
+                        <!--User Name-->
+                        <td>{{ $ph->faculty->last_name ?? ''}}, {{ $ph->faculty->first_name ?? ''}}</td>
+                        <!--Date Registered-->
                         
-                        <!--Date Added-->
-                        @php $dateTime = \Carbon\Carbon::parse($faculty->created_at); @endphp
+                        @php $dateTime = \Carbon\Carbon::parse($ph->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>
+                        
                         <!--Action-->
                         <td class="d-flex align-items-center gap-3">
-                            <a href="{{ route('faculty.edit', $faculty) }}">Edit</a>
-                            <form method="POST" action="{{ route('faculty.destroy', $faculty) }}" class="d-inline">
+                            <a href="#">Edit</a>
+                            <form method="POST" action="#" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('faculty.destroy', $faculty) }}"
+                                <a href="#"
                                     onclick="event.preventDefault(); confirmDeletion(event, this);"
                                     class="text-danger">Delete</a>
                             </form>
                         </td>
-
-
-
-
                     </tr>
                 @endforeach
 

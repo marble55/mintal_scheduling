@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\FacultyScheduleController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,7 @@ Route::middleware(['can:isAdmin','auth'])->group(function () {
     Route::resource('subject', SubjectController::class);
     Route::resource('block', BlockController::class);
     Route::resource('academic-calendar', AcademicCalendarController::class);
+    Route::resource('program-head', UserController::class);
 });
 
 Route::middleware('auth')->group(function () {

@@ -106,6 +106,9 @@
         var table = $('#example').DataTable({
             order: [],
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            // responsive: {
+            //     details: true
+            // },
             search: {
                 boundary: true
             }

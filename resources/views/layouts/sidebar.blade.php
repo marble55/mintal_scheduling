@@ -129,13 +129,6 @@
         </ul>
     </li>
 
-    <!-- Academic Calendar Settings -->
-    <li class="sidebar-item">
-        <a href="{{ route('academic-calendar.create') }}" class="sidebar-link">
-            <i class="lni lni-cog"></i>
-            <span>Academic Calendar</span>
-        </a>
-    </li>
     <!-- Program Head -->
     <li class="sidebar-item has-dropdown">
         <a href="#" class="sidebar-link">
@@ -145,17 +138,24 @@
         </a>
         <ul class="sidebar-dropdown list-unstyled">
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="{{ route('program-head.index') }}" class="sidebar-link">
                     <i class="lni lni-eye"></i> View Program Head
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="{{ route('program-head.create') }}" class="sidebar-link">
                     <i class="lni lni-pencil"></i> Add Program Head
                 </a>
             </li>
         </ul>
     </li>
 
+    <!-- Academic Calendar Settings -->
+    <li class="sidebar-item">
+        <a href="{{ route('academic-calendar.create') }}" class="sidebar-link">
+            <i class="lni lni-cog"></i>
+            <span>Academic Calendar</span>
+        </a>
+    </li>
     @endcan
 </ul>

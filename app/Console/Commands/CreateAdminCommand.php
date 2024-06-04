@@ -43,6 +43,6 @@ class CreateAdminCommand extends Command
         $user->save();
 
         $this->info('New admin is created!');
-        $this->info('Username: '.$user->name.'| Email: '. $user->email.'| Password:'.$password);
+        $this->info('Username: '.$user->name.'| Email: '. $user->email.'| Password: '.$password);
     }
 }

@@ -44,7 +44,7 @@
                         @php $dateTime = \Carbon\Carbon::parse($faculty->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>
                         <!--Action-->
-                        <td class="d-flex align-items-center gap-3">
+                        <td class="align-items-center gap-3"> {{-- gi remove sa nako ang dflex --}}
                             <a href="{{ route('faculty.edit', $faculty) }}">Edit</a>
                             <form method="POST" action="{{ route('faculty.destroy', $faculty) }}" class="d-inline">
                                 @csrf
@@ -54,10 +54,6 @@
                                     class="text-danger">Delete</a>
                             </form>
                         </td>
-
-
-
-
                     </tr>
                 @endforeach
 
