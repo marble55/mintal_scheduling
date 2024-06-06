@@ -23,7 +23,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable()
             ->comment('the user that handles this faculty');
             
-            $table->foreign('user_id')->references('id')->on('faculty')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->nullOnDelete()->cascadeOnUpdate();
         });
     }

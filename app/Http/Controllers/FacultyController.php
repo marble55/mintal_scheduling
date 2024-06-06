@@ -13,6 +13,7 @@ use App\Models\Subject;
 use App\Services\AcademicCalendarService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use \Illuminate\Database\QueryException;
 
 class FacultyController extends Controller
 {
@@ -57,8 +58,8 @@ class FacultyController extends Controller
 
         try {
             $request->user()->faculties()->create($request->all());
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->back()->with('error', 'Faculty ID taken');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Faculty ID already taken');
         }
 
         if($request->input('previous') === 'program_head'){
@@ -123,8 +124,9 @@ class FacultyController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Faculty $faculty)
-    {
-
+    {   
+        $faculty = Faculty::with('program_head')->find($faculty->id);
+        // dd($faculty);
         return view('faculty.assign-form', compact('faculty'))->with(['action' => 'update']);
     }
 
@@ -174,7 +176,11 @@ class FacultyController extends Controller
         } else
             $category = 'graduate';
 
-        $faculty->delete();
+        try{
+            $faculty->delete();
+        }catch (QueryException $e) {
+            return back()->with('error', 'This faculty is a Program Head. It cannot be deleted');
+        }
 
         return redirect()->route('faculty.index', ['category' => $category]);
     }

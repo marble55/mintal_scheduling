@@ -34,10 +34,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $faculty = Faculty::find($request->faculty_id);
         $username = $request->input('name') == null ? $faculty->first_name.' '.$faculty->last_name: $request->input('name');
-        $password = $request->input('password') == null ? $faculty->faculty_id : $request->input('password');
-
+        $password = $request->input('password') == null ? $faculty->id_usep : $request->input('password');
+        
         User::create([
             'name' => $username,
             'email' => $request->input('email'),
@@ -63,6 +64,7 @@ class UserController extends Controller
         $program_heads = User::with('faculty')->orderByDesc('id')->get();
         $user = User::find($id);
         $faculties = Faculty::whereDoesntHave('user')->orderBy('first_name')->get();
+
         return view('program_head.assign_programhead', compact([
             'program_heads', 'user', 'faculties'
         ]))->with('action','update');
