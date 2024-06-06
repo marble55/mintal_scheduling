@@ -70,7 +70,7 @@
                             <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
                                 <h4>Faculty: {{ $all_faculty }}</h4>
                                 <h4>Part Timer: {{ $all_partTimer }}</h4>
-                                <h4>Total: {{ $total_faculties }}</h4>
+                                <h4 style="font-weight: bold;">Total: {{ $total_faculties }}</h4>
                             </div>
                         </div>
                     </div>

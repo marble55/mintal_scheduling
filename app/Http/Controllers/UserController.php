@@ -54,6 +54,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        return view('program_head.view_programhead', compact([
+            'program_heads', 'user', 'faculties'
+        ]));
     }
 
     /**

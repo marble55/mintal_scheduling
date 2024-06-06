@@ -9,9 +9,9 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>Faculty ID</th>
                     <th>User Name</th>
                     <th>Email</th>
-                    <th>Faculty ID</th>
                     <th>Full Name</th>
                     <th>Date Registered</th>
                     <th>Actions</th>
@@ -21,13 +21,13 @@
             <tbody>
                 @foreach ($program_heads as $ph)
                     <tr>
+                        <!--Faculty ID-->
+                        <td><a href="{{ route('program-head.show', $ph) }}">{{ $ph->faculty->id_usep ?? '' }}</a></td>
                         <!--User Name-->
                         <td>{{ $ph->name }}</td>
                         <!--Email-->
                         <td>{{ $ph->email }}</td>
-                        <!--Faculty ID-->
-                        <td>{{ $ph->faculty->id_usep ?? '' }}</td>
-                        <!--User Name-->
+                        <!--Full Name-->
                         <td>{{ $ph->faculty->last_name ?? ''}}, {{ $ph->faculty->first_name ?? ''}}</td>
                         <!--Date Registered-->
                         
