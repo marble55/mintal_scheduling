@@ -23,7 +23,10 @@ class UserController extends Controller
     public function create()
     {
         $program_heads = User::with('faculty')->orderByDesc('id')->get();
-        $faculties = Faculty::whereDoesntHave('user')->orderBy('first_name')->get();
+
+        $facultiesWithProgramHead = Faculty::whereHas('program_head')->orderBy('first_name')->get();
+        $facultiesWithoutProgramHead = Faculty::whereDoesntHave('program_head')->orderBy('first_name')->get();
+        $faculties = $facultiesWithoutProgramHead->merge($facultiesWithProgramHead);
 
         return view('program_head.assign_programhead', compact(['program_heads', 'faculties',]))
             ->with('action', 'Register New');
@@ -54,8 +57,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $programHead = User::find( $id );
+        $faculties = Faculty::whereDoesntHave('program_head')->get();
         return view('program_head.view_programhead', compact([
-            'program_heads', 'user', 'faculties'
+            'programHead', 'faculties'
         ]));
     }
 
@@ -65,11 +70,14 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $program_heads = User::with('faculty')->orderByDesc('id')->get();
-        $user = User::find($id);
-        $faculties = Faculty::whereDoesntHave('user')->orderBy('first_name')->get();
+        $programHead = User::find($id);
+
+        $facultiesWithProgramHead = Faculty::whereHas('program_head')->orderBy('first_name')->get();
+        $facultiesWithoutProgramHead = Faculty::whereDoesntHave('program_head')->orderBy('first_name')->get();
+        $faculties = $facultiesWithoutProgramHead->merge($facultiesWithProgramHead);
 
         return view('program_head.assign_programhead', compact([
-            'program_heads', 'user', 'faculties'
+            'program_heads', 'programHead', 'faculties'
         ]))->with('action','update');
     }
 
@@ -78,7 +86,14 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $programHead = User::find($id);
+        $password = Hash::make($request->input('password') == null ? $programHead->faculty->id_usep : $request->input('password'));
+        $request->merge(['password'=> $password]);
+
+        $programHead->fill($request->all());
+        $programHead->save();   
+
+        return back()->with('message','Program Head Updated!');
     }
 
     /**
@@ -91,4 +106,27 @@ class UserController extends Controller
         
         return back();
     }
+
+    public function updateFaculties(Request $request, int $id)
+    {   
+        $faculties = $request->input('faculties');
+
+        foreach($faculties as $facultyId){
+            $faculty = Faculty::find($facultyId);
+            $faculty->user_id = $id;
+            $faculty->save();
+        }
+
+        return back()->with('message','Faculty(ies) added');
+    }
+
+    public function destroyFaculties(int $id)
+    {
+        $faculty = Faculty::find($id);
+        $faculty->user_id = null;
+        $faculty->save();
+        return back()->with('message','Faculty removed!');
+    }
+
+    
 }

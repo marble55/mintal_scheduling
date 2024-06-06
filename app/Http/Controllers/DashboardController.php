@@ -18,6 +18,7 @@ class DashboardController extends Controller
         $all_faculty = Faculty::where('is_part_timer', '=',0)->count();
         $all_partTimer = Faculty::where('is_part_timer', '=',1)->count();
         $total_faculties = Faculty::count();
+        
         $user = Auth::user();
         return view('dashboard', compact(
             'total_faculties', 

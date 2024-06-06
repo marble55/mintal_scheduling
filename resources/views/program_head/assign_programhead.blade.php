@@ -15,81 +15,92 @@
     </div>
 
     <div class="container mb-5">
-        <form id="faculty_form" action="{{ route('program-head.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="faculty_form"
+            action="{{ $action === 'update' ? route('program-head.update', $programHead->id) : route('program-head.store') }}"
+            method="POST" enctype="multipart/form-data">
             @csrf
-            @if(isset($user))
+            @isset($programHead)
                 @method('PUT')
-            @endif
+            @endisset
             <div class="row gutters">
                 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="row gutters">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <h6 class="details" style="color: rgb(161, 49, 49);">Set Program Head Details</h6>
-                                    </div>
-                                    
-                                    <!-- id_usep-->
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="faculty_select" class="form-label">Faculty: </label>
-                                            <select name="faculty_id" id="faculty_select" autofocus required style="min-width: 200px;">
-                                                @foreach ($faculties as $faculty)
-                                                    <option value="{{ $faculty->id }}">
-                                                        {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <br>
-                                            <label for="id_not_exsit" class="form-text text-input-helper">Note: If Faculty doesn't exist, please <a href="{{ route('faculty.create') }}"> Add a Faculty</a> first.</label>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Email -->
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="first_name" class="form-label">Email</label>
-                                            <input type="text" class="form-control" name="email" value="@isset($user) {{ $user->email }} @endisset"
-                                                placeholder="Enter Email" required>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Username -->
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="input_username" class="form-label">Username</label>
-                                            <input id="input_username" type="text" class="form-control" name="name" value="@isset($user) {{ $user->name }} @endisset" placeholder="Optional">
-                                            <div id="usernameHelpBlock" class="form-text text-input-helper">Leave blank to set user name as Faculty Name*</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- password -->
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="input_password" class="form-label">Password</label>
-                                            <input id="input_password" type="password" class="form-control" name="password" placeholder="Optional" autocomplete="new-password">
-                                            <div id="passwordHelpBlock" class="form-text text-input-helper">Leave blank to set password as Faculty ID*</div>
-                                        </div>
-                                    </div>                          
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="details" style="color: rgb(161, 49, 49);">Set Program Head Details</h6>
                                 </div>
-                                
-                                <br>
-                                <div class="row gutters">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <div class="text-right">
-                                            <br>
-                        
-                                            <button type="submit" id="submit" name="submit" class="btn btn-primary"
-                                                style="background-color: rgb(161, 49, 49); border:white;">{{ isset($faculty) ? 'Update' : 'Create' }}</button>
-                                        </div>
+
+                                <!-- id_usep-->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="faculty_select" class="form-label">Faculty: </label>
+                                        <select name="faculty_id" id="faculty_select" autofocus required
+                                            style="min-width: 200px;" @if ($action === 'update') disabled @endif>
+                                            @foreach ($faculties as $faculty)
+                                                <option value="{{ $faculty->id }}"  @if ($faculty->user_id != null) disabled @endif>{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <br>
+                                        <label for="id_not_exsit" class="form-text text-input-helper">Note: If Faculty
+                                            doesn't exist, please <a href="{{ route('faculty.create') }}"> Add a Faculty</a>
+                                            first.</label>
                                     </div>
                                 </div>
+
+                                <!-- Email -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="first_name" class="form-label">Email</label>
+                                        <input type="text" class="form-control" name="email"
+                                            value="@isset($programHead) {{ $programHead->email }} @endisset"
+                                            placeholder="Enter Email" required>
+                                    </div>
+                                </div>
+
+                                <!-- Username -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="input_username" class="form-label">Username</label>
+                                        <input id="input_username" type="text" class="form-control" name="name"
+                                            value="@isset($programHead) {{ $programHead->name }} @endisset"
+                                            placeholder="Optional">
+                                        <div id="usernameHelpBlock" class="form-text text-input-helper">Leave blank to set
+                                            user name as Faculty Name*</div>
+                                    </div>
+                                </div>
+
+                                <!-- password -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="input_password" class="form-label">Password</label>
+                                        <input id="input_password" type="password" class="form-control" name="password"
+                                            placeholder="Optional" autocomplete="new-password">
+                                        <div id="passwordHelpBlock" class="form-text text-input-helper">Leave blank to set
+                                            password as Faculty ID*</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-right">
+                                        <br>
+                                        <button type="submit" id="submit" name="submit" class="btn btn-primary"
+                                            style="background-color: rgb(161, 49, 49); border:white;">{{ isset($programHead) ? 'Update' : 'Create' }}</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+
     <div class="container pt-5 p-3 border-top border-black">
+        <h4 class="text-center fw-bold">Program Head Table</h4>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -112,12 +123,12 @@
                         <!--Faculty ID-->
                         <td>{{ $ph->faculty->id_usep ?? '' }}</td>
                         <!--User Name-->
-                        <td>{{ $ph->faculty->last_name ?? ''}}, {{ $ph->faculty->first_name ?? ''}}</td>
+                        <td>{{ $ph->faculty->last_name ?? '' }}, {{ $ph->faculty->first_name ?? '' }}</td>
                         <!--Date Registered-->
-                        
+
                         @php $dateTime = \Carbon\Carbon::parse($ph->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>
-                        
+
                         <!--Action-->
                         <td class="d-flex align-items-center gap-3">
                             <a href="{{ route('program-head.edit', $ph->id) }}">Edit</a>
@@ -137,57 +148,58 @@
     </div>
 
     @push('scripts')
-    <script>
-        document.getElementById('removeImageButton').addEventListener('click', function() {
-          this.classList.toggle('checked');
-          const isChecked = this.classList.contains('checked');
-    
-          // Remove any existing hidden input
-          const existingInput = document.querySelector('input[name="remove_img"]');
-          if (existingInput) {
-            existingInput.remove();
-          }
-    
-          // If the button is checked, add a hidden input to the form
-          if (isChecked) {
-            const hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'remove_img';
-            hiddenInput.value = '1';
-            document.getElementById('faculty_form').appendChild(hiddenInput);
-          }
-        });
-      </script>
+        <script>
+            document.getElementById('removeImageButton').addEventListener('click', function() {
+                this.classList.toggle('checked');
+                const isChecked = this.classList.contains('checked');
 
-      
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        var fileInput = document.getElementById('image');
-        var removeButton = document.getElementById('removeImageButton');
-        var imgElement = document.querySelector('.user-avatar img');
+                // Remove any existing hidden input
+                const existingInput = document.querySelector('input[name="remove_img"]');
+                if (existingInput) {
+                    existingInput.remove();
+                }
 
-        removeButton.addEventListener('click', function() {
-            fileInput.value = ''; // Clear the file input
+                // If the button is checked, add a hidden input to the form
+                if (isChecked) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'remove_img';
+                    hiddenInput.value = '1';
+                    document.getElementById('faculty_form').appendChild(hiddenInput);
+                }
+            });
+        </script>
 
-            // Reset the displayed image to the default image
-            imgElement.src = '{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}';
-        });
 
-        fileInput.addEventListener('change', function(event) {
-            var file = event.target.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    imgElement.src = e.target.result; // Set the img src to the selected file
-                };
-                reader.readAsDataURL(file); // Read the selected file as a data URL
-            }
-        });
-    });
-    </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var fileInput = document.getElementById('image');
+                var removeButton = document.getElementById('removeImageButton');
+                var imgElement = document.querySelector('.user-avatar img');
 
-    <script>
-        $('#faculty_select').select2()
-    </script>
+                removeButton.addEventListener('click', function() {
+                    fileInput.value = ''; // Clear the file input
+
+                    // Reset the displayed image to the default image
+                    imgElement.src = '{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}';
+                });
+
+                fileInput.addEventListener('change', function(event) {
+                    var file = event.target.files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            imgElement.src = e.target.result; // Set the img src to the selected file
+                        };
+                        reader.readAsDataURL(file); // Read the selected file as a data URL
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            $('#faculty_select').select2()
+            $('#faculty_select').val('{{ $programHead->faculty_id }}').trigger('change');
+        </script>
     @endpush
 @endsection

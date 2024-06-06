@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Classroom;
 use App\Models\Faculty;
@@ -126,8 +128,8 @@ class FacultyController extends Controller
     public function edit(Faculty $faculty)
     {   
         $faculty = Faculty::with('program_head')->find($faculty->id);
-        // dd($faculty);
-        return view('faculty.assign-form', compact('faculty'))->with(['action' => 'update']);
+        $programHeads = User::with('faculty')->get();
+        return view('faculty.assign-form', compact(['faculty', 'programHeads']))->with(['action' => 'update']);
     }
 
     /**
@@ -158,8 +160,7 @@ class FacultyController extends Controller
         $faculty->fill($request->all());
         $faculty->update();
 
-        return redirect()->route('faculty.index')
-            ->with('message', 'Faculty updated successfully');
+        return back()->with('message', 'Faculty updated successfully');
     }
 
     /**
@@ -183,6 +184,18 @@ class FacultyController extends Controller
         }
 
         return redirect()->route('faculty.index', ['category' => $category]);
+    }
+
+    public function setProgramHead(Request $request, int $id): RedirectResponse
+    {
+        if(!Gate::allows('isAdmin')) return back()->with('error', 'You need Admin permision for this action');
+
+        $faculty = Faculty::findOrFail($id);
+        $faculty->user_id = $request->input('programHead');
+        $faculty->save();
+
+        
+        return back()->with('message', 'Faculty updated successfully');
     }
 
 }

@@ -46,6 +46,10 @@ Route::middleware(['can:isAdmin','auth'])->group(function () {
     Route::resource('block', BlockController::class);
     Route::resource('academic-calendar', AcademicCalendarController::class);
     Route::resource('program-head', UserController::class);
+
+    Route::post('faculty/{id}', [FacultyController::class,'setProgramhead'])->name('faculty.setProgramhead');
+    Route::post('program-head/updateFaculties/{id}', [UserController::class,'updateFaculties'])->name('program-head.updateFaculties');
+    Route::delete('program-head/destroyFaculties/{id}', [UserController::class,'destroyFaculties'])->name('program-head.destroyFaculties');
 });
 
 Route::middleware('auth')->group(function () {
