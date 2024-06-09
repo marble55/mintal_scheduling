@@ -76,7 +76,7 @@
             <h6>Add faculties to this Program Head</h6>
             <form action="{{ route('program-head.updateFaculties', $programHead->id) }}" method="POST">
                 @csrf
-                <select name="faculties[]" id="faculties_select" multiple class="col-4">
+                <select name="faculties[]" id="faculties_select" multiple class="col-4" required>
                     @foreach ($faculties as $faculty)
                         <option value="{{ $faculty->id }}"> {{ $faculty->first_name }} {{ $faculty->last_name }}</option>
                     @endforeach
@@ -129,6 +129,8 @@
 
 @push('scripts')
     <script>
-        $('#faculties_select').select2()
+        $('#faculties_select').select2({
+            closeOnSelect: false
+        })
     </script>
 @endpush

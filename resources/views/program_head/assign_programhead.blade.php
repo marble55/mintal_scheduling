@@ -38,7 +38,7 @@
                                         <select name="faculty_id" id="faculty_select" autofocus required
                                             style="min-width: 200px;" @if ($action === 'update') disabled @endif>
                                             @foreach ($faculties as $faculty)
-                                                <option value="{{ $faculty->id }}"  @if ($faculty->user_id != null) disabled @endif>{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                                                <option value="{{ $faculty->id }}" @if ($faculty->user_id != null) disabled @endif>{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
                                             @endforeach
                                         </select>
                                         <br>
@@ -199,7 +199,7 @@
 
         <script>
             $('#faculty_select').select2()
-            $('#faculty_select').val('{{ $programHead->faculty_id }}').trigger('change');
+            $('#faculty_select').val('{{ $programHead->faculty_id ?? ''}}').trigger('change');
         </script>
     @endpush
 @endsection

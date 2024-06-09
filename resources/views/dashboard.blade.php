@@ -39,7 +39,7 @@
                 </a>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
+                {{-- <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
                     <div class="inforide">
                         <div class="row">
                             <div class="col-lg-3 col-md-4 col-sm-4 col-4 ridethree">
@@ -60,7 +60,7 @@
                         <button class="btn btn-primary btn-lg w-100"
                         style="border: white; background-color: rgb(0, 15, 102);">Add Room</button>
                     </a>
-                </div>
+                </div> --}}
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
                     <div class="inforide-1">
                         <div class="row">

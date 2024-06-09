@@ -85,14 +85,20 @@
                             <span class="input-group-text">
                                 <i class='bx bx-envelope'></i>
                             </span>
-                            <input type="email" class="form-control form-control-lg fs-6" name="email" placeholder="Email" required>
+                            <input type="email" class="form-control form-control-lg fs-6" name="email" placeholder="Email" required value="{{ old('email') }}">
                         </div>
+                        @error('email')
+                        <p class="text-danger"> {{ $message }}</p>
+                        @enderror
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class='bx bx-lock-alt'></i>
                             </span>
-                            <input type="password" class="form-control form-control-lg fs-6" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control form-control-lg fs-6 w-80" name="password" placeholder="Password" required value="{{ old('email') }}">
                         </div>
+                        @error('password')
+                        <p class="text-danger"> {{"Error: ".$message }}</p>
+                        @enderror
                         <!-- Remember Me -->
                         <div class="input-group mb-3 d-flex justify-content-between">
                             <div class="form-check fs-md">
@@ -107,9 +113,6 @@
                         </div>
                         <button type="submit" class="btn btn-light-maroon btn-lg w-100">Login</button>
                     </form>
-                    {{-- <div class="text-center mt-2 fs-md">
-                        <small>Don't have an account? <a href="{{ route('register') }}" class="fw-bold text-light-maroon text-decoration-none">Sign Up</a></small>
-                    </div> --}}
                 </div>
             </div>
         </div>

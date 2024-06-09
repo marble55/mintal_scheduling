@@ -15,7 +15,11 @@
         <br>
     </div>
     <div class="container">
-        <a href="{{ url()->previous() }}">Back</a>
+        @if ($faculty->is_part_timer)
+            <a href="{{ route('faculty.index', ['category' => 'part-timer']) }}">Back</a>
+        @else
+            <a href="{{ route('faculty.index', ['category' => 'faculty']) }}">Back</a>
+        @endif
         <form id="faculty_form" action="{{ isset($faculty) ? route('faculty.update', $faculty) : route('faculty.store') }}"
             method="POST" enctype="multipart/form-data">
             @csrf
@@ -93,12 +97,11 @@
                                     </div>
                                 </div>
                                 <!-- is partimer -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <label for="is_part_timer">Role?</label> <br>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-4">
                                     <input type="checkbox" class="text-input" id="is_part_timer" name="is_part_timer"
                                         @if (isset($faculty) && $faculty->is_part_timer == true) checked @endif value="1"
                                         {{ old('is_part_timer') ? 'checked' : '' }}>
-                                    <label class="text-input" for="is_part_timer">Part-timer?</label>
+                                    <label class="text-input" for="is_part_timer">Part-timer</label>
                                 </div>
                                 <!-- designation-->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

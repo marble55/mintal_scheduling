@@ -49,11 +49,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-dark-maroon">
-        <div class="footer-content">
-            <p class="copyright"> © Zeller & Friends | All Rights Reserved 2024</p>
-        </div>
-    </footer>
+    @include('layouts.footer')
 
     <script src="{{ URL::asset('dist/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/jquery-3.6.0.min.js') }}"></script>
