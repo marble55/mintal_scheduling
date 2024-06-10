@@ -6,7 +6,7 @@
         <br>
     </div>
     <div class="container pt-5">
-        <table id="datatablesDefault" class="table table-striped" style="width:100%">
+        <table id="datatablesDefault" class="table table-striped" style="width:100%" data-export-filename="Program Heads Data Excel" data-export-title="Program Heads">
             <thead>
                 <tr>
                     <th>Faculty ID</th>

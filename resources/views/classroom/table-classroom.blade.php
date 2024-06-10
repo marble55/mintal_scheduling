@@ -9,7 +9,7 @@
         <!-- <img src="table.png"></img> -->
     </div>
     <div class="container pt-5">
-        <table id="datatablesDefault" class="table table-striped">
+        <table id="datatablesDefault" class="table table-striped" data-export-filename="Classrooms CDM Scheduling" data-export-title="Classrooms">
             <thead>
                 <tr>
                     <th>Classroom ID</th>

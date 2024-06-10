@@ -12,7 +12,7 @@
         <br>
     </div>
     <div class="container pt-5">
-        <table id="datatablesDefault" class="table table-striped" style="width:100%">
+        <table id="datatablesDefault" class="table table-striped" style="width:100%" data-export-filename="Faculties CDM Scheduling" data-export-title="Faculties">
             <thead>
                 <tr>
                     <th>Faculty ID</th>
