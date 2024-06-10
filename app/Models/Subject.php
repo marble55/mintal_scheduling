@@ -18,6 +18,11 @@ class Subject extends Model
         'units_lab', 'load', 'is_graduate_program',
     ];
 
+    public function getIsGraduateProgramTextAttribute(){
+        $value = $this->getAttribute('is_graduate_program');
+        return $value ? 'Graduate' : 'Undergraduate';
+    }
+
     public function schedules():HasMany
     {
         return $this->hasMany(Schedule::class);

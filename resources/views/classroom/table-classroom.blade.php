@@ -9,7 +9,7 @@
         <!-- <img src="table.png"></img> -->
     </div>
     <div class="container pt-5">
-        <table id="example" class="table table-striped">
+        <table id="datatablesDefault" class="table table-striped">
             <thead>
                 <tr>
                     <th>Classroom ID</th>
@@ -64,6 +64,14 @@
                         </td>
                     </tr>
                 @endforeach
+                <tfoot>
+                    <tr>
+                        <th>Classroom ID</th>
+                        <th>Room</th>
+                        <th>Building</th>
+                        <th>Vaccant</th>
+                    </tr>
+                </tfoot>
             </tbody>
         </table>
         <a href="{{ route('classroom.create') }}"> Add a Room</a>

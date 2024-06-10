@@ -9,7 +9,7 @@
         <!-- <img src="table.png"></img> -->
     </div>
     <div class="container pt-5">
-        <table id="example" class="table table-striped">
+        <table id="datatablesDefault" class="table table-striped">
             <thead>
                 <tr>
                     <th>Block ID</th>
@@ -17,7 +17,6 @@
                     <th>Section</th>
                     <th>Year Level</th>
                     <th>Action</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -34,15 +33,22 @@
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{ route('block.destroy', $block->id) }}"
-                                    onclick="event.preventDefault(); confirmDeletion(event, this);" class="text-danger">Delete</a>
+                                    onclick="event.preventDefault(); confirmDeletion(event, this);"
+                                    class="text-danger">Delete</a>
                             </form>
                         </td>
                     </tr>
                 @endforeach
+                <tfoot>
+                    <tr>
+                        <th>Block ID</th>
+                        <th>Course</th>
+                        <th>Section</th>
+                        <th>Year Level</th>
+                    </tr>
+                </tfoot>
             </tbody>
         </table>
         <a href="{{ route('block.create') }}"> Add a Block</a>
     </div>
 @endsection
-
-

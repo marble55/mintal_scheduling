@@ -15,6 +15,7 @@ $custom-theme-colors: (
     "input-helper": rgb(145, 40, 40),
     "dark-maroon": #380e15,
     "pink": pink,
+    "--bs-link-hover-color": rgb(145, 40, 40),
 );
 
 $theme-colors: map-merge($custom-theme-colors, $theme-colors);

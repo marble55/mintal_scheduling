@@ -19,12 +19,19 @@ class Schedule extends Model
     ];
 
     protected $casts = [
-        'is_lab' => 'boolean',
+        'is_lab'=> 'boolean',
     ];
 
-    public function getIsLabAttribute($value){
+    public function getIsLabTextAttribute(){
+        $value = $this->getAttribute('is_lab');
         return $value ? 'LAB' : 'LEC';
     }
+
+    public function getDayStrippedAttribute(){
+        $value = $this->getAttribute('day');
+        return str_replace(',','', $value);
+    }
+
 
 
     //---relation functions---///

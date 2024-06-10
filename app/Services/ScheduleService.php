@@ -39,10 +39,19 @@ class ScheduleService
 
     public function updateSchedule(array $data, $id, $currentSemester)
     {
+        //Temporarily nulls the current day to avoid update confilct
+        $schedule = Schedule::findOrFail($id);
+        $originalDay = unserialize(serialize($schedule->day));
+        $schedule->day = '';
+        
+        $schedule->save();
+        
         if (isset($data['day']) && isset($data['classroom_id'])) {
             //check if DAY, ROOM, TIME already exists
             $constraintResult = $this->checkScheduleConstraint($data, $currentSemester);
             if ($constraintResult['check'] == 'error') {
+                $schedule->day = $originalDay;
+                $schedule->save();
                 return ['success' => false, 'message' => 'Schedule conflict found with scheduleID:00' . $constraintResult['schedule_id']];
             }
         }
@@ -50,13 +59,13 @@ class ScheduleService
         if (isset($data['faculty_id'])) {
             $constraintResult = $this->checkFacultyScheduleConstraint($data, $currentSemester);
             if ($constraintResult['check'] == 'error') {
+                $schedule->day = $originalDay;
+                $schedule->save();
                 return ['success' => false, 'message' => 'Faculty already has a schedule for the time slot'];
             }
         }
 
         $data['day'] = isset($data['day']) ? implode($data['day']) : '';
-
-        $schedule = Schedule::findOrFail($id);
 
         $schedule->update($data);
         $schedule->time_slots->first->update($data);
@@ -76,7 +85,6 @@ class ScheduleService
         foreach ($days as $day) {
             $schedules = Schedule::where('classroom_id', '=', $classroom_id)
                 ->where('day', 'LIKE', '%' . $day . '%')->where('semesters_id', '=', $currentSemester)->with('time_slots')->get();
-
             foreach ($schedules as $schedule) {
                 //gets the time_slot for the schedule
                 $time_slots = TimeSlot::where('schedule_id', '=', $schedule->id)->get();
@@ -89,6 +97,7 @@ class ScheduleService
                 }
             }
         }
+
         //If no existing records found
         return ['check' => 'noError'];
     }
@@ -117,17 +126,6 @@ class ScheduleService
             }
         }
         return ['check' => 'noError'];
-    }
-
-    /**
-     * Check if the new time slot overlaps with the existing time slot.
-     */
-    private function isTimeSlotOverlapping($time_slot, $new_start, $new_end): bool
-    {
-        $existing_start = $time_slot->time_start;
-        $existing_end = $time_slot->time_end;
-
-        return ($new_start < $existing_end) && ($new_end > $existing_start);
     }
 
     /**

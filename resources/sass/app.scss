@@ -304,3 +304,37 @@ a.sidebar-link.active {
     background-color: #bd362f !important;
     color: #fff !important;
 }
+
+//-----DataTables-----//
+
+/*---Paging---*/
+.page-item.active .page-link{
+    background-color: rgb(145, 40, 40);
+    border-color: rgb(145, 40, 40); 
+}
+
+/*---Buttons---*/
+.dt-buttons{
+    gap: 5px;
+    margin-top: 1rem;
+}
+
+thead {
+    color: rgb(145, 40, 40);
+}
+
+tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+    color: rgb(145, 40, 40);
+    font-weight: 500;
+}
+
+tbody {
+    color: rgb(145, 40, 40);
+}
+
+[role=button] {
+    color: #380e15;
+}

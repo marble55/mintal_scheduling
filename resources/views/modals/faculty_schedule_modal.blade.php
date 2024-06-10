@@ -22,7 +22,7 @@
 <div class="modal fade w-100" id="addScheduleModal" tabindex="-1" aria-labelledby="addScheduleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="width:125%; right:5rem;">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addScheduleModalLabel">Add Schedule</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -35,7 +35,7 @@
                         @csrf
                         @method('PUT')
                         <!-- Table for displaying schedules -->
-                        <table id="example" class="table table-striped" style="width:100%">
+                        <table id="datatableModal" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Add</th>
@@ -66,7 +66,7 @@
                                         <td>{{ $schedule->subject->description }}</td>
                                         <td>{{ $schedule->block->course ?? ' '}} {{ $schedule->block->section ?? '' }}</td>
                                         <td>{{ $schedule->is_lab ? 'LAB' : 'LEC' }}</td>
-                                        <td>{{ $schedule->day }}</td>
+                                        <td>{{ $schedule->day_stripped }}</td>
                                         <td>
                                             @foreach ($schedule->time_slots as $time_slot)
                                                 {{ $time_slot->time_start_12hour() }} - <br>

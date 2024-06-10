@@ -38,7 +38,7 @@ class ScheduleController extends Controller
             'classroom',
             'block',
             'time_slots'
-        ])->where('semesters_id', '=', $this->currentSemester)->get();
+        ])->where('semesters_id', '=', $this->currentSemester)->get()->sortBy('faculty.first_name');
 
         return view('schedule.table-schedule', compact('schedules'));
     }
@@ -52,12 +52,22 @@ class ScheduleController extends Controller
         $subjects = Subject::select('*')->orderBy('subject_code')->get();
         $classrooms = Classroom::select('*')->orderBy('building')->get();
         $blocks = Block::select('*')->orderBy('course')->get();
+        $schedules = Schedule::with([
+            'faculty',
+            'semester',
+            'school_year',
+            'subject',
+            'classroom',
+            'block',
+            'time_slots'
+        ])->where('semesters_id', '=', $this->currentSemester)->get()->sortBy('faculty.first_name');
 
         return view('schedule.form-schedule', compact([
             'faculties',
             'subjects',
             'classrooms',
-            'blocks'
+            'blocks',
+            'schedules',
         ]))->with(['action' => 'add']);
     }
 
@@ -65,8 +75,7 @@ class ScheduleController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request, ScheduleService $scheduleService)
-    {
-
+    {        
         $result = $scheduleService->createSchedule(
             $request->except(['sy_id', 'semesters_id']),
             $this->currentSemester,

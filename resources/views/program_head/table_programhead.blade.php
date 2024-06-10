@@ -6,7 +6,7 @@
         <br>
     </div>
     <div class="container pt-5">
-        <table id="example" class="table table-striped" style="width:100%">
+        <table id="datatablesDefault" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Faculty ID</th>
@@ -15,7 +15,6 @@
                     <th>Full Name</th>
                     <th>Date Registered</th>
                     <th>Actions</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -28,12 +27,12 @@
                         <!--Email-->
                         <td>{{ $ph->email }}</td>
                         <!--Full Name-->
-                        <td>{{ $ph->faculty->last_name ?? ''}}, {{ $ph->faculty->first_name ?? ''}}</td>
+                        <td>{{ $ph->faculty->last_name ?? '' }}, {{ $ph->faculty->first_name ?? '' }}</td>
                         <!--Date Registered-->
-                        
+
                         @php $dateTime = \Carbon\Carbon::parse($ph->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>
-                        
+
                         <!--Action-->
                         <td class="d-flex align-items-center gap-3">
                             <a href="{{ route('program-head.edit', $ph->id) }}">Edit</a>
@@ -48,7 +47,15 @@
                         </td>
                     </tr>
                 @endforeach
-
+            <tfoot>
+                <tr>
+                    <th>Faculty ID</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Full Name</th>
+                    <th>Date Registered</th>
+                </tr>
+            </tfoot>
             </tbody>
         </table>
         <a href="{{ route('program-head.create') }}"> Add a Program Head</a>

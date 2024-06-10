@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ URL::asset('dist/assets/images/CDM_Logo.png') }}">
     <link rel="stylesheet" href="{{ URL::asset('dist/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('dist/assets/css/datatables.min.css') }}">
-    <!-- Although mugana ang toastr if dili cdn, kaso matubanan siya sa baba :(  -->
-    <!-- <link rel="stylesheet" href="{{ URL::asset('assets/css/toastr.min.css') }}"> -->
+    
+    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fh-4.0.1/r-3.0.2/rg-1.5.0/datatables.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    {{-- <link rel="stylesheet" href="{{ asset('dist/assets/css/style.css') }}"> --}}
     <link rel="stylesheet" href="{{ URL::asset('dist/assets/css/LR.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('dist/assets/css/Form.css') }}">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     {{-- ======JQUERY===== --}}
-    @stack('styles')
-    @stack('javascript-head')
     <title>USeP Mintal Scheduling System</title>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    
+    @stack('styles')
+    @stack('javascript-head')
 </head>
 
 <body>
@@ -54,11 +54,12 @@
     <script src="{{ URL::asset('dist/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ URL::asset('dist/assets/js/datatables.min.js') }}"></script>
-    <script></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.8/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/fh-4.0.1/r-3.0.2/rg-1.5.0/datatables.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <!-- Although mugana ang toastr if dili cdn, kaso matubanan siya sa baba :(  -->
-    <!-- <script src="{{ asset('dist/assets/js/toastr.min.js') }}"></script> -->
     <!-- Toastr -->
     @if (Session::has('message'))
         <script>
@@ -85,11 +86,7 @@
             });
         </script>
     @endif
-    <script src="{{ URL::asset('dist/assets/js/pdfmake.min.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/vfs_fonts.js') }}"></script>
-
-    {{-- REMOVED FOR NOW FOR BUILDING PURPOSES --}}
-    {{-- <script src="{{ URL::asset('dist/assets/js/custom.js') }}"></script> --}}
     <script src="{{ URL::asset('dist/assets/js/sidebar.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/alerts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
@@ -97,23 +94,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('dist/assets/js/alerts.js') }}"></script>
     @stack('scripts')
-
-    <script>
-        var table = $('#example').DataTable({
-            order: [],
-            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            // responsive: {
-            //     details: true
-            // },
-            search: {
-                boundary: true
-            }
-
-        });
-
-        table.buttons().container()
-            .appendTo('#example_wrapper .col-md-6:eq(0)');
-    </script>
 </body>
 
 </html>

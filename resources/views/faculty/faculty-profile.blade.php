@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@push('styles')
+    <style>
+        tbody {
+            color: black;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="text-center">
         <h1>
@@ -38,17 +46,17 @@
                     <div class="card-body">
                         <div class=" col-12">
                             <p class="h6 fw-bold">Name:</p>
-                            <p class="h5">{{ $faculty->first_name.' '.$faculty->last_name }}</p>
+                            <p class="h5">{{ $faculty->first_name . ' ' . $faculty->last_name }}</p>
                         </div>
                         <hr class="hr">
                         <div class=" row">
-                            <div class=" col-6">    
+                            <div class=" col-6">
                                 <p class="h6 fw-bold">USeP ID:</>
                                 <p class="h5">{{ $faculty->id_usep }}</p>
                             </div>
-                            <div class=" col-6">    
+                            <div class=" col-6">
                                 <p class="h6 fw-bold">Role:</p>
-                                <p class="h5">{{ $faculty->is_part_timer ? 'Part-Timer' : 'Faculty'}}</p>
+                                <p class="h5">{{ $faculty->is_part_timer ? 'Part-Timer' : 'Faculty' }}</p>
                             </div>
                         </div>
                         <hr class="hr">
@@ -59,7 +67,8 @@
                                 @method('PUT')
                                 <div class="row">
                                     <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="None" value="{{ $faculty->remarks }}" name="remarks" id="input_remarks">
+                                        <input class="form-control" type="text" placeholder="None"
+                                            value="{{ $faculty->remarks }}" name="remarks" id="input_remarks">
                                     </div>
                                     <div class="col-3">
                                         <input class="w-50 form-control bg-maroon text-light" type="submit" value="Save">
@@ -170,14 +179,14 @@
                             <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
                             <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
                         @endif
-                        <td class="text-center">{{ $schedule->day ?? ''}}</td>
+                        <td class="text-center">{{ $schedule->day ?? '' }}</td>
                         <td class="text-center">
                             @foreach ($schedule->time_slots as $time_slot)
                                 {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                             @endforeach
                         </td>
-                        <td class="text-center">{{ $schedule->classroom->room ?? ''}}</td>
-                        <td class="text-center">{{ $schedule->subject->load  ?? ''}}</td>
+                        <td class="text-center">{{ $schedule->classroom->room ?? '' }}</td>
+                        <td class="text-center">{{ $schedule->subject->load ?? '' }}</td>
                         <td>
                             <form method="POST" action="{{ route('facultySchedule.destroy', $schedule->id) }}">
                                 @csrf

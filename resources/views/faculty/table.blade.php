@@ -12,7 +12,7 @@
         <br>
     </div>
     <div class="container pt-5">
-        <table id="example" class="table table-striped" style="width:100%">
+        <table id="datatablesDefault" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Faculty ID</th>
@@ -21,7 +21,6 @@
                     <th>Program Head</th>
                     <th>Date Added</th>
                     <th>Edit | Delete</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -57,6 +56,15 @@
                     </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>Faculty ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Program Head</th>
+                    <th>Date Added</th>
+                </tr>
+            </tfoot>
         </table>
         <a href="{{ route('faculty.create') }}"> Add a Faculty</a>
     </div>

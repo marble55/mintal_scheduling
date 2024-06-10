@@ -15,7 +15,7 @@
         <br>
     </div>
     <div class="container">
-        @if ($faculty->is_part_timer)
+        @if ($action ==='update' && $faculty->is_part_timer)
             <a href="{{ route('faculty.index', ['category' => 'part-timer']) }}">Back</a>
         @else
             <a href="{{ route('faculty.index', ['category' => 'faculty']) }}">Back</a>

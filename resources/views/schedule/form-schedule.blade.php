@@ -30,7 +30,6 @@
                             @csrf
 
                             <!-- Faculty ID Input -->
-
                             <label for="faculty_id">Faculty:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
@@ -62,17 +61,19 @@
                             </div>
 
                             <!-- Lab Input -->
-                            <label for="is_lab">Subject Unit:</label><br>
+                            <label for="is-lab_checkbox">Subject Unit:</label><br>
                             <div class="input-group mb-3">
-                                <span class="input-group-text">
-                                    <i class='bx bxs-school'></i>
-                                </span>
-                                <input type="checkbox" class="text-input" id="is-lab_checkbox" name="is_lab" value="0" style="margin-left:10px;" @checked($action === 'update' && $schedule->is_lab === 'LAB')>
-                                <label class="form-check-label" for="is_lab">&nbsp;Lab </label>
+                                <div class="input-group-text">
+                                    <input type="checkbox" class="form-check-input border-black m-0 fs-5"
+                                        id="is-lab_checkbox" name="is_lab" value="1" style="margin-left:10px;"
+                                        @checked($action === 'update' && $schedule->is_lab == 1)>
+                                </div>
+                                <label class="form-check-label fs-5 m-1" for="is-lab_checkbox">Lab</label>
                             </div>
 
                             <!-- Block ID Input -->
-                            <label for="is_lab">Block:</label><br>
+                            <br>
+                            <label for="block_id">Block:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
@@ -101,38 +102,42 @@
                                     @endforeach
                                 </select>
                             </div>
-
                     </div>
 
-
+                    <!-- Right Column -->
                     <div class="col-md-6">
-                        <!-- Right Column -->
-                        <!-- Add the rest of your input fields here -->
                         <!-- Day Input -->
                         <label for="form-check_day">Days:</label><br>
                         <div id="form-check_day" class="form-check form-check-inline mb-3 required">
-                            <input type="checkbox" id="day-monday" name="day[]" class="form-check-input border-black" value="M," @checked($action === 'update' && strpos($schedule->day, 'M,') !== false)>
+                            <input type="checkbox" id="day-monday" name="day[]" class="form-check-input border-black"
+                                value="M," @checked($action === 'update' && strpos($schedule->day, 'M,') !== false)>
                             <label for="day-monday" class="form-check-label me-2">Monday</label><br>
 
-                            <input type="checkbox" id="day-tuesday" class="form-check-input border-black" name="day[]" value="T," @checked($action === 'update' && strpos($schedule->day, 'T,') !== false && strpos($schedule->day, 'TTH') === false)>
+                            <input type="checkbox" id="day-tuesday" class="form-check-input border-black" name="day[]"
+                                value="T," @checked($action === 'update' && strpos($schedule->day, 'T,') !== false && strpos($schedule->day, 'TTH') === false)>
                             <label for="day-tuesday" class="form-check-label me-2">Tuesday</label><br>
 
-                            <input type="checkbox" id="day-wednesday" class="form-check-input border-black" name="day[]" value="W," @checked($action === 'update' && strpos($schedule->day, 'W,') !== false)>
+                            <input type="checkbox" id="day-wednesday" class="form-check-input border-black" name="day[]"
+                                value="W," @checked($action === 'update' && strpos($schedule->day, 'W,') !== false)>
                             <label for="day-wednesday" class="form-check-label me-2">Wednesday</label><br>
 
-                            <input type="checkbox" id="day-thursday" class="form-check-input border-black" name="day[]" value="TH," @checked($action === 'update' && strpos($schedule->day, 'TH,') !== false)>
+                            <input type="checkbox" id="day-thursday" class="form-check-input border-black" name="day[]"
+                                value="TH," @checked($action === 'update' && strpos($schedule->day, 'TH,') !== false)>
                             <label for="day-thursday" class="form-check-label me-2">Thursday</label><br>
 
-                            <input type="checkbox" id="day-friday" class="form-check-input border-black" name="day[]" value="F," @checked($action === 'update' && strpos($schedule->day, 'F,') !== false)>
+                            <input type="checkbox" id="day-friday" class="form-check-input border-black" name="day[]"
+                                value="F," @checked($action === 'update' && strpos($schedule->day, 'F,') !== false)>
                             <label for="day-friday" class="form-check-label me-2">Friday</label><br>
 
-                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="S," @checked($action === 'update' && strpos($schedule->day, 'S,') !== false)>
+                            <input type="checkbox" id="day-saturday" class="form-check-input border-black"
+                                name="day[]" value="S," @checked($action === 'update' && strpos($schedule->day, 'S,') !== false)>
                             <label for="day-saturday" class="form-check-label me-2">Saturday</label><br>
 
-                            <input type="checkbox" id="day-saturday" class="form-check-input border-black" name="day[]" value="SU," @checked($action === 'update' && strpos($schedule->day, 'SUN,') !== false)>
+                            <input type="checkbox" id="day-saturday" class="form-check-input border-black"
+                                name="day[]" value="SU," @checked($action === 'update' && strpos($schedule->day, 'SUN,') !== false)>
                             <label for="day-saturday" class="form-check-label me-2">Sunday</label><br>
-                        
-                        
+
+
                             <div class="invalid-feedback">Please check at least one</div>
                         </div>
 
@@ -143,7 +148,9 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-time'></i>
                                 </span>
-                                <input type="time" id="time-start_input" class="form-control form-control-lg fs-6" name="time_start" placeholder="Time Start" value="{{ $timeSlot->time_start ?? '' }}"required>
+                                <input type="time" id="time-start_input" class="form-control form-control-lg fs-6"
+                                    name="time_start" placeholder="Time Start"
+                                    value="{{ $timeSlot->time_start ?? '' }}"required>
                             </div>
 
                             <!-- Time End Input -->
@@ -156,7 +163,6 @@
                                     placeholder="Time End" id="time-end_input" value="{{ $timeSlot->time_end ?? '' }}"
                                     required>
                             </div>
-
                         </div>
                     </div>
                     <!-- Add Button -->
@@ -165,7 +171,52 @@
                     </form>
                 </div>
             </div>
-
+            
+            {{-- -----Schedule Table----- --}}
+            <hr>
+            <div class="container pt-5">
+                <p class="h3 fw-bold text-center">Schedules Table</p>
+                <table id="datatablesForm" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Faculty</th>
+                            <th>Subject Code</th>
+                            <th>Subject Descripiton</th>
+                            <th>Subject Type</th>
+                            <th>Unit Type</th>
+                            <th>Block</th>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Room</th>
+                            <th>Load</th>
+                            {{-- <th>Semester</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($schedules as $schedule)
+                            <tr>
+                                <td>{{ $schedule->faculty->first_name ?? '' }}</td>
+                                <td>{{ $schedule->subject->subject_code ?? '' }}</td>
+                                <td>{{ $schedule->subject->description ?? '' }}</td>
+                                <td>{{ $schedule->subject->is_graduate_program_text ?? '' }}</td>
+                                <td>{{ $schedule->is_lab_text ?? '' }}</td>
+                                <td>{{ $schedule->block->course ?? '' }} {{ $schedule->block->section ?? '' }}</td>
+                                <td>{{ $schedule->day_stripped ?? '' }}</td>
+                                <td>
+                                    @foreach ($schedule->time_slots as $time_slot)
+                                        {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
+                                    @endforeach
+                                </td>
+                                <td>{{ $schedule->classroom->building ?? '' }} - {{ $schedule->classroom->room ?? '' }}</td>
+                                <td class="text-light-maroon fw-semibold">{{ $schedule->subject->load ?? '' }}</td>
+                                {{-- <td>{{ $schedule->semester->name }}</td> --}}
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                
+                <a href="{{ route('schedule.index') }}" class="fs-5">Go to Schedules Table To Edit</a>
+            </div>
         </div>
     </div>
 @endsection
@@ -177,10 +228,8 @@
         $('#classroom_select').select2()
         $('#block_select').select2()
     </script>
-@endpush
 
-@if ($action === 'update')
-    @push('scripts')
+    @if ($action === 'update')
         <script>
             $('#faculty_select').val('{{ $schedule->faculty_id }}').trigger('change');
             $('#subject_select').val('{{ $schedule->subject_id }}').trigger('change');
@@ -189,30 +238,32 @@
         </script>
 
         <script>
-             $(document).ready(function(){
-                $('form').submit(function(event){
+            $(document).ready(function() {
+                $('form').submit(function(event) {
 
-                    if($('div.form-check.required :checkbox:checked').length===0){
+                    if ($('div.form-check.required :checkbox:checked').length === 0) {
                         event.preventDefault();
-                        $('div.form-check.required :checkbox').each(function(){
+                        $('div.form-check.required :checkbox').each(function() {
                             $(this).removeClass('border-black').addClass('border-danger is-invalid');
                         });
 
-                    }else{
-                        $('div.form-check.required :checkbox').each(function(){
+                    } else {
+                        $('div.form-check.required :checkbox').each(function() {
                             $(this).removeClass('border-danger is-invalid').addClass('border-black');
                         });
                     }
                 });
 
-                $('div.form-check.required :checkbox').change(function(){
-                    if($(this).is(':checked')){
-                        $('div.form-check.required :checkbox').each(function(){
+                $('div.form-check.required :checkbox').change(function() {
+                    if ($(this).is(':checked')) {
+                        $('div.form-check.required :checkbox').each(function() {
                             $(this).removeClass('border-danger is-invalid').addClass('border-black');
                         });
                     }
                 });
             });
         </script>
-    @endpush
-@endif
+    @endif
+@endpush
+
+
