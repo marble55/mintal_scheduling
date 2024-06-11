@@ -39,7 +39,8 @@
                                     <option value="">No Assigned</option>
                                     @foreach ($faculties as $faculty)
                                         <option value="{{ $faculty->id }}">
-                                            {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                                            {{ $faculty->first_name . ' ' . $faculty->last_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -54,7 +55,8 @@
                                     <option value="">No Assigned</option>
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">
-                                            {{ $subject->subject_code . ': ' . $subject->description }}
+                                            <p class="h1">{{ $subject->subject_code . ': ' . $subject->description }}</p> <br>
+                                            <p class="fw-bold">{{ $subject->subject_code . ': ' . $subject->description }}</p>
                                         </option>
                                     @endforeach
                                 </select>

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 
 class BlockRequest extends FormRequest
@@ -24,8 +25,8 @@ class BlockRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course' => ['required', 'max:255', 'string'],
-            'section' => ['required', 'max:255', 'string'],
+            'course' => ['required', 'max:20', 'string'],
+            'section' => ['required', 'max:15', 'string'],
             'year_level' => ['required', 'max:6', 'numeric'], 
         ];
     }
@@ -38,11 +39,12 @@ class BlockRequest extends FormRequest
     //     return[];
     // }
 
-    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator){
+    public function failedValidation(Validator $validator){
         throw new HttpResponseException(
             redirect()->back()
             ->with('error', 'Input Submission Failed: one or more data inputted is invalid. Please try again')
             ->withInput()
+            ->withErrors($validator)
         );
     }
 }
