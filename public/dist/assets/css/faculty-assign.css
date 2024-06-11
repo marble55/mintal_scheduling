@@ -1,11 +1,13 @@
 .user-avatar img {
     display: block;
     border-radius: 50%;
-    width: 250px;
-    height: 250px;
+    width: 180px;
+    height: 200px;
+    max-width: 180px;
+    max-height: 200px;
     margin: 0 auto 20px auto;
 }
-@media screen and (max-width: 1385px) {
+/* @media screen and (max-width: 1385px) {
     .user-avatar img {
         border-radius: 50%;
         width: 200px;
@@ -13,7 +15,7 @@
         margin-bottom: 20px;
         margin-left: 50px;
     }
-}
+} */
 @media screen and (max-width: 985px) {
     .user-avatar img {
         margin-bottom: 20px;
@@ -23,12 +25,26 @@
 @media screen and (max-width: 785px) {
     .user-avatar img {
         margin-bottom: 20px;
-        margin-left: 130px;
+        margin-left: 200px;
     }
 }
 @media screen and (max-width: 585px) {
     .user-avatar img {
         margin-bottom: 20px;
-        margin-left: 80px;
+        margin-left: 50px;
+    }
+}
+@media screen and (max-width: 420px) {
+    .user-avatar img {
+        margin-bottom: 20px;
+        margin-left: 10px;
+    }
+}
+@media screen and (max-width: 344px) {
+    .user-avatar img {
+        margin-bottom: 20px;
+        width:90px;
+        height:100px;
+        margin-left: 40px;
     }
 }
