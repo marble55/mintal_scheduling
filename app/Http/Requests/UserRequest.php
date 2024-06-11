@@ -6,8 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-
-class BlockRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,24 +24,32 @@ class BlockRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course' => ['required', 'max:20', 'string'],
-            'section' => ['required', 'max:15', 'string'],
-            'year_level' => ['required', 'min:0', 'max:6', 'numeric'], 
+            'name' => ['nullable', 'string','max:50'],
+            'password' => ['nullable','string','min:8', 'max:255'],
+            'email' => ['required', 'email','max:50'],
+            'faculty_id' => ['required','integer','exists:faculty,id'],
         ];
     }
 
     /**
-     * edit message for the validation
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
      */
-    // public function messages(): array
-    // {
-    //     return[];
-    // }
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Username',
+            'password' => 'Password',
+            'email' => 'Email',
+            'faculty_id' => 'Faculty',
+        ];
+    }
 
     public function failedValidation(Validator $validator){
         throw new HttpResponseException(
             redirect()->back()
-            ->with('error', 'Input Submission Failed: one or more data inputted is invalid. Please try again')
+            ->with('error', 'Input Submission Failed: One or more data inputted is invalid. Please try again')
             ->withInput()
             ->withErrors($validator)
         );

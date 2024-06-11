@@ -43,7 +43,7 @@
                     <span class="input-group-text">
                         <i class='bx bx-hard-hat'></i>
                     </span>
-                    <input type="number" class="form-control form-control-lg fs-6 @error('year_level') is-invalid @enderror" name="year_level" value="{{ old('year_level', $block->year_level ?? '') }}" placeholder="Year Level" required max="5" min="0">
+                    <input type="number" class="form-control form-control-lg fs-6 @error('year_level') is-invalid @enderror" name="year_level" value="{{ old('year_level', $block->year_level ?? '') }}" placeholder="Year Level" required max="6" min="0">
                     @error('year_level')
                     <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror

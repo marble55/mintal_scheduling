@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
         integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .select2-container{
+            max-width: 100%;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -31,42 +36,50 @@
                                     <h6 class="details" style="color: rgb(161, 49, 49);">Set Program Head Details</h6>
                                 </div>
 
-                                <!-- id_usep-->
+                                <!-- Faculties -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="faculty_select" class="form-label">Faculty: </label>
-                                        <select name="faculty_id" id="faculty_select" autofocus required
-                                            style="min-width: 200px;" @if ($action === 'update') disabled @endif>
+                                        <select name="faculty_id" id="faculty_select" autofocus required class="form-select @error('faculty_id') is-invalid @enderror"
+                                            @if ($action === 'update') disabled @endif >
                                             @foreach ($faculties as $faculty)
-                                                <option value="{{ $faculty->id }}" @if ($faculty->user_id != null) disabled @endif>{{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                                                <option  value="{{ $faculty->id }}" @if ($faculty->user != null) disabled @endif>{{ $faculty->first_name . ' ' . $faculty->last_name }} @if ($faculty->user != null) (Registered) @endif</option>
                                             @endforeach
                                         </select>
                                         <br>
-                                        <label for="id_not_exsit" class="form-text text-input-helper">Note: If Faculty
-                                            doesn't exist, please <a href="{{ route('faculty.create') }}"> Add a Faculty</a>
-                                            first.</label>
+                                        <label for="id_not_exsit" class="form-text text-input-helper">Note: If Faculty doesn't exist, please <a href="{{ route('faculty.create') }}"> Add a Faculty</a> first. </label>
+                                        @error('faculty_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="first_name" class="form-label">Email</label>
-                                        <input type="text" class="form-control" name="email"
-                                            value="@isset($programHead) {{ $programHead->email }} @endisset"
-                                            placeholder="Enter Email" required>
+                                        <label for="emailInput" class="form-label ">Email</label>
+                                        <input id="emailInput" type="email" required class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('', $programHead->email ?? '') }}"
+                                            placeholder="Enter Email"   >
+                                        @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <!-- Username -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="input_username" class="form-label">Username</label>
-                                        <input id="input_username" type="text" class="form-control" name="name"
-                                            value="@isset($programHead) {{ $programHead->name }} @endisset"
+                                        <label for="input_username" class="form-label ">Username</label>
+                                        <input id="input_username" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                            value="{{ old('name', $programHead->name ?? '') }}"
                                             placeholder="Optional">
-                                        <div id="usernameHelpBlock" class="form-text text-input-helper">Leave blank to set
-                                            user name as Faculty Name*</div>
+                                        <div id="usernameHelpBlock" class="form-text text-input-helper">
+                                            Note: Leave blank to set user name as Faculty Name*
+                                        </div>
+                                        @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -74,10 +87,14 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="input_password" class="form-label">Password</label>
-                                        <input id="input_password" type="password" class="form-control" name="password"
-                                            placeholder="Optional" autocomplete="new-password">
-                                        <div id="passwordHelpBlock" class="form-text text-input-helper">Leave blank to set
-                                            password as Faculty ID*</div>
+                                        <input id="input_password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                                            placeholder="Optional" autocomplete="new-password" minlength="8">
+                                        <div id="passwordHelpBlock" class="form-text text-input-helper">
+                                            Note: Leave blank to set password as Faculty ID.* <br>
+                                        </div>
+                                        @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

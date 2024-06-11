@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\Rule;
 
-class FacultyRequest extends FormRequest
+class SubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +23,31 @@ class FacultyRequest extends FormRequest
      */
     public function rules(): array
     {
-        $facultyId = $this->route('faculty');
-
         return [
-            'id_usep' => ['required', 'string','size:10', 'regex:^\d{4}-\d{5}$^', Rule::unique('faculty', 'id_usep')->ignore($facultyId)],
-            'first_name' => ['required','string','max:50',],
-            'last_name' => ['required','string','max:50',],
-            'is_part_timer' => ['boolean'],
-            'designation' => ['nullable','max:255', 'string'],
-            'designation_load' => ['nullable','decimal:0,2','min:0', 'max:99.99'],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'subject_code' => ['required', 'max:25', 'string'],
+            'description' => ['required', 'string', 'max:255'],
+            'is_graduate_program' => ['required', 'boolean'],
+            'units_lecture' => ['required', 'decimal:0,2', 'min:0', 'max:99.99'],
+            'units_lab' => ['required', 'decimal:0,2', 'min:0', 'max:99.99'],
+            'load' => ['required', 'decimal:0,2','min:0', 'max:99.99'],
         ];
     }
 
-    public function messages(): array
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
     {
-        return [];
+        return [
+            'subject_code' => 'Subject Code',
+            'description' => 'Subject Description',
+            'is_graduate_program' => 'Program Type',
+            'units_lecture' => 'Unit Lecture',
+            'units_lab' => 'Unit Lab',
+            'load' => 'Subject Load',
+        ];
     }
 
     public function failedValidation(Validator $validator){

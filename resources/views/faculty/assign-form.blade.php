@@ -165,7 +165,7 @@
     @isset($faculty)
         @can('isAdmin')
             <div class="container">
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100 mt-5">
+                :wq<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100 mt-5">
                     <div class="card h-100">
                         <div class="card-body">
                             <h4 class="card-title text-center fw-semibold">Program Head Details</h4>
