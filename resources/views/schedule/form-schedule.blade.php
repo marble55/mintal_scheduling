@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
         integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .select2-container {
+            max-width: 100%;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -11,7 +16,7 @@
         <div class="col col-sm-6 col-lg-7 col-xl-10">
             <!-- Title -->
             <div class="text-center mb-5">
-                <h3 class="fw-bold">{{ $action == 'update' ? 'Update' : 'Create' }} Schedule</h3>
+                <h3 class="fw-bold">{{ $action == 'update' ? 'Update' : 'Create' }} sched</h3>
             </div>
             <!-- Divider -->
             <div class="position-relative">
@@ -30,55 +35,72 @@
                             @csrf
 
                             <!-- Faculty ID Input -->
-                            <label for="faculty_id">Faculty:</label><br>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
+                            <label for="faculty_select">Faculty:</label>
+                            <div class="form-group mb-3">
+                                <span class="input-group-text col-1">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="faculty_id" id="faculty_select" autofocus>
+                                <select name="faculty_id" id="faculty_select"
+                                    class="form-select @error('faculty_id') is-invalid @enderror">
                                     <option value="">No Assigned</option>
                                     @foreach ($faculties as $faculty)
                                         <option value="{{ $faculty->id }}">
-                                            {{ $faculty->first_name . ' ' . $faculty->last_name }}</option>
+                                            {{ $faculty->first_name . ' ' . $faculty->last_name }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('faculty_id')
+                                    <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Subject ID Input -->
-                            <label for="subject_id">Subject:</label><br>
+                            <label for="subject_select">Subject:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="subject_id" id="subject_select" required>
+                                <select name="subject_id" id="subject_select"
+                                    class="form-select @error('subject_id') is-invalid @enderror" required>
                                     <option value="">No Assigned</option>
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">
-                                            {{ $subject->subject_code . ': ' . $subject->description }}
+                                            <p class="h1">{{ $subject->subject_code . ': ' . $subject->description }}
+                                            </p> <br>
+                                            <p class="fw-bold">{{ $subject->subject_code . ': ' . $subject->description }}
+                                            </p>
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('subject_id')
+                                    <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Lab Input -->
                             <label for="is-lab_checkbox">Subject Unit:</label><br>
                             <div class="input-group mb-3">
-                                <div class="input-group-text">
-                                    <input type="checkbox" class="form-check-input border-black m-0 fs-5"
-                                        id="is-lab_checkbox" name="is_lab" value="1" style="margin-left:10px;"
-                                        @checked($action === 'update' && $schedule->is_lab == 1)>
+                                <div class="form-check-text">
+                                    <input type="checkbox"
+                                        class="form-check-input m-0 fs-5 @error('subject_id') is-invalid @enderror"
+                                        id="is-lab_checkbox" name="is_lab" value="1"
+                                        style="margin-left:10px;"@checked($action === 'update' && $schedule->is_lab == 1)>
+                                    <label class="form-check-label fs-6 " for="is-lab_checkbox">Lab</label>
+                                    @error('block_id')
+                                        <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <label class="form-check-label fs-5 m-1" for="is-lab_checkbox">Lab</label>
                             </div>
 
                             <!-- Block ID Input -->
                             <br>
-                            <label for="block_id">Block:</label><br>
+                            <label for="block_select">Block:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="block_id" id="block_select">
+                                <select name="block_id" id="block_select"
+                                    class="form-select @error('block_id') is-invalid @enderror">
                                     <option value="">No Assigned</option>
                                     @foreach ($blocks as $block)
                                         <option value="{{ $block->id }}">
@@ -86,14 +108,18 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('block_id')
+                                    <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                @enderror
                             </div>
                             <!-- Classroom ID Input -->
-                            <label for="is_lab">Classroom:</label><br>
+                            <label for="classroom_select">Classroom:</label><br>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">
                                     <i class='bx bx-id-card'></i>
                                 </span>
-                                <select name="classroom_id" id="classroom_select">
+                                <select name="classroom_id" id="classroom_select"
+                                    class="form-select @error('classroom_id') is-invalid @enderror">
                                     <option value="">No Assigned</option>
                                     @foreach ($classrooms as $classroom)
                                         <option value="{{ $classroom->id }}">
@@ -101,6 +127,9 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('classroom_id')
+                                    <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                @enderror
                             </div>
                     </div>
 
@@ -108,13 +137,14 @@
                     <div class="col-md-6">
                         <!-- Day Input -->
                         <label for="form-check_day">Days:</label><br>
+                        {{-- @dd(old('day[]')) --}}
                         <div id="form-check_day" class="form-check form-check-inline mb-3 required">
                             <input type="checkbox" id="day-monday" name="day[]" class="form-check-input border-black"
                                 value="M," @checked($action === 'update' && strpos($schedule->day, 'M,') !== false)>
                             <label for="day-monday" class="form-check-label me-2">Monday</label><br>
 
                             <input type="checkbox" id="day-tuesday" class="form-check-input border-black" name="day[]"
-                                value="T," @checked($action === 'update' && strpos($schedule->day, 'T,') !== false && strpos($schedule->day, 'TTH') === false)>
+                                value="T," @checked($action === 'update' && strpos($schedule->day, 'T,') !== false)>
                             <label for="day-tuesday" class="form-check-label me-2">Tuesday</label><br>
 
                             <input type="checkbox" id="day-wednesday" class="form-check-input border-black" name="day[]"
@@ -137,8 +167,9 @@
                                 name="day[]" value="SU," @checked($action === 'update' && strpos($schedule->day, 'SUN,') !== false)>
                             <label for="day-saturday" class="form-check-label me-2">Sunday</label><br>
 
-
-                            <div class="invalid-feedback">Please check at least one</div>
+                            @error('day')
+                                <div class="invalid-feedback fs-6">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div>
@@ -148,9 +179,13 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-time'></i>
                                 </span>
-                                <input type="time" id="time-start_input" class="form-control form-control-lg fs-6"
+                                <input type="time" id="time-start_input"
+                                    class="form-control form-control-lg fs-6 @error('time_start') is-invalid @enderror"
                                     name="time_start" placeholder="Time Start"
-                                    value="{{ $timeSlot->time_start ?? '' }}"required>
+                                    value="{{ old('time_start', $timeSlot->time_start ?? '') }}"required>
+                                @error('time_start')
+                                    <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Time End Input -->
@@ -159,9 +194,13 @@
                                 <span class="input-group-text">
                                     <i class='bx bx-time'></i>
                                 </span>
-                                <input type="time" class="form-control form-control-lg fs-6" name="time_end"
-                                    placeholder="Time End" id="time-end_input" value="{{ $timeSlot->time_end ?? '' }}"
-                                    required>
+                                <input type="time"
+                                    class="form-control form-control-lg fs-6  @error('time_end') is-invalid @enderror"
+                                    name="time_end" placeholder="Time End" id="time-end_input"
+                                    value="{{ old('time_end', $timeSlot->time_end ?? '') }}" required>
+                                @error('time_end')
+                                    <div class="invalid-feedback fs-6">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -171,11 +210,11 @@
                     </form>
                 </div>
             </div>
-            
-            {{-- -----Schedule Table----- --}}
+
+            {{-- -----sched Table----- --}}
             <hr>
             <div class="container pt-5">
-                <p class="h3 fw-bold text-center">Schedules Table</p>
+                <p class="h3 fw-bold text-center">scheds Table</p>
                 <table id="datatablesForm" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
@@ -193,29 +232,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($schedules as $schedule)
+                        @foreach ($schedules as $sched)
                             <tr>
-                                <td>{{ $schedule->faculty->first_name ?? '' }}</td>
-                                <td>{{ $schedule->subject->subject_code ?? '' }}</td>
-                                <td>{{ $schedule->subject->description ?? '' }}</td>
-                                <td>{{ $schedule->subject->is_graduate_program_text ?? '' }}</td>
-                                <td>{{ $schedule->is_lab_text ?? '' }}</td>
-                                <td>{{ $schedule->block->course ?? '' }} {{ $schedule->block->section ?? '' }}</td>
-                                <td>{{ $schedule->day_stripped ?? '' }}</td>
+                                <td>{{ $sched->faculty->first_name ?? '' }}</td>
+                                <td>{{ $sched->subject->subject_code ?? '' }}</td>
+                                <td>{{ $sched->subject->description ?? '' }}</td>
+                                <td>{{ $sched->subject->is_graduate_program_text ?? '' }}</td>
+                                <td>{{ $sched->is_lab_text ?? '' }}</td>
+                                <td>{{ $sched->block->course ?? '' }} {{ $sched->block->section ?? '' }}</td>
+                                <td>{{ $sched->day_stripped ?? '' }}</td>
                                 <td>
-                                    @foreach ($schedule->time_slots as $time_slot)
+                                    @foreach ($sched->time_slots as $time_slot)
                                         {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
                                     @endforeach
                                 </td>
-                                <td>{{ $schedule->classroom->building ?? '' }} - {{ $schedule->classroom->room ?? '' }}</td>
-                                <td class="text-light-maroon fw-semibold">{{ $schedule->subject->load ?? '' }}</td>
-                                {{-- <td>{{ $schedule->semester->name }}</td> --}}
+                                <td>{{ $sched->classroom->building ?? '' }} - {{ $sched->classroom->room ?? '' }}
+                                </td>
+                                <td class="text-light-maroon fw-semibold">{{ $sched->subject->load ?? '' }}</td>
+                                {{-- <td>{{ $sched->semester->name }}</td> --}}
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                
-                <a href="{{ route('schedule.index') }}" class="fs-5">Go to Schedules Table To Edit</a>
+
+                <a href="{{ route('schedule.index') }}" class="fs-5">Go to scheds Table To Edit</a>
             </div>
         </div>
     </div>
@@ -227,43 +267,46 @@
         $('#subject_select').select2()
         $('#classroom_select').select2()
         $('#block_select').select2()
+
+        @error('day')
+            $('div.form-check.required :checkbox').each(function() {
+                $(this).removeClass('border-black').addClass('is-invalid');
+            });
+        @enderror
     </script>
 
     @if ($action === 'update')
         <script>
-            $('#faculty_select').val('{{ $schedule->faculty_id }}').trigger('change');
-            $('#subject_select').val('{{ $schedule->subject_id }}').trigger('change');
-            $('#classroom_select').val('{{ $schedule->classroom_id }}').trigger('change');
-            $('#block_select').val('{{ $schedule->block_id }}').trigger('change');
-        </script>
-
-        <script>
-            $(document).ready(function() {
-                $('form').submit(function(event) {
-
-                    if ($('div.form-check.required :checkbox:checked').length === 0) {
-                        event.preventDefault();
-                        $('div.form-check.required :checkbox').each(function() {
-                            $(this).removeClass('border-black').addClass('border-danger is-invalid');
-                        });
-
-                    } else {
-                        $('div.form-check.required :checkbox').each(function() {
-                            $(this).removeClass('border-danger is-invalid').addClass('border-black');
-                        });
-                    }
-                });
-
-                $('div.form-check.required :checkbox').change(function() {
-                    if ($(this).is(':checked')) {
-                        $('div.form-check.required :checkbox').each(function() {
-                            $(this).removeClass('border-danger is-invalid').addClass('border-black');
-                        });
-                    }
-                });
-            });
+            $('#faculty_select').val('{{ old('faculty_id', $schedule->faculty_id ?? '') }}').trigger('change');
+            $('#subject_select').val('{{ old('subject_id', $schedule->subject_id ?? '') }}').trigger('change');
+            $('#classroom_select').val('{{ old('classroom_id', $schedule->classroom_id ?? '') }}').trigger('change');
+            $('#block_select').val('{{ old('block_id', $schedule->block_id ?? '') }}').trigger('change');
         </script>
     @endif
+
+    <script>
+        $(document).ready(function() {
+            // $('form').submit(function(event) {
+            //     if ($('div.form-check.required :checkbox:checked').length === 0) {
+            //         event.preventDefault();
+            //         $('div.form-check.required :checkbox').each(function() {
+            //             $(this).removeClass('border-black').addClass('border-danger is-invalid');
+            //         });
+
+            //     } else {
+            //         $('div.form-check.required :checkbox').each(function() {
+            //             $(this).removeClass('border-danger is-invalid').addClass('border-black');
+            //         });
+            //     }
+            // });
+
+            $('div.form-check.required :checkbox').change(function() {
+                if ($(this).is(':checked')) {
+                    $('div.form-check.required :checkbox').each(function() {
+                        $(this).removeClass('border-danger is-invalid').addClass('border-black');
+                    });
+                }
+            });
+        });
+    </script>
 @endpush
-
-

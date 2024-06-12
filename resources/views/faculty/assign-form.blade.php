@@ -46,9 +46,12 @@
                                         <div class="text-center">
                                             <br>
                                             <div>
-                                                <label for="image">Choose Image:</label>
-                                                <input type="file" name="image" id="image" accept="image/*"
-                                                    style="max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                                <label for="image" class="form-check-label mb-1 fw-semibold">Choose Image:</label>
+                                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image" accept="image/*"
+                                                    style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                                @error('image')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                                @enderror
                                             </div>
                                             <br>
                                             <button type="button" id="removeImageButton" name="remove_img"
@@ -65,61 +68,78 @@
                     <div class="card h-100">
                         <div class="card-body">
 
-                            <div class="row gutters">
+                            <div class="row gutters row-gap-3">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <h6 class="details" style="color: rgb(161, 49, 49);">Set Personal Details</h6>
                                 </div>
 
                                 <!-- id_usep-->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="id_usep">Usep ID</label>
-                                        <input type="text" class="form-control" name="id_usep"
-                                            value="{{ $faculty->id_usep ?? '' }}" placeholder="Enter Usep ID" required
-                                            maxlength="10">
+                                    <label for="usepIdInput" class="form-label fs-5">Usep ID</label>
+                                    <div class="input-group">    
+                                        <input id="usepIdInput" type="text" class="form-control @error('id_usep') is-invalid @enderror" name="id_usep"
+                                            value="{{ old('id_usep', $faculty->id_usep ?? '') }}" placeholder="Enter Usep ID" required maxlength="10">
+                                        @error('id_usep')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
                                     </div>
                                 </div>
+                                
                                 <!-- first name -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" name="first_name"
-                                            value="{{ $faculty->first_name ?? '' }}" placeholder="Enter First name"
+                                    <label for="first_name" class="form-label fs-5">First Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name"
+                                            value="{{ old('first_name', $faculty->first_name ?? '') }}" placeholder="Enter First name"
                                             required>
+                                        @error('first_name')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <!-- last name -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name"
-                                            value="{{ $faculty->last_name ?? '' }}" placeholder="Enter Last name" required>
+                                    <label for="last_name" class="form-label fs-5">Last Name</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name"
+                                            value="{{ old('last_name', $faculty->last_name ?? '') }}" placeholder="Enter Last name" required>
+                                        @error('last_name')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <!-- is partimer -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-4">
-                                    <input type="checkbox" class="text-input" id="is_part_timer" name="is_part_timer"
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-4 form-check">
+                                    <input type="checkbox" class="form-check-input ms-1 border-dark-maroon @error('is_part_timer') is-invalid @enderror" id="is_part_timer" name="is_part_timer"
                                         @if (isset($faculty) && $faculty->is_part_timer == true) checked @endif value="1"
-                                        {{ old('is_part_timer') ? 'checked' : '' }}>
-                                    <label class="text-input" for="is_part_timer">Part-timer</label>
+                                        {{ old('is_part_timer', $faculty->is_part_timer ?? '' ) ? 'checked' : '' }}>
+                                    <label class="form-check-label fs-6" for="is_part_timer">Part-timer</label>
+                                    @error('is_part_timer')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
                                 </div>
                                 <!-- designation-->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="designation">Designation (Optional)</label>
-                                        <input type="text" class="form-control" name="designation"
-                                            value="{{ $faculty->designation ?? '' }}" placeholder="Enter Designation"
+                                    <label for="designationInput" class="form-label fs-5">Designation (Optional)</label>
+                                    <div class="input-group">
+                                        <input type="text" id="designationInput" class="form-control @error('designation') is-invalid @enderror" name="designation"
+                                            value="{{ old('designation', $faculty->designation ?? '') }}" placeholder="Enter Designation"
                                             maxlength="255">
+                                            @error('designation')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                     </div>
                                 </div>
                                 <!-- designation_load -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="designation_load">Designation Load (Optional)</label>
-                                        <!-- optional term is optional -->
-                                        <input type="number" class="form-control" name="designation_load"
-                                            value="{{ $faculty->designation_load ?? '' }}"
+                                    <label for="designationLoadInput" class="form-label fs-5">Designation Load (Optional)</label>
+                                    <div class="input-group">
+                                        <input type="number" id="designationLoadInput" class="form-control @error('designation_load') is-invalid @enderror" name="designation_load"
+                                            value="{{ old('designation_load', $faculty->designation_load ?? '') }}"
                                             placeholder="Enter Designation Load" max="99.99" min="0">
+                                            @error('designation_load')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +165,7 @@
     @isset($faculty)
         @can('isAdmin')
             <div class="container">
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100 mt-5">
+                :wq<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 w-100 mt-5">
                     <div class="card h-100">
                         <div class="card-body">
                             <h4 class="card-title text-center fw-semibold">Program Head Details</h4>

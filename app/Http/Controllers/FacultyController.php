@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FacultyRequest;
 use App\Models\Block;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -46,11 +47,8 @@ class FacultyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FacultyRequest $request)
     {
-        $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-        ]);
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('image', 'public');
@@ -135,11 +133,10 @@ class FacultyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Faculty $faculty)
+    public function update(FacultyRequest $request, Faculty $faculty)
     {
-        $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        // Checks if is_part_timer is checked or not //
+        if(!$request->has('is_part_timer')) $request->merge(['is_part_timer' => 0]);
 
         if ($request->hasFile('image')) {
             if ($faculty->profile_image) {
@@ -156,6 +153,7 @@ class FacultyController extends Controller
 
             $request->merge(['profile_image' => null]);
         }
+
 
         $faculty->fill($request->all());
         $faculty->update();

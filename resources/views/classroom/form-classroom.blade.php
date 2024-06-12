@@ -25,8 +25,11 @@
                         <i class='bx bx-id-card'></i>
                     </span>
 
-                    <input type="text" class="form-control form-control-lg fs-6" name="room" placeholder="Room"
-                        value="{{ $classroom->room ?? ''}}" required>
+                    <input type="text" id="roomInput" class="form-control form-control-lg fs-6  @error('room') is-invalid @enderror" name="room" placeholder="Room"
+                        value="{{ old('room', $classroom->room ?? '') }}" maxlength="25" required>
+                    @error('room')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <!-- Building -->
@@ -35,8 +38,11 @@
                         <i class='bx bx-user-pin'></i>
                     </span>
 
-                    <input type="text" class="form-control form-control-lg fs-6" name="building" placeholder="Building"
-                        value="{{ $classroom->building ?? ''}}" required>
+                    <input type="text" class="form-control form-control-lg fs-6 @error('building') is-invalid @enderror" name="building" placeholder="Building"
+                        value="{{ old('building', $classroom->building ?? '') }}" maxlength="25" required>
+                    @error('building')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <!-- Button -->
                 <button class="btn btn-primary btn-lg w-100"

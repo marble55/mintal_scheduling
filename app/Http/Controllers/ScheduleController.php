@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ScheduleRequest;
 use App\Models\Block;
 use App\Models\Classroom;
 use App\Models\Faculty;
@@ -74,7 +75,7 @@ class ScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ScheduleService $scheduleService)
+    public function store(ScheduleRequest $request, ScheduleService $scheduleService)
     {        
         $result = $scheduleService->createSchedule(
             $request->except(['sy_id', 'semesters_id']),
@@ -108,6 +109,15 @@ class ScheduleController extends Controller
         $subjects = Subject::orderBy('subject_code')->get();
         $classrooms = Classroom::orderBy('building')->get();
         $blocks = Block::orderBy('course')->get();
+        $schedules = Schedule::with([
+            'faculty',
+            'semester',
+            'school_year',
+            'subject',
+            'classroom',
+            'block',
+            'time_slots'
+        ])->where('semesters_id', '=', $this->currentSemester)->get()->sortBy('faculty.first_name');
 
         $timeSlot = $schedule->time_slots()->firstOr();
 
@@ -118,13 +128,14 @@ class ScheduleController extends Controller
             'classrooms',
             'blocks',
             'timeSlot',
+            'schedules'
         ]))->with(['action' => 'update']);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id, ScheduleService $scheduleService)
+    public function update(ScheduleRequest $request, string $id, ScheduleService $scheduleService)
     {
         // dd($request->all());
         $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id, $this->currentSemester);

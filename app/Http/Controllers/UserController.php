@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Faculty;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class UserController extends Controller
     {
         $program_heads = User::with('faculty')->orderByDesc('id')->get();
 
-        $facultiesWithProgramHead = Faculty::whereHas('program_head')->orderBy('first_name')->get();
+        $facultiesWithProgramHead = Faculty::whereHas('program_head')->with('user')->orderBy('first_name')->get();
         $facultiesWithoutProgramHead = Faculty::whereDoesntHave('program_head')->orderBy('first_name')->get();
         $faculties = $facultiesWithoutProgramHead->merge($facultiesWithProgramHead);
 
@@ -35,7 +36,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
 
         $faculty = Faculty::find($request->faculty_id);
@@ -72,7 +73,7 @@ class UserController extends Controller
         $program_heads = User::with('faculty')->orderByDesc('id')->get();
         $programHead = User::find($id);
 
-        $facultiesWithProgramHead = Faculty::whereHas('program_head')->orderBy('first_name')->get();
+        $facultiesWithProgramHead = Faculty::whereHas('program_head')->with('user')->orderBy('first_name')->get();
         $facultiesWithoutProgramHead = Faculty::whereDoesntHave('program_head')->orderBy('first_name')->get();
         $faculties = $facultiesWithoutProgramHead->merge($facultiesWithProgramHead);
 
@@ -84,7 +85,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
         $programHead = User::find($id);
         $password = Hash::make($request->input('password') == null ? $programHead->faculty->id_usep : $request->input('password'));

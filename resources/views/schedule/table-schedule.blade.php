@@ -8,7 +8,7 @@
         <br>
     </div>
     <div class="container pt-5">
-        <table id="datatableSchedule" class="table" style="width:100%">
+        <table id="datatableSchedule" class="table" style="width:100%" >
             <thead>
                 <tr>
                     <th>Faculty</th>

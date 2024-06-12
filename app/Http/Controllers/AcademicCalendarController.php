@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AcademicCalendarRequest;
 use App\Models\SchoolYear;
 use App\Services\AcademicCalendarService;
 use Illuminate\Http\Request;
@@ -36,18 +37,8 @@ class AcademicCalendarController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AcademicCalendarRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'semester_id' => ['numeric', 'required', 'exists:semesters,id'],
-            'academic_year' => ['required', 'regex:/^\d{4}-\d{4}$/',]
-        ]);
-
-        if($validator->fails()){
-            $message = implode(', ' ,$validator->errors()->all());
-            return redirect()->back()->with('error', $message);
-        }
-        
         $newYear = SchoolYear::createOrFirst(['academic_year' => $request->input('academic_year')]);
         
         $newSemesterID = $request->input('semester_id');

@@ -40,7 +40,7 @@ $(document).ready(function() {
             ['10 rows', '25 rows', '50 rows', 'Show all']
         ],
         buttons: [
-            'colvis', 'copy', 'pdf',
+            'colvis', 'pdf', 'print',
             {
                 extend: 'excel',
                 text: 'Excel',
@@ -106,7 +106,7 @@ new DataTable('#datatableSchedule', {
         topStart: ['pageLength', 'buttons']
     },
     columnDefs: [{
-        targets: [-2],
+        targets: [-2,0],
         visible: false
     }],
     responsive: true,

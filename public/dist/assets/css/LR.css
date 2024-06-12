@@ -32,6 +32,7 @@ body {
 }
 
 .rideone i {
+<<<<<<< HEAD
     font-size: clamp(1rem, 6vw, 3.5rem);
 }
 
@@ -42,6 +43,18 @@ body {
 /* .ridethree i {
     font-size: 3.5rem;
 } */
+=======
+    font-size: clamp(1.5rem, 6vw, 3.5rem);
+}
+
+.ridetwo i {
+    font-size: clamp(1.5rem, 6vw, 3.5rem);
+}
+
+.ridethree i {
+    font-size: clamp(1.5rem, 6vw, 3.5rem);
+}
+>>>>>>> 70749951830bf2a351d08e2a527b6d28c8c998fb
 
 .rideone {
     background-color: #6CC785;
@@ -76,14 +89,20 @@ body {
 
 .fontsty h2 {
     color: #6E6E6E;
+<<<<<<< HEAD
     font-size: clamp(0.8rem, 6vw, 1.2rem);
     margin-top: 15px;
+=======
+    font-size: clamp(1rem, 6vw, 2.5rem);
+    margin-top: 8px;
+>>>>>>> 70749951830bf2a351d08e2a527b6d28c8c998fb
     text-align: right;
     margin-right: 30px;
 }
 
 .fontsty h4 {
     color: #6E6E6E;
+<<<<<<< HEAD
     font-size: clamp(1rem, 6vw, 1.3rem);
     margin-top: 20px;
     text-align: right;
@@ -117,3 +136,10 @@ body {
     }
     
 }
+=======
+    font-size: (1rem, 6vw, 2.5rem);
+    margin-top: 15px;
+    text-align: right;
+    margin-right: 30px;
+}
+>>>>>>> 70749951830bf2a351d08e2a527b6d28c8c998fb

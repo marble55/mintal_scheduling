@@ -25,49 +25,79 @@
                     <span class="input-group-text">
                         <i class='bx bx-user-pin'></i>
                     </span>
-                    <input type="text" class="form-control form-control-lg fs-6" name="subject_code"
-                        value="{{ $subject->subject_code ?? '' }}" placeholder="Subject Code" required maxlength=255>
+                    <input type="text"
+                        class="form-control form-control-lg fs-6  @error('subject_code') is-invalid @enderror"
+                        name="subject_code" value="{{ old('subject_code', $subject->subject_code ?? '') }}"
+                        placeholder="Subject Code" required maxlength="25">
+                    @error('subject_code')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <!-- Description input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
                         <i class='bx bx-book'></i>
                     </span>
-                    <input type="text" class="form-control form-control-lg fs-6" name="description"
-                        value="{{ $subject->description ?? '' }}" placeholder="Description" required>
+                    <input type="text"
+                        class="form-control form-control-lg fs-6 @error('description') is-invalid @enderror"
+                        name="description" value="{{ old('description', $subject->description ?? '') }}" maxlength="255"
+                        placeholder="Description" required>
+                    @error('description')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <!-- Units Lecture input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
                         <i class='bx bx-collection'></i>
                     </span>
-                    <input type="number" class="form-control form-control-lg fs-6" name="units_lecture"
-                        placeholder="Lecture" value="{{ $subject->units_lecture ?? '' }}" required min="0"
+                    <input type="number"
+                        class="form-control form-control-lg fs-6 @error('units_lecture') is-invalid @enderror"
+                        name="units_lecture" placeholder="Lecture"
+                        value="{{ old('units_lecture', $subject->units_lecture ?? '') }}" required min="0"
                         max="99.99">
+                    @error('units_lecture')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <!-- Units Lab input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
                         <i class='bx bx-label'></i>
                     </span>
-                    <input type="number" class="form-control form-control-lg fs-6" name="units_lab" placeholder="Lab"
-                        value="{{ $subject->units_lab ?? '' }}" min="0" max="99.99" required>
+                    <input type="decimal" class="form-control form-control-lg fs-6 @error('units_lab') is-invalid @enderror"
+                        name="units_lab" placeholder="Lab" value="{{ old('units_lab', $subject->units_lab ?? '') }}" min="0"
+                        max="99.99" required>
+                    @error('units_lab')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <!-- Load input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
                         <i class='bx bx-time'></i>
                     </span>
-                    <input type="decimal" class="form-control form-control-lg fs-6" name="load" placeholder="Load"
-                        value="{{ $subject->load ?? '' }}" required min="0" max="99.99">
+                    <input type="decimal" class="form-control form-control-lg fs-6 @error('load') is-invalid @enderror"
+                        name="load" placeholder="Load" value="{{ old('load', $subject->load ?? '') }}" required
+                        min="0" max="99.99">
+
+                    @error('load')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <!-- Program Type select -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
                         <i class='bx bx-hard-hat'></i>
                         <label for="subject_type">&nbsp; Program Type</label>
                     </span>
-                    <select name="is_graduate_program" class="text-input" required>
+                    <select id="subject_type" name="is_graduate_program"
+                        class="form-select @error('is_graduate_program') is-invalid @enderror" required>
                         <!-- Check if $subject exists and its program type -->
                         @if (isset($subject) && $subject->is_graduate_program)
                             <option value="1">Graduate</option>
@@ -77,6 +107,9 @@
                             <option value="1">Graduate</option>
                         @endif
                     </select>
+                    @error('is_graduate_program')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <!-- Submit button -->

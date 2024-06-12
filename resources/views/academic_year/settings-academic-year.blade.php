@@ -10,17 +10,23 @@
 
             <div class="form-group">
                 <label for="semester">Select Semester:</label>
-                <select id="semester_select" name="semester_id" id="semester" class="form-control">
+                <select id="semester_select" name="semester_id" id="semester" class="form-select @error('semester_id') is-invalid @enderror">
                     <option value="1">1st Semester</option>
                     <option value="2">2nd Semester</option>
                     <option value="3">Summer</option>
                 </select>
+                @error('semester_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="academic_year">Academic Year:</label>
-                <input type="text" value="{{ $currentYear }}" name="academic_year" id="academic_year" class="form-control"
-                    placeholder="Enter academic year">
+                <input type="text" value="{{ $currentYear }}" name="academic_year" id="academic_year" class="form-control @error('academic_year') is-invalid @enderror"
+                    placeholder="Enter academic year" maxlength="9" minlength="9">
+                @error('academic_year')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary" style="margin-top: 20px; 
@@ -30,5 +36,5 @@
 @endsection
 
 @push('scripts')
-    <script>document.getElementById("semester_select").value = "{{ app('current_academic_year')->getCurrentSemester() }}";</script>
+    <script>document.getElementById("semester_select").value = "{{ old('semester_id', app('current_academic_year')->getCurrentSemester()) }}";</script>
 @endpush
