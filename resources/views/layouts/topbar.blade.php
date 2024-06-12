@@ -1,58 +1,59 @@
 <div class="navbar-container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-        <div class="container-fluid position-relative">
-            <!-- Navbar Brand (School Year and Semester) -->
-            <div class="d-flex flex-column align-items-center position-absolute top-0 start-50 translate-middle-x">
-                <a class="navbar-brand fs-md-1 fs-lg-6 mb-1 mb-lg-0" style="color: black;">School Year:
+    <nav class="navbar">
+        <!-- Navbar Brand Toggle Button (Visible in Mobile View) -->
+        <button class="navbar-toggler" id="navbar-toggler"><i class="lni lni-calendar"></i></button>
+
+        <!-- School Year and Semester (Hidden in Mobile View) -->
+        <div class="navbar-collapse" id="schoolYearSemester">
+            <div class="d-flex flex-column align-items-center">
+                <a class="navbar-brand" style="font-size:18px; color: black;">School Year:
                     {{ app('current_academic_year')->getCurrentYearName() }}</a>
-                <span class="navbar-text fs-sm-1 fs-lg-6" style="color: black;">Semester:
+                <span class="navbar-text" style="font-size:15px; color: black;">Semester:
                     {{ app('current_academic_year')->getCurrentSemesterName() }}</span>
             </div>
+        </div>
 
-            <!-- Profile Dropdown -->
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="profile-pic">
-                            <img src="{{ app('user_image') }}" alt="Profile Picture">
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Account</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <!-- Logout Form -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <a href="{{ route('logout') }}" class="dropdown-item text-danger"
-                                    onclick="event.preventDefault(); this.closest('form').submit();">
-                                    Logout
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown">
+            <a class="profile-link" href="#" id="profileDropdown">
+                <div class="profile-pic">
+                    <img src="{{ app('user_image') }}" alt="Profile Picture">
+                </div>
+            </a>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">Account</a>
+                <hr class="dropdown-divider">
+                <!-- Logout Form -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger" onclick="event.preventDefault(); this.closest('form').submit();">
+                        Logout
+                    </button>
+                </form>
+            </div>
         </div>
     </nav>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const profileLink = document.querySelector('.navbar-nav .dropdown-toggle');
-        const dropdownMenu = document.querySelector('.navbar-nav .dropdown-menu');
+        const navbarToggler = document.getElementById('navbar-toggler');
+        const schoolYearSemester = document.getElementById('schoolYearSemester');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
-        profileLink.addEventListener('click', function(event) {
+        navbarToggler.addEventListener('click', function() {
+            schoolYearSemester.classList.toggle('show');
+        });
+
+        profileDropdown.addEventListener('click', function(event) {
             event.preventDefault();
             dropdownMenu.classList.toggle('show');
         });
 
         // Close dropdown menu if user clicks outside of it
         document.addEventListener('click', function(event) {
-            if (!dropdownMenu.contains(event.target) && !profileLink.contains(event.target)) {
+            if (!dropdownMenu.contains(event.target) && !profileDropdown.contains(event.target)) {
                 dropdownMenu.classList.remove('show');
             }
         });

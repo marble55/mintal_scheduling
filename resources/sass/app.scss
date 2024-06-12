@@ -45,6 +45,11 @@ body{
     height: auto;
     object-fit: cover;
 }
+.profile-pic:hover{
+    transform: scale(1.1);
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 5px 0 black;
+}
 .profile-menu .dropdown-menu {
     right: 0;
     left: unset;
@@ -60,7 +65,7 @@ body{
 
 .topbar-content {
     position: fixed;
-    padding-bottom: 19px;
+    padding-bottom: 29px;
     top: 0;
     left: 70px; 
     background-color: rgb(250, 250, 250);
@@ -71,10 +76,61 @@ body{
     z-index: 500;
     transition: all 0.35s ease-in-out;
 }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    padding: 10px;
+}
+.navbar-toggler {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+}
+.navbar-toggler:hover{
+    transform: scale(1.1);
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 5px 0 black;
+}
+.navbar-collapse {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar-collapse.show {
+    display: flex;
+}
+.profile-pic img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+.dropdown-menu.show {
+    display: block;
+}
 /* Sidebar */
 .logo-tag {
     height: 100px;
     background-color: #ff4a4a;
+}
+.logo-tag img{
+    border-radius: 40%;
+    box-shadow: 0 0 5px 0 black;
+}
+.logo-tag img:hover{
+    transform: scale(1.1);
+    transition: all 0.35s ease-in-out;
 }
 .logo-tag h2{
     font-size: clamp(1rem, 3vw, 2.5rem);

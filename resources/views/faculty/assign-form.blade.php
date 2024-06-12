@@ -48,7 +48,7 @@
                                             <div>
                                                 <label for="image">Choose Image:</label>
                                                 <input type="file" name="image" id="image" accept="image/*"
-                                                    style="width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                                    style="max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
                                             </div>
                                             <br>
                                             <button type="button" id="removeImageButton" name="remove_img"

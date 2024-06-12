@@ -10,7 +10,7 @@
     <div class="content-wrapper">
         <div class="container-fluid">
             <h3>Welcome Program Head, {{ $user->name }}</h3>
-            <div class="row">
+            <div class="row justify-content-center">
 
                 <!-- Icon Cards-->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
@@ -28,16 +28,19 @@
                         </div>
                 
                     <!-- Button -->
-                <a style="color:black;"href="{{ route('schedule.index') }}">
-                    <button class="btn btn-primary btn-lg w-100"
-                    style="border: white; background-color: rgb(68, 161, 49); margin-bottom:10px; margin-top:10px;">
-                    View Schedule</button>
-                </a>
-                <a style="color:black;"href="{{ route('schedule.create') }}">
-                    <button class="btn btn-primary btn-lg w-100"
-                    style="border: white; background-color: rgb(0, 102, 0);">Assign Schedule</button>
-                </a>
+                    <div class="card-buttons">
+                        <a style="color:black;"href="{{ route('schedule.index') }}">
+                            <button class="btn btn-primary btn-lg w-100"
+                            style="border: white; background-color: rgb(68, 161, 49); margin-bottom:10px; margin-top:10px;">
+                            View Schedule</button>
+                        </a>
+                        <a style="color:black;"href="{{ route('schedule.create') }}">
+                            <button class="btn btn-primary btn-lg w-100"
+                            style="border: white; background-color: rgb(0, 102, 0);">Assign Schedule</button>
+                        </a>
+                    </div>
                 </div>
+                
 
                 {{-- <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
                     <div class="inforide">
@@ -74,32 +77,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="btn-group w-100">
-                                <a style="color:black;" href="{{ route('faculty.index', ['category' => 'faculty']) }}">
-                                    <button class="btn btn-primary btn-lg w-100" style="background-color: rgb(69, 49, 161); margin-bottom:10px; margin-top:10px;">
-                                        View Faculty
-                                    </button>
-                                </a>
+                    <div class="card-buttons">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                
+                                    <a style="color:black;" href="{{ route('faculty.index', ['category' => 'faculty']) }}">
+                                        <button class="btn btn-primary btn-lg w-100" style="background-color: rgb(69, 49, 161); margin-bottom:10px; margin-top:10px;">
+                                            View Faculty
+                                        </button>
+                                    </a>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                
+                                    <a style="color:black;" href="{{ route('faculty.index', ['category' => 'part-timer']) }}">
+                                        <button class="btn btn-primary btn-lg w-100" 
+                                        style="background-color: rgb(129, 49, 161); margin-top:10px; margin-bottom:10px; font-size: clamp(1rem, 6vw, 1.21rem);">
+                                            View Part Timer
+                                        </button>
+                                    </a>
+                                
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="btn-group w-100">
-                                <a style="color:black;" href="{{ route('faculty.index', ['category' => 'part-timer']) }}">
-                                    <button class="btn btn-primary btn-lg w-100" 
-                                    style="background-color: rgb(129, 49, 161); margin-top:10px; margin-bottom:10px; font-size:1.2rem;">
-                                        View Part Timer
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
+                        
+                        <a style="color:black;"href="{{ route('faculty.create') }}">
+                            <button class="btn btn-primary btn-lg w-100"
+                            style="border: white; background-color: rgb(36, 49, 124);">Add Faculty</button>
+                        </a>
                     </div>
-                    
-                    <a style="color:black;"href="{{ route('faculty.create') }}">
-                        <button class="btn btn-primary btn-lg w-100"
-                        style="border: white; background-color: rgb(36, 49, 124);">Add Faculty</button>
-                    </a>
                 </div>
 
             </div>

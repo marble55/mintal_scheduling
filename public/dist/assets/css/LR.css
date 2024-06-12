@@ -32,16 +32,16 @@ body {
 }
 
 .rideone i {
-    font-size: 3.5rem;
+    font-size: clamp(1rem, 6vw, 3.5rem);
 }
 
 .ridetwo i {
-    font-size: 3.5rem;
+    font-size: clamp(1rem, 6vw, 3.5rem);
 }
 
-.ridethree i {
+/* .ridethree i {
     font-size: 3.5rem;
-}
+} */
 
 .rideone {
     background-color: #6CC785;
@@ -61,14 +61,14 @@ body {
     margin-left: 15px;
 }
 
-.ridethree {
+/* .ridethree {
     background-color: #4EBCE5;
     padding-top: 35px;
     border-radius: 8px 0px 0px 8px;
     text-align: center;
     height: 125px;
     margin-left: 15px;
-}
+} */
 
 .fontsty {
     margin-right: -15px;
@@ -76,7 +76,7 @@ body {
 
 .fontsty h2 {
     color: #6E6E6E;
-    font-size: 35px;
+    font-size: clamp(0.8rem, 6vw, 1.2rem);
     margin-top: 15px;
     text-align: right;
     margin-right: 30px;
@@ -84,8 +84,36 @@ body {
 
 .fontsty h4 {
     color: #6E6E6E;
-    font-size: 25px;
+    font-size: clamp(1rem, 6vw, 1.3rem);
     margin-top: 20px;
     text-align: right;
     margin-right: 30px;
+}
+
+.card-buttons button{
+    font-size: clamp(1rem, 6vw, 1.3rem);
+}
+@media screen and (max-width: 768px) {
+    .fontsty h2, .fontsty h4{
+       
+        margin-top: 5px;
+    }
+    .inforide-1, .ridetwo{
+        height: 160px;
+    }
+    .inforide, .rideone{
+        height: 80px;
+    }
+    
+}
+@media screen and (max-width: 425px) {
+   
+    .fontsty h2, .fontsty h4{
+        
+        margin-top: 5px;
+    }
+    .rideone{
+        height: 80px;
+    }
+    
 }
