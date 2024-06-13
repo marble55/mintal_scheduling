@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Classroom;
 use App\Models\Faculty;
 use App\Models\Schedule;
-use App\Models\SchoolYear;
-use App\Models\Semester;
 use App\Models\Subject;
 use App\Services\AcademicCalendarService;
 use Illuminate\Http\RedirectResponse;
@@ -62,7 +60,7 @@ class FacultyController extends Controller
             return redirect()->back()->with('error', 'Faculty ID already taken');
         }
 
-        if($request->input('previous') === 'program_head'){
+        if ($request->input('previous') === 'program_head') {
             return redirect()->route('program-head.create')->with('message', 'New Faculty Added!');
         }
 
@@ -77,56 +75,27 @@ class FacultyController extends Controller
     public function show(Faculty $faculty, AcademicCalendarService $academicCalendar)
     {
         // Temporary and should be removed later
-        $semesters = Semester::all();
-        $sy = SchoolYear::all();
         $subjects = Subject::all();
         $classrooms = Classroom::all();
         $blocks = Block::all();
-
-        $subjectLoad = $faculty->schedules()
-            ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-            ->select('schedule.*')
-            ->sum('load');
-
-        $facultyLoad = $faculty->designation_load;
-        $totalLoad = $subjectLoad + $facultyLoad;
-
-        $allSchedules = Schedule::where('semesters_id', '=', $academicCalendar->getCurrentSemester())
-            ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-            ->select('schedule.*')->with(['subject', 'block','time_slots','classroom', 'faculty'])
-            ->orderBy('subject_code')
-            ->get();
-
         $schedules = $faculty->schedules()
-            ->leftJoin('subject', 'schedule.subject_id', '=', 'subject.id')
-            ->select('schedule.*')->with(['subject', 'block','time_slots','classroom'])
-            ->orderBy('subject_code')
-            ->get();
+            ->with(['subject', 'block', 'time_slots', 'classroom'])
+            ->get()->sortBy('subject.subject_code');
+        $allSchedules = Schedule::where('semesters_id', '=', $academicCalendar->getCurrentSemester())
+            ->with(['subject', 'block', 'time_slots', 'classroom', 'faculty'])
+            ->get()->sortBy('subject.subject_code');
 
-        return view(
-            'faculty.faculty-profile',
-            compact(
-                'faculty',
-                'schedules',
-                'sy',
-                'classrooms',
-                'blocks',
-                'subjects',
-                'semesters',
-                'sy',
-                'allSchedules',
-                'totalLoad',
-            )
-        );
+        return view('faculty.faculty-profile', compact('faculty', 'schedules', 'classrooms', 'blocks', 'subjects', 'allSchedules',));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Faculty $faculty)
-    {   
+    {
         $faculty = Faculty::with('program_head')->find($faculty->id);
         $programHeads = User::with('faculty')->get();
+        
         return view('faculty.assign-form', compact(['faculty', 'programHeads']))->with(['action' => 'update']);
     }
 
@@ -136,7 +105,8 @@ class FacultyController extends Controller
     public function update(FacultyRequest $request, Faculty $faculty)
     {
         // Checks if is_part_timer is checked or not //
-        if(!$request->has('is_part_timer')) $request->merge(['is_part_timer' => 0]);
+        if (!$request->has('is_part_timer'))
+            $request->merge(['is_part_timer' => 0]);
 
         if ($request->hasFile('image')) {
             if ($faculty->profile_image) {
@@ -153,7 +123,6 @@ class FacultyController extends Controller
 
             $request->merge(['profile_image' => null]);
         }
-
 
         $faculty->fill($request->all());
         $faculty->update();
@@ -175,9 +144,9 @@ class FacultyController extends Controller
         } else
             $category = 'graduate';
 
-        try{
+        try {
             $faculty->delete();
-        }catch (QueryException $e) {
+        } catch (QueryException $e) {
             return back()->with('error', 'This faculty is a Program Head. It cannot be deleted');
         }
 
@@ -186,13 +155,13 @@ class FacultyController extends Controller
 
     public function setProgramHead(Request $request, int $id): RedirectResponse
     {
-        if(!Gate::allows('isAdmin')) return back()->with('error', 'You need Admin permision for this action');
+        if (!Gate::allows('isAdmin'))
+            return back()->with('error', 'You need Admin permision for this action');
 
         $faculty = Faculty::findOrFail($id);
         $faculty->user_id = $request->input('programHead');
         $faculty->save();
 
-        
         return back()->with('message', 'Faculty updated successfully');
     }
 

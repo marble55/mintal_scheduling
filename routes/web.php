@@ -53,6 +53,9 @@ Route::middleware(['can:isAdmin','auth'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('schedules/export/', [ScheduleController::class, 'export'])->name('schedule.export');
+    Route::get('users/export/', [ScheduleController::class, 'export']);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

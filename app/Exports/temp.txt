@@ -1,0 +1,95 @@
+<div>
+        <thead>
+            <tr id="faculty_name">
+                <th colspan="9" style="border: 2px solid black; background-color:brown; color:whitesmoke; font-size:18px; text-align:center;">
+                    {{ $faculty->first_name.' '.$faculty->last_name }}
+                </th>
+            </tr>
+            <tr>
+                <th rowspan="2" style="border: 2px solid black; background-color:lightpink; font-size:14px;">
+                    SubjectCode
+                </th>
+                <th rowspan="2" style="border: 2px solid black; background-color:lightpink; font-size:14px;">
+                    Description
+                </th>
+                <th rowspan="2" style="border: 2px solid black; background-color:lightpink; font-size:14px;">
+                    YR/Block
+                </th>
+                <th colspan="2" style="border: 2px solid black; background-color:lightpink; font-size:14px;">
+                    Unit
+                </th>
+                <th colspan="3" style="border: 2px solid black; background-color:lightpink; font-size:14px;">
+                    Schedule
+                </th>
+                <th rowspan="2" style="border: 2px solid black; background-color:lightpink; font-size:14px;">
+                    Faculty Load
+                </th>
+            </tr>
+            <tr>
+                <th style="border: 2px solid black; background-color:lightpink;">Lec</th>
+                <th style="border: 2px solid black; background-color:lightpink;">Lab</th>
+                <th style="border: 2px solid black; background-color:lightpink;">DAY</th>
+                <th style="border: 2px solid black; background-color:lightpink;">TIME</th>
+                <th style="border: 2px solid black; background-color:lightpink;">ROOM</th>
+            </tr>
+        </thead>
+    </div>
+
+
+        {{-- DATAS --}}
+        @foreach ($faculty->schedules as $schedule )
+        <tbody>
+            <tr>
+                <td id="subject_code" style="border: 2px solid black;">{{ $schedule->subject->subject_code }}</td>
+                <td id="subject description" style="border: 2px solid black;">{{ $schedule->subject->description }}</td>
+                
+                @if ($schedule->block)
+                    <td id="block" style="border: 2px solid black;">{{ $schedule->block->course}}</td>
+                @else
+                    <td id="block" style="border: 2px solid black;"></td>
+                @endif
+
+                @if ($schedule->is_lab)
+                    <td id="unit_lecture" style="border: 2px solid black;"></td>
+                    <td id="unit_lab" style="border: 2px solid black;">{{ $schedule->subject->units_lab ?? ' ' }}</td>
+                @elseif (!$schedule->is_lab)
+                    <td id="unit_lecture" style="border: 2px solid black;">{{ $schedule->subject->units_lecture ?? ' ' }}</td>
+                    <td id="unit_lab" style="border: 2px solid black;"></td>
+                @else
+                    <td id="unit_lecture" style="border: 2px solid black;">{{ $schedule->subject->units_lecture ?? ' ' }}</td>
+                    <td id="unit_lab" style="border: 2px solid black;">{{ $schedule->subject->units_lab ?? ' ' }}</td>
+                @endif
+
+                <td id="schedule_day" style="border: 2px solid black;">{{ $schedule->day ?? '' }}</td>
+                <td id="schedule_time" style="border: 2px solid black;">
+                    @foreach ($schedule->time_slots as $time_slot)
+                    {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
+                    @endforeach
+                </td>
+                <td id="schedule_room" style="border: 2px solid black;">{{ $schedule->classroom->room ?? '' }}</td>
+                <td id="subject_load" style="border: 2px solid black;">{{ $schedule->subject->load ?? '' }}</td>
+            </tr>
+
+            {{-- ---If faculty has designation--- --}}
+            @if ($faculty->designation)
+            <tr>
+                <td style="border: 2px solid black;"></td>
+                <td id="faculty_designation" style="border: 2px solid black;">{{ $faculty->designation ?? '' }}</td>
+                <td colspan="6"></td>
+                <td id="faculty_designation_load" style="border: 2px solid black;">{{ $faculty->designation_load ?? '' }}</td>
+                <td></td>
+            </tr>
+            @endif
+
+            <tr>
+                <td style="border: 2px solid black;"></td>
+                <td style="border: 2px solid black;">Total Load:</td>
+                <td colspan="6" style="border: 2px solid black;"></td>
+                <td id="total_load" style="border: 2px solid black;">{{ $faculty->total_load }}</td>
+            </tr>
+            <tr>
+                <td colspan="9" style="border-top: 2px solid black; height:15rem">
+                </td>
+            </tr>
+        </tbody>
+        @endforeach

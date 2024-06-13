@@ -76,61 +76,6 @@
                                 </div>
                             </form>
                         </div>
-                        {{-- <!-- Form -->
-                        <form action="{{ route('faculty.store') }}" method="POST">
-                            @csrf
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="details" style="color: rgb(161, 49, 49);">Personal Details</h6>
-                                </div>
-
-                                <!-- id_usep-->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="id_usep">
-                                            <h6 style="font-weight:600;">Usep ID</h6>
-                                        </label>
-                                        <br>
-                                        <label for="id_usep">{{ $faculty->id_usep }}</label>
-                                    </div>
-                                </div>
-                                <!-- first name -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="first_name">
-                                            <h6 style="font-weight:600;">Full Name</h6>
-                                        </label>
-                                        <br>
-                                        <label for="id_usep">{{ $faculty->first_name . ' ' . $faculty->last_name }}</label>
-                                    </div>
-                                </div>
-
-                                <!-- remarks -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
-                                    <div class="form-group">
-                                        <label for="remarks">
-                                            <h6 style="font-weight:600;">Remarks</h6>
-                                        </label>
-                                        <br>
-                                        <label for="id_usep">{{ $faculty->remarks }}</label>
-                                    </div>
-                                </div>
-                                
-                                <!-- Part Timer? -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top:20px;">
-                                    <div class="form-group">
-                                        <label for="remarks">
-                                            <h6 style="font-weight:600;">Part-timer?</h6>
-                                        </label>
-                                        <br>
-                                        <label for="id_usep">
-                                            {{ $faculty->is_part_timer ? 'Yes' : 'No' }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                        </form> --}}
                     </div>
                 </div>
             </div>
@@ -179,7 +124,8 @@
                             <td>{{ $schedule->subject->units_lecture ?? ' ' }}</td>
                             <td>{{ $schedule->subject->units_lab ?? ' ' }}</td>
                         @endif
-                        <td class="text-center">{{ $schedule->day ?? '' }}</td>
+
+                        <td class="text-center">{{ $schedule->day_stripped ?? '' }}</td>
                         <td class="text-center">
                             @foreach ($schedule->time_slots as $time_slot)
                                 {{ $time_slot->time_start_12hour() . ' - ' . $time_slot->time_end_12hour() }}
@@ -197,6 +143,8 @@
                         </td>
                     </tr>
                 @endforeach
+
+                {{-- ---If faculty has designation--- --}}
                 @if ($faculty->designation)
                     <tr>
                         <td></td>
@@ -206,12 +154,14 @@
                         <td></td>
                     </tr>
                 @endif
-                @if ($totalLoad > 25)
+
+                {{-- --- Checks for the total load --- --}}
+                @if ($faculty->total_load > 25)
                     <tr class="table-warning border-danger">
                         <td></td>
                         <td class="text-danger">Total Load:</td>
                         <td colspan="6" class="text-danger">Warning: Total Load Greater Than 25</td>
-                        <td class="text-center text-danger">{{ $totalLoad }}</td>
+                        <td class="text-center text-danger">{{ $faculty->total_load }}</td>
                         <td></td>
                     </tr>
                 @else
@@ -219,7 +169,7 @@
                         <td></td>
                         <td>Total Load:</td>
                         <td colspan="6"></td>
-                        <td class="text-center">{{ $totalLoad }}</td>
+                        <td class="text-center">{{ $faculty->total_load }}</td>
                         <td></td>
                     </tr>
                 @endif

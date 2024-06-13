@@ -182,7 +182,7 @@
                                 <input type="time" id="time-start_input"
                                     class="form-control form-control-lg fs-6 @error('time_start') is-invalid @enderror"
                                     name="time_start" placeholder="Time Start"
-                                    value="{{ old('time_start', $timeSlot->time_start->format('H:i') ?? '') }}"required>
+                                    value="{{ old('time_start', isset($timeSlot) ? $timeSlot->time_start->format('H:i') : '') }}"required>
                                 @error('time_start')
                                     <div class="invalid-feedback fs-6">{{ $message }}</div>
                                 @enderror
@@ -197,7 +197,7 @@
                                 <input type="time"
                                     class="form-control form-control-lg fs-6  @error('time_end') is-invalid @enderror"
                                     name="time_end" placeholder="Time End" id="time-end_input"
-                                    value="{{ old('time_end', $timeSlot->time_end->format('H:i') ?? '') }}" required>
+                                    value="{{ old('time_end', isset($timeSlot) ?  $timeSlot->time_end->format('H:i') : '') }}" required>
                                 @error('time_end')
                                     <div class="invalid-feedback fs-6">{{ $message }}</div>
                                 @enderror

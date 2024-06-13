@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SchedulesExport;
 use App\Http\Requests\ScheduleRequest;
 use App\Models\Block;
 use App\Models\Classroom;
@@ -10,7 +11,6 @@ use App\Models\Schedule;
 use App\Models\Subject;
 use App\Services\AcademicCalendarService;
 use App\Services\ScheduleService;
-use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
@@ -155,5 +155,11 @@ class ScheduleController extends Controller
         Schedule::findOrFail($id)->delete();
 
         return redirect()->route('schedule.index')->with('message', 'Schedule Deleted!');
+    }
+
+    public function export() 
+    {
+        return (new SchedulesExport)->download('Tentative_Faculty_Load.xlsx');
+        // return Excel::download(new SchedulesExport, 'schedules.xlsx');
     }
 }

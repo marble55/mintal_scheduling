@@ -71,8 +71,11 @@
                 </tr>
             </tfoot>
         </table>
-        <a href="{{ route('schedule.create') }}"> Add a Schedule</a>
+        <a href="{{ route('schedule.create') }}"> Add a Schedule</a> <br>
+        
+        <a href="{{ route('schedule.export') }}" class="text-center fs-5 text-maroon">Download Faculty Loading Summary</a>
     </div>
+
 @endsection
 
 @push('scripts')

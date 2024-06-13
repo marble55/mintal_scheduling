@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Faculty extends Model
@@ -37,6 +38,16 @@ class Faculty extends Model
         ]);
     }
 
+    public function getTotalLoadAttribute()
+    {
+        $subjectLoad = $this->schedules()->get()->sum('subject.load');
+        $facultyLoad = $this->designation_load;
+        
+        return $subjectLoad + $facultyLoad;
+    }
+
+
+
     //----Relationship Functions----//
     /**
      * returns the program_head
@@ -59,6 +70,14 @@ class Faculty extends Model
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class);
+    }
+
+    /**
+     * Get all of the deployments for the project.
+     */
+    public function subjects(): HasManyThrough
+    {
+        return $this->hasManyThrough(Subject::class, Schedule::class);
     }
 
     //----Casting methods----//

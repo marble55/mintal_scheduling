@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('user_image', function($app){
-        
             return URL::asset(Auth::user()->faculty->profile_image ?? 'dist/assets/images/DEFAULT-PROFILE.jpg');
         });
     }
