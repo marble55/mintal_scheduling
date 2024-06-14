@@ -17,10 +17,16 @@ class SchedulesExport implements FromView, ShouldAutoSize
 
         $facultiesRegular = Faculty::with('schedules', 'schedules.subject', 'schedules.block', 'schedules.time_slots', 'schedules.classroom')
             ->where('is_part_timer', '=', '0')
+            ->whereHas('schedules', function ($query) use ($academicCalendarService) {
+                $query->where('semesters_id', '=', $academicCalendarService->getCurrentSemester());
+                })
             ->orderBy('first_name')
             ->get();
         $facultiesPartTime = Faculty::with('schedules', 'schedules.subject', 'schedules.block', 'schedules.time_slots', 'schedules.classroom')
             ->where('is_part_timer', '=', '1')
+            ->whereHas('schedules', function ($query) use ($academicCalendarService) {
+                $query->where('semesters_id', '=', $academicCalendarService->getCurrentSemester());
+                })
             ->orderBy('first_name')
             ->get();
         $semester = $academicCalendarService->getCurrentSemesterName();
