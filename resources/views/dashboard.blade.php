@@ -106,6 +106,36 @@
                         </a>
                     </div>
                 </div>
+                @can('isAdmin')
+                    {{-- Program Head Card --}}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-2 mt-4">
+                        
+                        <div class="inforide">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-4 ridethree">
+                                    <i style="color:white;"class="lni lni-user"></i>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
+                                    <h4>Program Head</h4>
+                                    <h2>{{ $total_programheads }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Button -->
+                        <div class="card-buttons">
+                            <a style="color:black;"href="{{ route('program-head.index') }}">
+                                <button class="btn btn-primary btn-lg w-100"
+                                style="border: white; background-color: rgb(161, 49, 49); margin-bottom:10px; margin-top:10px;">
+                                View Program Heads</button>
+                            </a>
+                            <a style="color:black;"href="{{ route('program-head.create') }}">
+                                <button class="btn btn-primary btn-lg w-100"
+                                style="border: white; background-color: rgb(102, 0, 5);">Create Program Head</button>
+                            </a>
+                        </div>
+                    </div>
+                @endcan
 
             </div>
         </div>

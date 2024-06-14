@@ -39,9 +39,9 @@ body {
     font-size: clamp(1rem, 6vw, 3.5rem);
 }
 
-/* .ridethree i {
-    font-size: 3.5rem;
-} */
+.ridethree i {
+    font-size: clamp(1.5rem, 6vw, 3.5rem);
+}
 .rideone i{
     font-size: clamp(1.5rem, 6vw, 3.5rem);
 }
@@ -72,14 +72,14 @@ body {
     margin-left: 15px;
 }
 
-/* .ridethree {
-    background-color: #4EBCE5;
+.ridethree {
+    background-color: #a0061a;
     padding-top: 35px;
     border-radius: 8px 0px 0px 8px;
     text-align: center;
     height: 125px;
     margin-left: 15px;
-} */
+}
 
 .fontsty {
     margin-right: -15px;
@@ -128,6 +128,10 @@ body {
     .rideone{
         height: 80px;
     }
+    .ridethree{
+        height: 80px;
+    }
     
 }
+
 
