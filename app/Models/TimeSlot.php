@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 class TimeSlot extends Model
 {
@@ -17,6 +18,31 @@ class TimeSlot extends Model
     protected $fillable = ['time_start', 'time_end'];
 
     public $timestamps = false;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        dd($this->time_end_12hour());
+        return [
+            'time_start' => 'time:H:i',
+            'time_end' => 'time:H:i',
+        ];
+    }
+
+     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'time_start' => 'datetime',
+        'time_end' => 'datetime',
+    ];
+
 
     /**
      * check if the timestart and timeend are equal
@@ -50,18 +76,17 @@ class TimeSlot extends Model
     }
 
     public function checkTimeEquals($new_time_start, $new_time_end)
-    {;
+    {
         if (
             ($this->time_start <= $new_time_start && $new_time_start < $this->time_end) ||  // Partial overlap at the start
             ($this->time_start < $new_time_end && $new_time_end <= $this->time_end) ||     // Partial overlap at the end
             ($new_time_start <= $this->time_start && $new_time_end >= $this->time_end) ||  // Complete overlap
             ($this->time_start == $new_time_start && $this->time_end == $new_time_end) // Exact overlap
-        ) { 
+        ) {
             return true;
         } else {
             return false;
         }
-
     }
 
     /**
@@ -69,9 +94,9 @@ class TimeSlot extends Model
      */
     public function time_start_12hour(): string
     {
-        $dateTime = DateTime::createFromFormat('H:i:s', $this->getAttribute('time_start'));
-
-        return $dateTime->format('g:i A');
+        // $dateTime = DateTime::createFromFormat('H:i:s', $this->getAttribute('time_start'));
+        // return $dateTime->format('g:i A');
+        return $this->getAttribute('time_start')->format('g:i A');
     }
 
     /**
@@ -79,17 +104,9 @@ class TimeSlot extends Model
      */
     public function time_end_12hour(): string
     {
-        $dateTime = DateTime::createFromFormat('H:i:s', $this->getAttribute('time_end'));
-
-        return $dateTime->format('g:i A');
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'time_start' => 'date',
-            'time_end' => 'date',
-        ];
+        // $dateTime = DateTime::createFromFormat('H:i:s', $this->getAttribute('time_end'));
+        // return $dateTime->format('g:i A');
+        return $this->getAttribute('time_end')->format('g:i A');
     }
 
     public function schedule(): BelongsTo
