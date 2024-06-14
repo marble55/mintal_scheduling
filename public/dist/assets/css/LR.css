@@ -16,7 +16,6 @@ body {
 }
 
 
-
 .inforide {
     box-shadow: 1px 2px 8px 0px #f1f1f1;
     background-color: white;
@@ -108,13 +107,12 @@ body {
 }
 @media screen and (max-width: 768px) {
     .fontsty h2, .fontsty h4{
-       
         margin-top: 5px;
     }
     .inforide-1, .ridetwo{
         height: 160px;
     }
-    .inforide, .rideone{
+    .inforide, .rideone, .ridethree{
         height: 80px;
     }
     
@@ -125,10 +123,7 @@ body {
         
         margin-top: 5px;
     }
-    .rideone{
-        height: 80px;
-    }
-    .ridethree{
+    .rideone, .ridethree{
         height: 80px;
     }
     
