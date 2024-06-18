@@ -11,6 +11,7 @@
         <table id="datatableSchedule" class="table" style="width:100%" >
             <thead>
                 <tr>
+                    <th>Faculty Details</th>
                     <th>Faculty</th>
                     <th>Subject Code</th>
                     <th>Subject Descripiton</th>
@@ -28,7 +29,10 @@
             <tbody>
                 @foreach ($schedules as $schedule)
                     <tr>
-                        <td>{{ $schedule->faculty->first_name ?? '' }}</td>
+                        <td>
+                            <a href="{{ route('faculty.show', $schedule->faculty) }}"> {{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }} {{ '('.$schedule->faculty->designation.')' ?? '' }} </a>
+                        </td>
+                        <td>{{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }}</td>
                         <td>{{ $schedule->subject->subject_code ?? '' }}</td>
                         <td>{{ $schedule->subject->description ?? '' }}</td>
                         <td>{{ $schedule->subject->is_graduate_program_text ?? '' }}</td>
@@ -79,69 +83,4 @@
 @endsection
 
 @push('scripts')
-    {{-- <script>
-        var groupColumn = 0;
-        var table = $('#example2').DataTable({
-
-            buttons: [
-                'colvis', 'copy', 'pdf',
-                {
-                    extend: 'excel',
-                    text: 'Excel',
-                    filename: 'Mintal Faculty Schedules',
-                    title: 'Mintal Faculty Schedules',
-                    exportOptions: {
-                        columns: ':not(:last-child)',
-                    }
-                },
-            ],
-            layout: {
-                topStart: ['pageLength', 'buttons']
-            },
-            columnDefs: [{
-                visible: false,
-                targets: groupColumn
-            }],
-            responsive: true,
-            order: [
-                [groupColumn, 'asc']
-            ],
-            displayLength: 25,
-            drawCallback: function(settings) {
-                var api = this.api();
-                var rows = api.rows({
-                    page: 'current'
-                }).nodes();
-                var last = null;
-
-                api.column(groupColumn, {
-                        page: 'current'
-                    })
-                    .data()
-                    .each(function(group, i) {
-                        if (last !== group) {
-                            $(rows)
-                                .eq(i)
-                                .before(
-                                    '<tr class="group fw-bold"><td colspan="11" class="bg-dark-maroon text-white">' +
-                                    group +
-                                    '</td></tr>'
-                                );
-
-                            last = group;
-                        }
-                    });
-            }
-        });
-
-        // Order by the grouping
-        $('#example2 tbody').on('click', 'tr.group', function() {
-            var currentOrder = table.order()[0];
-            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
-                table.order([groupColumn, 'desc']).draw();
-            } else {
-                table.order([groupColumn, 'asc']).draw();
-            }
-        });
-    </script> --}}
 @endpush

@@ -27,9 +27,9 @@ class FacultyController extends Controller
         $category = request('category');
 
         if ($category === "part-timer") {
-            $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '1')->get();
+            $faculties = Faculty::with(['program_head', 'program_head.faculty'])->where('is_part_timer', '=', '1')->get();
         } else {
-            $faculties = Faculty::with('program_head')->where('is_part_timer', '=', '0')->get();
+            $faculties = Faculty::with(['program_head', 'program_head.faculty'])->where('is_part_timer', '=', '0')->get();
         }
         return view('faculty.table', compact('faculties', 'category'));
     }
@@ -75,6 +75,7 @@ class FacultyController extends Controller
     public function show(Faculty $faculty, AcademicCalendarService $academicCalendar)
     {
         // Temporary and should be removed later
+        $faculty->load(['schedules', 'schedules.subject']);
         $subjects = Subject::all();
         $classrooms = Classroom::all();
         $blocks = Block::all();

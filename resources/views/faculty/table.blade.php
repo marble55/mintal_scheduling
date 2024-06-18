@@ -18,7 +18,7 @@
                     <th>Faculty ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Program Head</th>
+                    <th>Program Designation</th>
                     <th>Date Added</th>
                     <th>Edit | Delete</th>
                 </tr>
@@ -38,7 +38,7 @@
                         <!--Designation-->
                         {{-- <td>{{ $faculty->designation_id }}</td> --}}
                         <!--Program Head-->
-                        <td>{{ $faculty->program_head->name ?? '' }}</td>
+                        <td>{{ $faculty->program_head->faculty->designation ?? '' }}</td>
                         <!--Date Added-->
                         @php $dateTime = \Carbon\Carbon::parse($faculty->created_at); @endphp
                         <td>{{ $dateTime->toDateString() }}</td>

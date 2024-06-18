@@ -9,7 +9,7 @@ new DataTable('#datatablesForm', {
     },
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     let tableElement = $('#datatablesDefault');
     let exportFilename = tableElement.data('export-filename') || 'Mintal Faculty Schedules';
     let exportTitle = tableElement.data('export-title') || 'Mintal Faculty Schedules';
@@ -56,6 +56,9 @@ $(document).ready(function() {
             topStart: ['pageLength', 'buttons']
         },
         responsive: true,
+        columnDefs: [
+            { responsivePriority: 100, targets: -1 },
+        ],
     });
 
     table.buttons().container().appendTo('#datatablesDefault_wrapper .col-md-6:eq(0)');
@@ -90,7 +93,11 @@ new DataTable('#datatableSchedule', {
         ['10 rows', '25 rows', '50 rows', 'Show all']
     ],
     buttons: [
-        'colvis', 'copy', 'pdf',
+        {
+            extend: 'colvis',
+            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, -2],
+        },
+        'copy', 'pdf',
         {
             extend: 'excel',
             text: 'Excel',
@@ -105,10 +112,13 @@ new DataTable('#datatableSchedule', {
     layout: {
         topStart: ['pageLength', 'buttons']
     },
-    columnDefs: [{
-        targets: [-2,0],
-        visible: false
-    }],
+    columnDefs: [
+        {
+            targets: [-2, 0, 1],
+            visible: false
+        },
+        { responsivePriority: 100, targets: -1 },
+    ],
     responsive: true,
 });
 
@@ -122,10 +132,12 @@ new DataTable('#datatableModal', {
     layout: {
         topStart: ['pageLength', 'buttons']
     },
-    columnDefs: [{
-        targets: [2, 3, 4],
-        visible: false
-    }],
+    columnDefs: [
+        {
+            targets: [2, 3, 4],
+            visible: false
+        }
+    ],
     responsive: true,
 });
 

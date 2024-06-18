@@ -18,7 +18,7 @@ new DataTable('#datatableExcelExport', {
 
 new DataTable('#datatableCustomExcelExport', {
     buttons: [
-        'colvis', 'copy', 'pdf',
+        'colvis','copy', 'pdf',
         {
             extend: 'excel',
             text: 'Export Excel',
