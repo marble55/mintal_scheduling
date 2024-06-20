@@ -1,12 +1,4 @@
 
-// document.addEventListener('DOMContentLoaded', function () {
-//   var sidebarToggleBtn = document.querySelector('.toggle-btn');
-//   var sidebar = document.getElementById('sidebar');
-
-//   sidebarToggleBtn.addEventListener('click', function () {
-//       sidebar.classList.toggle('expand');
-//   });
-// });
 document.addEventListener('DOMContentLoaded', function () {
     var sidebarToggleBtn = document.querySelector('.toggle-btn');
     var sidebar = document.getElementById('sidebar');
@@ -48,31 +40,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// let arrow = document.querySelectorAll(".arrow");
-// for (var i = 0; i < arrow.length; i++) {
-//     arrow[i].addEventListener("click", (e)=>{
-//     let arrowParent = e.target.parentElement.parentElement;
-//     arrowParent.classList.toggle("showMenu")
-//     });
-// }
-// let sidebar = document.querySelector(".side-bar");
-// let sidebarBtn = document.querySelector(".lni-menu");
-// sidebarBtn.addEventListener("click", ()=>{
-//     sidebar.classList.toggle("close");
-// });
-// document.addEventListener("DOMContentLoaded", function() {
-//     const menuItems = document.querySelectorAll('.nav-links li');
 
-//     menuItems.forEach(function(item) {
-//         item.addEventListener('click', function() {
-//             // Remove 'active' class from all menu items
-//             menuItems.forEach(function(menuItem) {
-//                 menuItem.classList.remove('active');
-//             });
-            
-//             // Add 'active' class to the clicked menu item
-//             item.classList.add('active');
-//         });
-//     });
-// });
 

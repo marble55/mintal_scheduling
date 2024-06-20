@@ -12,7 +12,7 @@
         </div>
         <div class="navbar-right">
             <!-- Navbar Brand Toggle Button (Visible in Mobile View) -->
-            <button class="navbar-toggler" id="navbar-toggler"><i class="lni lni-calendar"></i></button>
+            {{-- <button class="navbar-toggler" id="navbar-toggler"><i class="lni lni-calendar"></i></button> --}}
             <!-- Profile Dropdown -->
             <div class="profile-dropdown">
                 <a class="profile-link" href="#" id="profileDropdown">
@@ -38,14 +38,14 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const navbarToggler = document.getElementById('navbar-toggler');
+        // const navbarToggler = document.getElementById('navbar-toggler');
         const schoolYearSemester = document.getElementById('schoolYearSemester');
         const profileDropdown = document.getElementById('profileDropdown');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
-        navbarToggler.addEventListener('click', function() {
-            schoolYearSemester.classList.toggle('show');
-        });
+        // navbarToggler.addEventListener('click', function() {
+        //     schoolYearSemester.classList.toggle('show');
+        // });
 
         profileDropdown.addEventListener('click', function(event) {
             event.preventDefault();

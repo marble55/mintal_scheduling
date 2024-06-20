@@ -68,13 +68,22 @@ body{
     padding-bottom: 80px;
     top: 0;
     left: 70px; 
-    background-color: rgb(250, 250, 250);
+    background-color: rgba(250, 250, 250, 0.199);
+    backdrop-filter: blur(0.5rem);
     width: calc(100% - 70px); 
     min-width: calc(100% - 70px); 
     max-width: calc(100% - 70px); 
     box-shadow: 0 0 5px 0 black;
     z-index: 500;
     transition: all 0.35s ease-in-out;
+}
+@media (max-width: 766px) { /* Adjusted for screens less than 767px wide */
+    .topbar-content {
+        left: 0; /* No left margin for mobile view */
+        width: 100%; /* Full width on smaller screens */
+        min-width: 100%; /* Ensure minimum width is full screen */
+        max-width: 100%; /* Ensure maximum width is full screen */
+    }
 }
 .navbar {
     display: flex;
@@ -94,14 +103,13 @@ body{
     box-shadow: 0 0 5px 0 black;
 }
 .navbar-collapse {
-    display: none;
     flex-direction: column;
     align-items: center;
     position: absolute; 
     top: 10px;
     left: 110px; 
     right: 120px; 
-    z-index: 999;
+    z-index: 1002;
 }
 .navbar-collapse.show {
     display: flex;
@@ -129,24 +137,25 @@ body{
     gap: 10px; /* Added this line for spacing */
     position: absolute; /* Added this line */
     right: 10px; /* Added this line */
-    margin-top: 50px;
+    margin-top: 70px;
 }
 @media (max-width: 767px) {
     .navbar-collapse {
-        display: none;
+
         flex-direction: column;
         align-items: center;
         position: absolute; 
         top: 10px;
-        left: 0; 
-        right: 120px; 
+        left: 60px; 
+        right: 60px; 
         z-index: 999;
     }
     .navbar-brand {
-        font-size: 9px; /* Adjust as necessary */
+        margin-left: 12px;
+        font-size: 12px; /* Adjust as necessary */
     }
     .navbar-text {
-        font-size: 9px; /* Adjust as necessary */
+        font-size: 10px; /* Adjust as necessary */
     }
 }
 /* Sidebar */
@@ -360,6 +369,52 @@ a.sidebar-link.active {
     transition: transform 0.3s ease-in-out;
 }
 
+@media (max-width: 768px) {
+    /* Hide the sidebar */
+    #sidebar {
+        display: none;
+        
+    }
+
+    /* Display the sidebar when expanded */
+    #sidebar.expand {
+        display: block;
+        width: 100%; /* Full width for mobile view */
+        position: fixed; /* Keep it fixed */
+        z-index: 1000; /* Ensure it overlays other elements */
+        background-color: #380e15;
+    }
+
+    /* Make sure the mobile toggle button is visible */
+    .mobile-toggle-btn {
+        display: block;
+        cursor: pointer;
+        border: 0;
+        padding: 1rem 0.8rem;
+        color: #fff;
+        position: absolute;
+        height: 100px;
+        background-color: transparent;
+        z-index: 1001; /* Ensure it stays above the sidebar */
+    }
+    .mobile-toggle-btn:hover{
+        transform: scale(1.1);
+        transition: all 0.35s ease-in-out;
+        box-shadow: 0 0 5px 0 black;
+    }
+
+    /* Ensure the main content is pushed down when sidebar is shown */
+    .main {
+        padding-top: 60px;
+    }
+    
+}
+@media (min-width: 769px) {
+    .mobile-toggle-btn {
+        display: none;
+    }
+    
+}
 .footer {
     position: relative; /* Fixed position at the bottom */
     left: 0;
@@ -378,6 +433,14 @@ a.sidebar-link.active {
     margin: 0;
     margin-left: 60px;
 }
+@media (max-width: 768px) { 
+    .footer .copyright {
+        // margin-top: 10px;
+        margin: 0;
+        
+    }
+}
+
 // Toastr
 #toast-container > .toast {
     opacity: 1 !important;

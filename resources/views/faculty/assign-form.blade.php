@@ -31,17 +31,18 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="account-settings">
-                                <div class="user-profile">
-
-                                    <div class="user-avatar">
-                                        @if ($action == 'update' && $faculty->profile_image)
-                                            <img src="{{ Storage::url($faculty->profile_image) }}"
-                                                alt="{{ $faculty->first_name }}'s profile image">
-                                        @else
-                                            <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}"></img>
-                                        @endif
+                                <div class="user-profile row justify-content-center">
+                                    <div class="col">
+                                        <div class="user-avatar text-center">
+                                            @if ($action == 'update' && $faculty->profile_image)
+                                                <img src="{{ Storage::url($faculty->profile_image) }}"
+                                                    alt="{{ $faculty->first_name }}'s profile image" class="img-fluid rounded-circle">
+                                            @else
+                                                <img src="{{ asset('dist/assets/images/DEFAULT-PROFILE.jpg') }}" class="img-fluid rounded-circle">
+                                            @endif
+                                        </div>
                                     </div>
-
+                            
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-center">
                                             <br>
@@ -54,12 +55,12 @@
                                                 @enderror
                                             </div>
                                             <br>
-                                            <button type="button" id="removeImageButton" name="remove_img"
-                                                class="btn btn-secondary" style="border:white;">Remove Image</button>
+                                            <button type="button" id="removeImageButton" name="remove_img" class="btn btn-secondary" style="border:white;">Remove Image</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

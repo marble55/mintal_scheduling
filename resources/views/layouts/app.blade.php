@@ -36,6 +36,9 @@
         </aside>
         <div class="topbar-wrapper">
             <div class="topbar-content">
+                <button class="mobile-toggle-btn" type="button" onclick="toggleSidebar()">
+                    <img src="{{ asset('dist/assets/images/CDM_Logo.png') }}" style="width:50px; height:50px;">
+                </button>
                 @include('layouts.topbar')
             </div>
         </div>
@@ -89,10 +92,37 @@
     <script src="{{ URL::asset('dist/assets/js/vfs_fonts.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/sidebar.js') }}"></script>
     <script src="{{ URL::asset('dist/assets/js/alerts.js') }}"></script>
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('expand');
+            applySidebarBackground(); // Apply background color on toggle
+        }
+
+        function applySidebarBackground() {
+            var sidebar = document.getElementById('sidebar');
+            var sidebarWrapper = document.querySelector('.sidebar-wrapper');
+            if (sidebar.classList.contains('expand')) {
+                sidebarWrapper.style.backgroundColor = '#380e15'; // Apply background color when expanded
+            } else {
+                sidebarWrapper.style.backgroundColor = ''; // Clear background color when collapsed
+            }
+        }
+
+        // Apply sidebar background color on initial load and window resize
+        window.addEventListener('load', applySidebarBackground); // Apply on initial load
+        window.addEventListener('resize', applySidebarBackground); // Apply on window resize
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('dist/assets/js/alerts.js') }}"></script>
+    {{-- <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('expand');
+        }
+    </script> --}}
     @stack('scripts')
 </body>
 

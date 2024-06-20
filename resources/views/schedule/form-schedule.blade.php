@@ -36,8 +36,8 @@
 
                             <!-- Faculty ID Input -->
                             <label for="faculty_select">Faculty:</label>
-                            <div class="form-group mb-3">
-                                <span class="input-group-text col-1">
+                            <div class="form-group mb-3 d-flex align-items-center">
+                                <span class="input-group-text col-auto">
                                     <i class='bx bx-id-card'></i>
                                 </span>
                                 <select name="faculty_id" id="faculty_select"
@@ -56,8 +56,8 @@
 
                             <!-- Subject ID Input -->
                             <label for="subject_select">Subject:</label><br>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
+                            <div class="form-group mb-3 d-flex align-items-center">
+                                <span class="input-group-text col-auto">
                                     <i class='bx bx-id-card'></i>
                                 </span>
                                 <select name="subject_id" id="subject_select"
@@ -79,8 +79,8 @@
 
                             <!-- Lab Input -->
                             <label for="is-lab_checkbox">Subject Unit:</label><br>
-                            <div class="input-group mb-3">
-                                <div class="form-check-text">
+                            <div class="input-group mb-3 d-flex align-items-center">
+                                <div class="form-check-text col-auto">
                                     <input type="checkbox"
                                         class="form-check-input m-0 fs-5 @error('subject_id') is-invalid @enderror"
                                         id="is-lab_checkbox" name="is_lab" value="1"
@@ -95,8 +95,8 @@
                             <!-- Block ID Input -->
                             <br>
                             <label for="block_select">Block:</label><br>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
+                            <div class="form-group mb-3 d-flex align-items-center">
+                                <span class="input-group-text col-auto">
                                     <i class='bx bx-id-card'></i>
                                 </span>
                                 <select name="block_id" id="block_select"
@@ -114,8 +114,8 @@
                             </div>
                             <!-- Classroom ID Input -->
                             <label for="classroom_select">Classroom:</label><br>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">
+                            <div class="form-group mb-3 d-flex align-items-center">
+                                <span class="input-group-text col-auto">
                                     <i class='bx bx-id-card'></i>
                                 </span>
                                 <select name="classroom_id" id="classroom_select"
@@ -255,7 +255,8 @@
                     </tbody>
                 </table>
 
-                <a href="{{ route('schedule.index') }}" class="fs-5">Go to scheds Table To Edit</a>
+                <a href="{{ route('schedule.index') }}" class="fs-5"><button class="btn btn-primary btn-lg w-80"
+                style="border: white; background-color: rgb(161, 49, 49);">Go to scheds Table To Edit</button></a>
             </div>
         </div>
     </div>
