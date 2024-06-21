@@ -40,12 +40,11 @@ class Faculty extends Model
 
     public function getTotalLoadAttribute()
     {
-        $subjectLoad = $this->schedules()->get()->sum('subject.load');
+        $subjectLoad = $this->schedules()->select('subject_id')->groupBy('subject_id')->get()->sum('subject.load');
         $facultyLoad = $this->designation_load;
-        
+
         return $subjectLoad + $facultyLoad;
     }
-
 
 
     //----Relationship Functions----//

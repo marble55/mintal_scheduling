@@ -104,7 +104,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($schedules as $schedule)
+                @foreach ($schedules as $index => $schedule)
                     <tr>
                         <td>{{ $schedule->subject->subject_code }}</td>
                         <td>{{ $schedule->subject->description }}</td>
@@ -132,6 +132,9 @@
                             @endforeach
                         </td>
                         <td class="text-center">{{ $schedule->classroom->room ?? '' }}</td>
+
+                        {{-- TODO:: Add the proper format for the load table if they have the same subject id --}}
+
                         <td class="text-center">{{ $schedule->subject->load ?? '' }}</td>
                         <td>
                             <form method="POST" action="{{ route('facultySchedule.destroy', $schedule->id) }}">

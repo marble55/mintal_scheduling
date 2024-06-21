@@ -30,7 +30,9 @@
                 @foreach ($schedules as $schedule)
                     <tr>
                         <td>
-                            <a href="{{ route('faculty.show', $schedule->faculty) }}"> {{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }} {{ '('.$schedule->faculty->designation.')' ?? '' }} </a>
+                            @if ($schedule->faculty)
+                                <a href="{{ route('faculty.show', $schedule->faculty) }}"> {{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }} {{ '('.$schedule->faculty->designation.')' ?? '' }} </a>
+                            @endif
                         </td>
                         <td>{{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }}</td>
                         <td>{{ $schedule->subject->subject_code ?? '' }}</td>
